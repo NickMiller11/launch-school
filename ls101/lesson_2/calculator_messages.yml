@@ -1,0 +1,35 @@
+
+en:
+  welcome: "Welcome to Calculator! Enter your name:"
+  valid_name: "Make sure to use a valid name."
+  hello: "Hi "
+  first_num: "What's your first number?"
+  not_valid: "Hmm... that doesn't look like a valid number"
+  second_num: "What's your second number?"
+  operator_prompt:  "What operation would you like to perform?\n
+    1) add\n
+    2) subtract\n
+    3) multiply\n
+    4) divide"
+  right_op: "Must choose 1, 2, 3, or 4"
+  running_op: " the two numbers..."
+  return_result: "Your result is "
+  another_calc: "Do you want to perform another calculation? (Y to calculated again)"
+  thank_you: "Thank you for using the calculator.  Good bye!"
+jp:
+  welcome: "電卓にようこそ！ あなたの名前を入力してください："
+  valid_name: "有効な名前を使用してください。"
+  hello: "こんにちは "
+  first_num: "あなたの最初の番号は何ですか？"
+  not_valid: "うーん...それは有効な数字のようには見えない"
+  second_num: "あなたの2番目の番号は何ですか？"
+  operator_prompt:  "どのような操作を実行したいですか？\n
+    1) 加算\n
+    2) 減算\n
+    3) 乗算\n
+    4) 除算"
+  right_op: "1、2、3、または4を選択して下さい。"
+  running_op: " the two numbers..."
+  return_result: "結果は "
+  another_calc: "別の計算を実行しますか？ （また計算する場合、Yを押してください）"
+  thank_you: "電卓を使用していただきありがとうございます。 さようなら！"
