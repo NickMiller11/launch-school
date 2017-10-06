@@ -5,13 +5,43 @@
 # If one or more non-alphabetic characters occur in a row, you should
 # only have one space in the result (the result should never have consecutive spaces).
 
-def cleanup(string)
-  string.gsub!(/[!@#$%&*?=-_+]/, ' ')
-  p string
-end
+# NOTE: THE BELOW DOESN'T WORK
+
+# require "pry"
+#
+# SYMBOLS = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '?', '+', '\'']
+#
+# def cleanup(string)
+#   final_arr = []
+#   counter = 0
+#   char = string[counter]
+#   last_char = string[counter-1]
+#
+#   loop do
+#     break if counter == string.length
+#
+#     if SYMBOLS.include?(char) && last_char == ' '
+#       final_arr << ''
+#     elsif SYMBOLS.include?(char)
+#       final_arr << ' '
+#     else
+#       final_arr << char
+#     end
+#     binding.pry
+#     counter += 1
+#
+#   end
+#   p final_arr.join('')
+# end
 
 # INPUT: string
-# Data Structure: gsub method?
+# Data Structure: Array, using keep method
 # OUTPUT: string
 
-cleanup("---what's my +*& line?") == ' what s my line '
+# Solution from LS...man, I really need to learn regular expressions
+
+def cleanup(string)
+  string.gsub!(/[^a-z]/i, " ").squeeze(" ")
+end
+
+p cleanup("---what's my +*& line?") #== ' what s my line '
