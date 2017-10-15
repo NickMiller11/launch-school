@@ -38,6 +38,8 @@ def initialize_board
   new_board
 end
 
+def initialize_scoreboard
+
 def empty_squares(brd)
   brd.keys.select { |num| brd[num] == INITIAL_MARKER }
 end
@@ -83,27 +85,43 @@ def detect_winner(brd)
   nil
 end
 
-loop do
-  board = initialize_board
 
+def track_score(winner)
+  case winner
+  when 'Player' then player_score += 1
+  when 'Computer' then computer_score += 1
+  end
+  puts "***Game Score***"
+  puts "Player: #{player_score}, Computer: #{computer_score}"
+  puts "First to 5 games wins"
+end
+
+loop do
+  player_score = 0
+  computer_score = 0
   loop do
+    board = initialize_board
+
+    loop do
+      display_board(board)
+
+      player_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+
+      computer_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+    end
+
     display_board(board)
 
-    player_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
+    if someone_won?(board)
+      prompt "#{detect_winner(board)} won!"
 
-    computer_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
+    else
+      prompt "It's a tie!"
+    end
+    track_score(detect_winner(board))
   end
-
-  display_board(board)
-
-  if someone_won?(board)
-    prompt "#{detect_winner(board)} won!"
-  else
-    prompt "It's a tie!"
-  end
-
   prompt "Play again? (y or n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
