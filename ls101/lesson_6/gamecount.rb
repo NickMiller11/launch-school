@@ -38,8 +38,6 @@ def initialize_board
   new_board
 end
 
-def initialize_scoreboard
-
 def empty_squares(brd)
   brd.keys.select { |num| brd[num] == INITIAL_MARKER }
 end
@@ -86,19 +84,16 @@ def detect_winner(brd)
 end
 
 
-def track_score(winner)
-  case winner
-  when 'Player' then player_score += 1
-  when 'Computer' then computer_score += 1
-  end
-  puts "***Game Score***"
-  puts "Player: #{player_score}, Computer: #{computer_score}"
-  puts "First to 5 games wins"
+
+def scoreboard(player_score, computer_score)
+  prompt "Player: #{player_score}, Computer: #{computer_score}"
+  prompt "First to 5 games wins"
+  prompt "Press enter to continue with the next game"
+  gets.chomp
 end
 
 loop do
-  player_score = 0
-  computer_score = 0
+  player_score, computer_score = 0,0
   loop do
     board = initialize_board
 
@@ -116,12 +111,21 @@ loop do
 
     if someone_won?(board)
       prompt "#{detect_winner(board)} won!"
-
+      winner = detect_winner(board)
+      case winner
+      when 'Player'
+        player_score += 1
+      when 'Computer'
+        computer_score += 1
+      end
+      scoreboard(player_score, computer_score)
     else
       prompt "It's a tie!"
     end
-    track_score(detect_winner(board))
+
+    break if player_score == 5 || computer_score == 5
   end
+
   prompt "Play again? (y or n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')

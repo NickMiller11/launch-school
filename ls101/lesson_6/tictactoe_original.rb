@@ -42,16 +42,10 @@ def empty_squares(brd)
   brd.keys.select { |num| brd[num] == INITIAL_MARKER }
 end
 
-def joinor(arr, punc=', ', final='or')
-  punc = ' ' if arr.size == 2
-  arr[-1] = final + ' ' + arr.last.to_s unless arr.size == 1
-  arr.join(punc)
-end
-
 def player_places_piece!(brd)
   square = ''
   loop do
-    prompt "Choose a position to place a piece: #{joinor(empty_squares(brd))}"
+    prompt "Choose a position to place a piece: #{empty_squares(brd).join(', ')}"
     square = gets.chomp.to_i
     break if empty_squares(brd).include?(square)
     prompt "Sorry, that's not a valid choice."
@@ -60,14 +54,8 @@ def player_places_piece!(brd)
 end
 
 def computer_places_piece!(brd)
-  WINNING_LINES.each do |line|
-    if brd.values_at(*line).count(PLAYER_MARKER) == 2 && brd.values_at(*line).count(' ') == 1
-      brd[line.index(' ')] = COMPUTER_MARKER
-    else
-      square = empty_squares(brd).sample
-      brd[square] = COMPUTER_MARKER
-    end
-  end
+  square = empty_squares(brd).sample
+  brd[square] = COMPUTER_MARKER
 end
 
 def board_full?(brd)
@@ -89,45 +77,25 @@ def detect_winner(brd)
   nil
 end
 
-def scoreboard(player_score, computer_score)
-  prompt "Player: #{player_score}, Computer: #{computer_score}"
-  prompt "First to 5 games wins"
-  prompt "Press enter to continue with the next game"
-  gets.chomp
-end
-
 loop do
-  player_score, computer_score = 0,0
+  board = initialize_board
+
   loop do
-    board = initialize_board
-
-    loop do
-      display_board(board)
-
-      player_places_piece!(board)
-      break if someone_won?(board) || board_full?(board)
-
-      computer_places_piece!(board)
-      break if someone_won?(board) || board_full?(board)
-    end
-
     display_board(board)
 
-    if someone_won?(board)
-      prompt "#{detect_winner(board)} won!"
-      winner = detect_winner(board)
-      case winner
-      when 'Player'
-        player_score += 1
-      when 'Computer'
-        computer_score += 1
-      end
-      scoreboard(player_score, computer_score)
-    else
-      prompt "It's a tie!"
-    end
+    player_places_piece!(board)
+    break if someone_won?(board) || board_full?(board)
 
-    break if player_score == 5 || computer_score == 5
+    computer_places_piece!(board)
+    break if someone_won?(board) || board_full?(board)
+  end
+
+  display_board(board)
+
+  if someone_won?(board)
+    prompt "#{detect_winner(board)} won!"
+  else
+    prompt "It's a tie!"
   end
 
   prompt "Play again? (y or n)"
