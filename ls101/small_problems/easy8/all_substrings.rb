@@ -9,10 +9,22 @@
 # You may (and should) use the substrings_at_start method you wrote in
 # the previous exercise:
 
+def substrings(str)
+  final_arr = []
+  counter = 0
+  times = str.length
+  loop do
+    1.upto(times) do |count|
+      final_arr << str.slice(counter,count)
+    end
+    counter += 1
+    times -= 1
+    break if counter == str.length
+  end
+  final_arr
+end
 
-
-
-substrings('abcde') == [
+p substrings('abcde') == [
   'a', 'ab', 'abc', 'abcd', 'abcde',
   'b', 'bc', 'bcd', 'bcde',
   'c', 'cd', 'cde',
