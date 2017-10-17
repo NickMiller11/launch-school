@@ -1,9 +1,11 @@
 # Write a method that takes a string, and returns a new string
 # in which every character is doubled.
 
+CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
+
 def repeater(str)
   final = ''
-  str.each_char { |c| final << c * 2 }
+  str.each_char { |c| final << c * 2 if CONSONANTS.include?(c) }
   final
 end
 
