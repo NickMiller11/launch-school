@@ -39,7 +39,9 @@ def thousand_lights(switch_qty)
     # binding.pry
     counter += 1
   end
-  lights.index(true)  # I'm right here
+  final_lights = lights.map! { |boo| lights.index(boo) if boo == true }
+  final_lights.shift if final_lights[0] != nil
+  final_lights.compact
 end
 
 
@@ -48,6 +50,8 @@ end
 # output: array
 
 p thousand_lights(5)
+p thousand_lights(10)
+p thousand_lights(1000)
 
 # input: integer
 # data structure: hash with boolean
