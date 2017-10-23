@@ -17,12 +17,20 @@ def add(reg, stack)
   reg + stack.pop
 end
 
+def sub(reg, stack)
+  reg - stack.pop
+end
+
 def mult(reg, stack)
   reg * stack.pop
 end
 
 def div(reg, stack)
   reg / stack.pop
+end
+
+def mod(reg, stack)
+  reg % stack.pop
 end
 
 def pop(reg, stack)
@@ -46,10 +54,14 @@ def minilang(input)
       push(register, stack)
     when val == 'ADD'
      register = add(register, stack)
+   when val == 'SUB'
+     register = sub(register, stack)
     when val == 'MULT'
       register = mult(register, stack)
     when val == 'DIV'
       register = div(register, stack)
+    when val == 'MOD'
+      register = mod(register, stack)
     when val == 'POP'
       register = pop(register, stack)
     when val == 'PRINT'
@@ -63,3 +75,7 @@ minilang('5 PUSH 3 MULT PRINT')
 minilang('5 PRINT PUSH 3 PRINT ADD PRINT')
 minilang('5 PUSH POP PRINT')
 minilang('3 PUSH 4 PUSH 5 PUSH PRINT ADD PRINT POP PRINT ADD PRINT')
+minilang('3 PUSH PUSH 7 DIV MULT PRINT ')
+minilang('4 PUSH PUSH 7 MOD MULT PRINT ')
+minilang('-3 PUSH 5 SUB PRINT')
+minilang('6 PUSH')
