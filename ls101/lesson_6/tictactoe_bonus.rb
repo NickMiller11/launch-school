@@ -1,3 +1,5 @@
+
+
 require 'pry'
 
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
@@ -43,10 +45,16 @@ def empty_squares(brd)
   brd.keys.select { |num| brd[num] == INITIAL_MARKER }
 end
 
+def joinor(arr, separator=', ', final='or ')
+  separator = ' ' if arr.size == 2
+  arr[-1] = final + ' ' + arr[-1].to_s unless arr.size == 1
+  arr.join(separator)
+end
+
 def player_places_piece!(brd)
   square = ''
   loop do
-    prompt "Choose a position to place a piece: #{empty_squares(brd).join(', ')}"
+    prompt "Choose a position to place a piece: #{joinor(empty_squares(brd))}"
     square = gets.chomp.to_i
     break if empty_squares(brd).include?(square)
     prompt "Sorry, that's not a valid choice."
@@ -54,36 +62,70 @@ def player_places_piece!(brd)
   brd[square] = PLAYER_MARKER
 end
 
-def immediate_threat?(brd)
-  WINNING_LINES.each do |line|
-    if brd.values_at(*line).count(COMPUTER_MARKER) == 2 && brd.values_at(*line).count(' ') == 1
-      line.each do |index|
-        if brd[index] == ' '
-          return index
-        end
-      end
-    elsif brd.values_at(*line).count(PLAYER_MARKER) == 2 && brd.values_at(*line).count(' ') == 1
-      line.each do |index|
-        if brd[index] == ' '
-          return index
-        end
-      end
-    end
+def immediate_threat?(line, brd, marker)
+  if brd.values_at(*line).count(marker) == 2
+    # binding.pry
+    brd.select{|k,v| line.include?(k) && v == INITIAL_MARKER}.keys.first
+  else
+    nil
   end
-  nil
 end
 
+#   WINNING_LINES.each do |line|
+#     if brd.values_at(*line).count(COMPUTER_MARKER) == 2 && brd.values_at(*line).count(' ') == 1
+#       line.each do |index|
+#         if brd[index] == ' '
+#           return index
+#         end
+#       end
+#     elsif brd.values_at(*line).count(PLAYER_MARKER) == 2 && brd.values_at(*line).count(' ') == 1
+#       line.each do |index|
+#         if brd[index] == ' '
+#           return index
+#         end
+#       end
+#     end
+#   end
+#   nil
+# end
+
 def computer_places_piece!(brd)
-  if brd[5] == ' '
-    brd[5] = COMPUTER_MARKER
-  elsif immediate_threat?(brd)
-    brd[immediate_threat?(brd)] = COMPUTER_MARKER
-  else
-    square = empty_squares(brd).sample
-    brd[square] = COMPUTER_MARKER
+  square = nil
+
+  # defense
+  WINNING_LINES.each do |line|
+    square = immediate_threat?(line, brd, PLAYER_MARKER)
+    break if square
   end
-  brd[5]
+
+  # offense
+  if !square
+    WINNING_LINES.each do |line|
+      square = immediate_threat?(line, brd, COMPUTER_MARKER)
+      break if square
+    end
+  end
+
+  # pick random square
+  if !square
+    square = empty_squares(brd).sample
+  end
+
+
+  brd[square] = COMPUTER_MARKER
 end
+
+# def computer_places_piece!(brd)
+#   if brd[5] == ' '
+#     brd[5] = COMPUTER_MARKER
+#   elsif immediate_threat?(WINNING_LINES, brd)
+#     brd[immediate_threat?(WINNING_LINES, brd)] = COMPUTER_MARKER
+#   else
+#     square = empty_squares(brd).sample
+#     brd[square] = COMPUTER_MARKER
+#   end
+#   brd[5]
+# end
 
 def board_full?(brd)
   empty_squares(brd).empty?
@@ -104,24 +146,24 @@ def detect_winner(brd)
   nil
 end
 
-=begin
+def scorekeeping(brd, player_score, computer_score)
+  if someone_won?(brd)
+    prompt "#{detect_winner(brd)} won!"
+    if detect_winner(brd) == 'Player'
+      player_score += 1
+      prompt "Game Score: Player: #{player_score} | Computer: #{computer_score}"
+    elsif detect_winner(brd) == 'Computer'
+      computer_score += 1
+      prompt "Game Score: Player: #{player_score} | Computer: #{computer_score}"
+    end
+  else
+    prompt "It's a tie!"
+    prompt "Game Score: Player: #{player_score} | Computer: #{computer_score}"
+  end
+end
 
-What am I trying to do with place_piece!? It's going to call the next
-person's (player_places_piece or computer_places_piece) based on the
-current_player value.  This value needs to be initialized before the loop
-and set to equal the global variable at first.
-
-What am I trying to do with alternate_player?  I'm going to change the value
-of current_player
-
-=end
-
-current_player = FIRST_TURN
 def alternate_player(current_player)
   case current_player
-  when 'Choose'
-    prompt "Choose who goes first, Computer or Player: "
-    gets.chomp.downcase
   when 'Player'
     'Computer'
   when 'Computer'
@@ -141,35 +183,26 @@ end
 player_score = 0
 computer_score = 0
 
-
 loop do
   board = initialize_board
-
+  current_player = FIRST_TURN
+  
+  if current_player == 'Choose'
+    prompt "Choose who goes first, Computer or Player: "
+    current_player = gets.chomp.capitalize
+  end
+  
   loop do
     display_board(board)
+    break if someone_won?(board) || board_full?(board)
     place_piece!(board, current_player)
     current_player = alternate_player(current_player)
-    break if someone_won?(board) || board_full?(board)
   end
 
-  winner = detect_winner(board)
-
-  if someone_won?(board)
-    prompt "#{winner} won!"
-    if winner == 'Player'
-      player_score += 1
-    elsif winner == 'Computer'
-      computer_score += 1
-    prompt "Game Score: Player: #{player_score} | Computer: #{computer_score}"
-
-    end
-  else
-    prompt "It's a tie!"
-  end
-
+  scorekeeping(board, player_score, computer_score)
 
   if player_score == 5 || computer_score == 5
-    prompt "#{winner} wins the match!"
+    prompt "#{detect_winner(brd)} wins the match!"
     break
   else
     prompt "First to 5 points wins"
@@ -177,6 +210,7 @@ loop do
   prompt "Play again? (y or n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
+  
 end
 
 prompt "Thanks for playing Tic Tac Toe!  Good bye!"

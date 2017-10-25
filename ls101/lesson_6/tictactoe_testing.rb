@@ -1,14 +1,4 @@
-=begin
 
-Things to do:
-
-X write a joiner method
-X refactor scorekeeping code 1
-- refactor scorekeeping code 2
-- refactor cp defense based on ls suggestions
-- refactor cp offense based on ls suggestions
-
-=end
 
 require 'pry'
 
@@ -104,16 +94,24 @@ def computer_places_piece!(brd)
 
   # defense
   WINNING_LINES.each do |line|
-    square = immediate_threat?(line, brd)
+    square = immediate_threat?(line, brd, PLAYER_MARKER)
     break if square
   end
 
   # offense
   if !square
-    square = empty_squares(brd).sample
+    WINNING_LINES.each do |line|
+      square = immediate_threat?(line, brd, COMPUTER_MARKER)
+      break if square
+    end
   end
 
   # pick random square
+  if !square
+    square = empty_squares(brd).sample
+  end
+
+
   brd[square] = COMPUTER_MARKER
 end
 
@@ -148,40 +146,24 @@ def detect_winner(brd)
   nil
 end
 
-
-
 def scorekeeping(brd, player_score, computer_score)
   if someone_won?(brd)
     prompt "#{detect_winner(brd)} won!"
     if detect_winner(brd) == 'Player'
       player_score += 1
+      prompt "Game Score: Player: #{player_score} | Computer: #{computer_score}"
     elsif detect_winner(brd) == 'Computer'
       computer_score += 1
-    prompt "Game Score: Player: #{player_score} | Computer: #{computer_score}"
+      prompt "Game Score: Player: #{player_score} | Computer: #{computer_score}"
     end
   else
     prompt "It's a tie!"
+    prompt "Game Score: Player: #{player_score} | Computer: #{computer_score}"
   end
 end
 
-=begin
-
-What am I trying to do with place_piece!? It's going to call the next
-person's (player_places_piece or computer_places_piece) based on the
-current_player value.  This value needs to be initialized before the loop
-and set to equal the global variable at first.
-
-What am I trying to do with alternate_player?  I'm going to change the value
-of current_player
-
-=end
-
-current_player = FIRST_TURN
 def alternate_player(current_player)
   case current_player
-  when 'Choose'
-    prompt "Choose who goes first, Computer or Player: "
-    gets.chomp.downcase
   when 'Player'
     'Computer'
   when 'Computer'
@@ -198,13 +180,18 @@ def place_piece!(brd, current_player )
   end
 end
 
-
+player_score = 0
+computer_score = 0
 
 loop do
   board = initialize_board
-  player_score = 0
-  computer_score = 0
-
+  current_player = FIRST_TURN
+  
+  if current_player == 'Choose'
+    prompt "Choose who goes first, Computer or Player: "
+    current_player = gets.chomp.capitalize
+  end
+  
   loop do
     display_board(board)
     break if someone_won?(board) || board_full?(board)
@@ -223,6 +210,7 @@ loop do
   prompt "Play again? (y or n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
+  
 end
 
 prompt "Thanks for playing Tic Tac Toe!  Good bye!"
