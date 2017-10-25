@@ -7,7 +7,7 @@ WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
-FIRST_TURN = 'Choose'
+FIRST_TURN = 'Player'
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -104,57 +104,76 @@ def detect_winner(brd)
   nil
 end
 
-def player_moves_first(brd)
-  loop do
-    display_board(brd)
+=begin
 
-    player_places_piece!(brd)
-    break if someone_won?(brd) || board_full?(brd)
+What am I trying to do with place_piece!? It's going to call the next
+person's (player_places_piece or computer_places_piece) based on the
+current_player value.  This value needs to be initialized before the loop
+and set to equal the global variable at first.
 
-    computer_places_piece!(brd)
-    break if someone_won?(brd) || board_full?(brd)
+What am I trying to do with alternate_player?  I'm going to change the value
+of current_player
+
+=end
+
+current_player = FIRST_TURN
+def alternate_player(current_player)
+  case current_player
+  when 'Choose'
+    prompt "Choose who goes first, Computer or Player: "
+    gets.chomp.downcase
+  when 'Player'
+    'Computer'
+  when 'Computer'
+    'Player'
   end
 end
 
-def computer_moves_first(brd)
-  loop do
-    computer_places_piece!(brd)
-    break if someone_won?(brd) || board_full?(brd)
-
-    display_board(brd)
-
+def place_piece!(brd, current_player )
+  case current_player
+  when 'Player'
     player_places_piece!(brd)
-    break if someone_won?(brd) || board_full?(brd)
+  when 'Computer'
+    computer_places_piece!(brd)
   end
 end
+
+player_score = 0
+computer_score = 0
+
 
 loop do
   board = initialize_board
 
-  case FIRST_TURN
-  when 'Player'
-    player_moves_first(board)
-  when 'Computer'
-    computer_moves_first(board)
-  else
-    prompt "Choose who goes first, Computer or Player: "
-    move_order = gets.chomp.downcase
-    case move_order
-    when 'player'
-      player_moves_first(board)
-    when 'computer'
-      computer_moves_first(board)
-    end
+  loop do
+    display_board(board)
+    place_piece!(board, current_player)
+    current_player = alternate_player(current_player)
+    break if someone_won?(board) || board_full?(board)
   end
 
-  display_board(board)
+  winner = detect_winner(board)
 
   if someone_won?(board)
-    prompt "#{detect_winner(board)} won!"
+    prompt "#{winner} won!"
+    if winner == 'Player'
+      player_score += 1
+    elsif winner == 'Computer'
+      computer_score += 1
+    prompt "Game Score: Player: #{player_score} | Computer: #{computer_score}"
+
+    end
   else
     prompt "It's a tie!"
   end
 
+
+  if player_score == 5 || computer_score == 5
+    prompt "#{winner} wins the match!"
+    break
+  else
+    prompt "First to 5 points wins"
+  end
   prompt "Play again? (y or n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')

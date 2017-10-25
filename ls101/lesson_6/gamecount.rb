@@ -44,8 +44,10 @@ end
 
 def joinor(arr, punc=', ', final='or')
   punc = ' ' if arr.size == 2
+  binding.pry
   arr[-1] = final + ' ' + arr.last.to_s unless arr.size == 1
   arr.join(punc)
+
 end
 
 def player_places_piece!(brd)
