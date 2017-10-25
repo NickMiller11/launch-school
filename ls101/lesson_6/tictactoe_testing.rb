@@ -72,36 +72,62 @@ def player_places_piece!(brd)
   brd[square] = PLAYER_MARKER
 end
 
-def immediate_threat?(brd)
-  WINNING_LINES.each do |line|
-    if brd.values_at(*line).count(COMPUTER_MARKER) == 2 && brd.values_at(*line).count(' ') == 1
-      line.each do |index|
-        if brd[index] == ' '
-          return index
-        end
-      end
-    elsif brd.values_at(*line).count(PLAYER_MARKER) == 2 && brd.values_at(*line).count(' ') == 1
-      line.each do |index|
-        if brd[index] == ' '
-          return index
-        end
-      end
-    end
+def immediate_threat?(line, brd, marker)
+  if brd.values_at(*line).count(marker) == 2
+    # binding.pry
+    brd.select{|k,v| line.include?(k) && v == INITIAL_MARKER}.keys.first
+  else
+    nil
   end
-  nil
 end
 
+#   WINNING_LINES.each do |line|
+#     if brd.values_at(*line).count(COMPUTER_MARKER) == 2 && brd.values_at(*line).count(' ') == 1
+#       line.each do |index|
+#         if brd[index] == ' '
+#           return index
+#         end
+#       end
+#     elsif brd.values_at(*line).count(PLAYER_MARKER) == 2 && brd.values_at(*line).count(' ') == 1
+#       line.each do |index|
+#         if brd[index] == ' '
+#           return index
+#         end
+#       end
+#     end
+#   end
+#   nil
+# end
+
 def computer_places_piece!(brd)
-  if brd[5] == ' '
-    brd[5] = COMPUTER_MARKER
-  elsif immediate_threat?(brd)
-    brd[immediate_threat?(brd)] = COMPUTER_MARKER
-  else
-    square = empty_squares(brd).sample
-    brd[square] = COMPUTER_MARKER
+  square = nil
+
+  # defense
+  WINNING_LINES.each do |line|
+    square = immediate_threat?(line, brd)
+    break if square
   end
-  brd[5]
+
+  # offense
+  if !square
+    square = empty_squares(brd).sample
+  end
+
+  # pick random square
+  brd[square] = COMPUTER_MARKER
 end
+
+# def computer_places_piece!(brd)
+#   if brd[5] == ' '
+#     brd[5] = COMPUTER_MARKER
+#   elsif immediate_threat?(WINNING_LINES, brd)
+#     brd[immediate_threat?(WINNING_LINES, brd)] = COMPUTER_MARKER
+#   else
+#     square = empty_squares(brd).sample
+#     brd[square] = COMPUTER_MARKER
+#   end
+#   brd[5]
+# end
 
 def board_full?(brd)
   empty_squares(brd).empty?
@@ -187,8 +213,6 @@ loop do
   end
 
   scorekeeping(board, player_score, computer_score)
-
-  final_winner(board, player_score, computer_score)
 
   if player_score == 5 || computer_score == 5
     prompt "#{detect_winner(brd)} wins the match!"
