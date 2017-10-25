@@ -26,12 +26,12 @@ X create a method to display hands
 require 'pry'
 
 CARD_VALUES = {
-  "1"=>1, "2"=>2, "3"=>3, "4"=>4, "5"=>5, "6"=>6, "7"=>7, "8"=>8,
+  "A"=>1, "2"=>2, "3"=>3, "4"=>4, "5"=>5, "6"=>6, "7"=>7, "8"=>8,
   "9"=>9, "10"=>10, "J"=>10, "Q"=>10, "K"=>10
 }
 
 CARD_NAMES = {
-  "1"=>"Ace", "2"=>"2", "3"=>"3", "4"=>"4", "5"=>"5", "6"=>"6", "7"=>"7",
+  "A"=>"Ace", "2"=>"2", "3"=>"3", "4"=>"4", "5"=>"5", "6"=>"6", "7"=>"7",
   "8"=>"8", "9"=>"9", "10"=>"10", "J"=>"Jack", "Q"=>"Queen", "K"=>"King"
 }
 
@@ -64,6 +64,18 @@ def display_hands(player, dealer)
   puts "You have: #{CARD_NAMES[player[0][0]]} and #{CARD_NAMES[player[1][0]]}"
 end
 
+def total_score(hand) # calculate hand total considering ace value
+  total = 0
+  hand.each do |card|
+    if card[0] == "A" && total <= 10
+      total += 11
+    else
+      total += CARD_VALUES[card[0]]
+    end
+  end
+  total
+end
+
 
 def busted
 end
@@ -72,6 +84,9 @@ deck = initialize_deck
 players_hand = new_player_hand(deck)
 dealers_hand = new_dealer_hand(deck)
 display_hands(players_hand, dealers_hand)
+players_score = total_score(players_hand)
+dealers_score = total_score(dealers_hand)
+
 
 # player's turn
 answer = nil
