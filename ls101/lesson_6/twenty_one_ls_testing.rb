@@ -72,6 +72,13 @@ def display_result(dealer_score, player_score)
   end
 end
 
+def compare_cards(d_cards, d_score, p_cards, p_score)
+  puts "==========="
+  prompt "Dealer has #{d_cards}, for a total of: #{d_score}"
+  prompt "Player has #{p_cards}, for a total of: #{p_score}"
+  puts "==========="
+end
+
 def play_again?
   puts "-------------"
   prompt "Do you want to play again? (y or n)"
@@ -87,17 +94,17 @@ loop do
   player_cards = []
   dealer_cards = []
 
-  
+
 
   # initial deal
   2.times do
     player_cards << deck.pop
     dealer_cards << deck.pop
   end
-  
+
   player_score = total(player_cards)
   dealer_score = total(dealer_cards)
-  
+
   prompt "Dealer has #{dealer_cards[0]} and ?"
   prompt "You have: #{player_cards[0]} and #{player_cards[1]}, for a total of #{player_score}." #{total(player_cards)}
 
@@ -113,9 +120,9 @@ loop do
 
     if player_turn == 'h'
       player_cards << deck.pop
-      binding.pry
+      #binding.pry
       player_score = total(player_cards)
-      binding.pry
+      #binding.pry
       prompt "You chose to hit!"
       prompt "Your cards are now: #{player_cards}"
       prompt "Your total is now: #{player_score}"
@@ -125,6 +132,7 @@ loop do
   end
 
   if busted?(player_score)
+    compare_cards(dealer_cards, dealer_score, player_cards, player_score)
     display_result(dealer_score, player_score)
     play_again? ? next : break
   else
@@ -145,22 +153,17 @@ loop do
 
   if busted?(dealer_score)
     prompt "Dealer total is now; #{dealer_score}"
+    compare_cards(dealer_cards, dealer_score, player_cards, player_score)
     display_result(dealer_score, player_score)
     play_again? ? next : break
   else
     prompt "Dealer stays at #{dealer_score}"
   end
 
-  # both player and dealer stays - compare cards!
-  puts "==========="
-  prompt "Dealer has #{dealer_cards}, for a total of: #{dealer_score}"
-  prompt "Player has #{player_cards}, for a total of: #{player_score}"
-  puts "==========="
-
+  compare_cards(dealer_cards, dealer_score, player_cards, player_score)
   display_result(dealer_score, player_score)
 
-  play_again? ? next : break # check to see if this works the same way
-  # break unless play_again?
+  break unless play_again?
 end
 
 prompt "Thank you for playing Twenty-One! Good Bye!"

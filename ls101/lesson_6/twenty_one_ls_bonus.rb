@@ -1,3 +1,17 @@
+=begin
+
+To do:
+X Calculate the total
+X Why is last call to play_again? different than other two?
+  => The next statement will cause the parent loop to restart,
+  => skipping the rest of the loop.  Since the last call to play_again?
+  => is at the end, there is no need to call next, so just a simple
+  => break unless statement is sufficient
+X Ending the round consistently
+- First to 5 points # having a tough time with this, come back to it
+- Make winning score variable
+
+=end
 
 require "pry"
 
@@ -72,6 +86,13 @@ def display_result(dealer_score, player_score)
   end
 end
 
+def compare_cards(d_cards, d_score, p_cards, p_score)
+  puts "==========="
+  prompt "Dealer has #{d_cards}, for a total of: #{d_score}"
+  prompt "Player has #{p_cards}, for a total of: #{p_score}"
+  puts "==========="
+end
+
 def play_again?
   puts "-------------"
   prompt "Do you want to play again? (y or n)"
@@ -87,17 +108,17 @@ loop do
   player_cards = []
   dealer_cards = []
 
-  
+
 
   # initial deal
   2.times do
     player_cards << deck.pop
     dealer_cards << deck.pop
   end
-  
+
   player_score = total(player_cards)
   dealer_score = total(dealer_cards)
-  
+
   prompt "Dealer has #{dealer_cards[0]} and ?"
   prompt "You have: #{player_cards[0]} and #{player_cards[1]}, for a total of #{player_score}." #{total(player_cards)}
 
@@ -113,9 +134,9 @@ loop do
 
     if player_turn == 'h'
       player_cards << deck.pop
-      binding.pry
+      #binding.pry
       player_score = total(player_cards)
-      binding.pry
+      #binding.pry
       prompt "You chose to hit!"
       prompt "Your cards are now: #{player_cards}"
       prompt "Your total is now: #{player_score}"
@@ -125,6 +146,7 @@ loop do
   end
 
   if busted?(player_score)
+    compare_cards(dealer_cards, dealer_score, player_cards, player_score)
     display_result(dealer_score, player_score)
     play_again? ? next : break
   else
@@ -145,18 +167,14 @@ loop do
 
   if busted?(dealer_score)
     prompt "Dealer total is now; #{dealer_score}"
+    compare_cards(dealer_cards, dealer_score, player_cards, player_score)
     display_result(dealer_score, player_score)
     play_again? ? next : break
   else
     prompt "Dealer stays at #{dealer_score}"
   end
 
-  # both player and dealer stays - compare cards!
-  puts "==========="
-  prompt "Dealer has #{dealer_cards}, for a total of: #{dealer_score}"
-  prompt "Player has #{player_cards}, for a total of: #{player_score}"
-  puts "==========="
-
+  compare_cards(dealer_cards, dealer_score, player_cards, player_score)
   display_result(dealer_score, player_score)
 
   break unless play_again?
