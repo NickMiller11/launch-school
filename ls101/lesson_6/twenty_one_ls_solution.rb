@@ -10,7 +10,7 @@ def initialize_deck
 end
 
 def total(cards)
-  values = cards.map { |card| card[1]
+  values = cards.map { |card| card[1] }
 
   sum = 0
   values.each do |value|
@@ -73,7 +73,7 @@ def play_again?
   puts "-------------"
   prompt "Do you want to play again? (y or n)"
   answer = gets.chomp
-  answer.downcase.start_with('y')
+  answer.downcase.start_with?('y')
 end
 
 loop do
@@ -151,6 +151,3 @@ loop do
 end
 
 prompt "Thank you for playing Twenty-One! Good Bye!"
-
-
-end

@@ -29,13 +29,14 @@ X make it so that when you bust, it doesn't say you won
 require 'pry'
 
 CARD_VALUES = {
-  "A"=>1, "2"=>2, "3"=>3, "4"=>4, "5"=>5, "6"=>6, "7"=>7, "8"=>8,
-  "9"=>9, "10"=>10, "J"=>10, "Q"=>10, "K"=>10
+  "A" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5, "6" => 6, "7" => 7,
+  "8" => 8, "9" => 9, "10" => 10, "J" => 10, "Q" => 10, "K" => 10
 }
 
 CARD_NAMES = {
-  "A"=>"Ace", "2"=>"2", "3"=>"3", "4"=>"4", "5"=>"5", "6"=>"6", "7"=>"7",
-  "8"=>"8", "9"=>"9", "10"=>"10", "J"=>"Jack", "Q"=>"Queen", "K"=>"King"
+  "A" => "Ace", "2" => "2", "3" => "3", "4" => "4", "5" => "5",
+  "6" => "6", "7" => "7", "8" => "8", "9" => "9", "10" => "10",
+  "J" => "Jack", "Q" => "Queen", "K" => "King"
 }
 
 def initialize_deck
@@ -79,13 +80,8 @@ end
 def total_score(hand) # calculate hand total considering ace value
   total = 0
   hand.each do |card|
-    if card[0] == "A" && total <= 10
-      total += 11
-    else
-      total += CARD_VALUES[card[0]]
-    end
+    card[0] == "A" && total <= 10 ? total += 11 : total += CARD_VALUES[card[0]]
   end
-  # binding.pry
   total
 end
 
@@ -97,14 +93,12 @@ def busted?(score)
   score > 21
 end
 
-
 def calculate_winner(player, dealer)
-  case
-  when busted?(player)
+  if busted?(player)
     puts "Dealer won!"
-  when busted?(dealer)
+  elsif busted?(dealer)
     puts "You won!"
-  when player > dealer
+  elsif player > dealer
     puts "You won!"
   else
     puts "Dealer won!"
@@ -112,7 +106,7 @@ def calculate_winner(player, dealer)
 end
 
 def final_score(player, dealer)
-    puts "Final score: player - #{player}, dealer - #{dealer}"
+  puts "Final score: player - #{player}, dealer - #{dealer}"
 end
 
 deck = initialize_deck
@@ -126,7 +120,6 @@ dealers_score = total_score(dealers_hand)
 answer = nil
 loop do
   display_hands(players_hand, dealers_hand)
-  binding.pry
   puts "hit or stay?"
   answer = gets.chomp
   hit(deck, players_hand) if answer.downcase == 'hit'
@@ -142,7 +135,8 @@ end
 
 # dealer's turn
 loop do
-  break if busted?(players_score) || total_score(dealers_hand) > 16 || busted?(dealers_score)
+  break if busted?(players_score) || total_score(dealers_hand) > 16 ||
+           busted?(dealers_score)
   hit(deck, dealers_hand)
   dealers_score = total_score(dealers_hand)
   display_hands(players_hand, dealers_hand)
