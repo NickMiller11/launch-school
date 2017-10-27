@@ -47,19 +47,36 @@ define method to determine triangle type
 
 =end
 
-def valid_triangle?(arr)
-  return false if arr[0] + arr[1] < arr[2] || arr.include?(0)
+require "pry"
+
+def valid_triangle?(num_array)
+  return false if num_array[0] + num_array[1] < num_array[2] || num_array.include?(0)
+  true
 end
 
 
 def triangle(num1, num2, num3)
-  arr < num1 << num2 << num3
+  arr = []
+  arr << num1 << num2 << num3
+  arr.sort!
+  if valid_triangle?(arr)
+    case
+    when arr[0] == arr[1] && arr[1] == arr[2]  
+      :equilateral
+    when arr[0] == arr[1] || arr[1] == arr[2]
+      :isosceles
+    else
+      :scalene
+    end  
+  else
+    :invalid
+  end
 end
 
 
 
-triangle(3, 3, 3) == :equilateral
-triangle(3, 3, 1.5) == :isosceles
-triangle(3, 4, 5) == :scalene
-triangle(0, 3, 3) == :invalid
-triangle(3, 1, 1) == :invalid
+p triangle(3, 3, 3) == :equilateral
+p triangle(3, 3, 1.5) == :isosceles
+p triangle(3, 4, 5) == :scalene
+p triangle(0, 3, 3) == :invalid
+p triangle(3, 1, 1) == :invalid
