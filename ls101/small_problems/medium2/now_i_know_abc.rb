@@ -15,7 +15,7 @@
 =begin
 Input: string
 Data structure: nested array
-Outpul: boolean
+Output: boolean
 
 - My goal is to return a boolean if the word can be spelled from the list of blocks
 
@@ -36,27 +36,30 @@ have been iterated through, I will return true.
 
 =end
 
-BLOCKS = [
+require "pry"
+
+
+def block_word?(word)
+  blocks = [
   ['B','O'], ['X','K'], ['D','Q'], ['C','P'], ['N','A'], ['G','T'], ['R','E'],
   ['F','S'], ['J','W'], ['H','U'], ['V','I'], ['L','Y'], ['Z','M']
 ]
 
-def block_work?(word)
-  characters = word.chars
-  set_of_blocks = BLOCKS
+  characters = word.upcase.chars
   block_word = ''
   characters.each do |letter|
-    set_of_blocks.each do |block|
+    blocks.each do |block|
       if block.include?(letter)
-        set_of_blocks.delete(block)
+        blocks.delete(block)
         block_word << letter
       end
     end
   end
-  block_word
+  #binding.pry
+  block_word == characters.join
 end
 
 
-block_word?('BATCH') == true
-#block_word?('BUTCH') == false
-#block_word?('jest') == true
+p block_word?('BATCH') == true
+p block_word?('BUTCH') == false
+p block_word?('jest') == true
