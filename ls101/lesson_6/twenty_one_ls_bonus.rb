@@ -13,10 +13,12 @@ X Ending the round consistently
 
 =end
 
+
 require "pry"
 
 SUITS = ['H', 'D', 'S', 'C']
 VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+LIMIT = 31
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -42,23 +44,23 @@ def total(cards)
 
   # correct for aces
   values.select { |value| value == "A" }.count.times do
-    sum -= 10 if sum > 21
+    sum -= 10 if sum > LIMIT
   end
 
   sum
 end
 
 def busted?(score)
-  score > 21
+  score > LIMIT
 end
 
 def detect_result(dealer_score, player_score)
   player_total = player_score
   dealer_total = dealer_score
 
-  if player_total > 21
+  if player_total > LIMIT
     :player_busted
-  elsif dealer_total > 21
+  elsif dealer_total > LIMIT
     :dealer_busted
   elsif dealer_total < player_total
     :player
@@ -93,6 +95,10 @@ def compare_cards(d_cards, d_score, p_cards, p_score)
   puts "==========="
 end
 
+def round_points(d_points, p_points)
+  prompt "Game Score: Player - #{p_points}, Dealer - #{d_points}"
+end
+
 def play_again?
   puts "-------------"
   prompt "Do you want to play again? (y or n)"
@@ -100,15 +106,17 @@ def play_again?
   answer.downcase.start_with?('y')
 end
 
+player_points = 0
+dealer_points = 0
+
 loop do
-  prompt "Welcome to Twenty-One!"
+
+  prompt "Welcome to #{LIMIT}!"
 
   # initialize vars
   deck = initialize_deck
   player_cards = []
   dealer_cards = []
-
-
 
   # initial deal
   2.times do
@@ -148,6 +156,8 @@ loop do
   if busted?(player_score)
     compare_cards(dealer_cards, dealer_score, player_cards, player_score)
     display_result(dealer_score, player_score)
+    dealer_points += 1
+    round_points(dealer_points, player_points)
     play_again? ? next : break
   else
     prompt "You stayed at #{player_score}"
@@ -157,7 +167,7 @@ loop do
   prompt "Dealer turn..."
 
   loop do
-    break if dealer_score >= 17
+    break if dealer_score >= LIMIT - 4
 
     prompt "Dealer hits!"
     dealer_cards << deck.pop
@@ -169,6 +179,8 @@ loop do
     prompt "Dealer total is now; #{dealer_score}"
     compare_cards(dealer_cards, dealer_score, player_cards, player_score)
     display_result(dealer_score, player_score)
+    player_points += 1
+    round_points(dealer_points, player_points)
     play_again? ? next : break
   else
     prompt "Dealer stays at #{dealer_score}"
@@ -176,8 +188,17 @@ loop do
 
   compare_cards(dealer_cards, dealer_score, player_cards, player_score)
   display_result(dealer_score, player_score)
-
-  break unless play_again?
+  if detect_result(dealer_score, player_score) == :player
+    player_points += 1
+  elsif detect_result(dealer_score, player_score) == :dealer
+    dealer_points += 1
+  end
+  round_points(dealer_points, player_points)
+  if player_points == 5 || dealer_points == 5
+    break
+  else
+    break unless play_again?
+  end
 end
 
-prompt "Thank you for playing Twenty-One! Good Bye!"
+prompt "Thank you for playing #{LIMIT}! Good Bye!"

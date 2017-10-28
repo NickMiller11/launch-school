@@ -1,4 +1,24 @@
 
+=begin
+
+Ok, so how do I do this 'count games thing.'  I want to either let the player
+decide if they want to continue games until 5 points, or let them decide
+if they want to continue to another round of 5.  It might be annoying to do both.
+How about I ask them if they want to play each game, and then end the program once
+someone reaches 5 points.
+
+loop
+  keep track of points
+  loop
+
+  do you want to play again?
+  end
+  display final score
+end
+
+=end
+
+
 require "pry"
 
 SUITS = ['H', 'D', 'S', 'C']
@@ -79,6 +99,10 @@ def compare_cards(d_cards, d_score, p_cards, p_score)
   puts "==========="
 end
 
+def round_points(d_points, p_points)
+  prompt "Game Score: Player - #{p_points}, Dealer - #{d_points}"
+end
+
 def play_again?
   puts "-------------"
   prompt "Do you want to play again? (y or n)"
@@ -86,15 +110,17 @@ def play_again?
   answer.downcase.start_with?('y')
 end
 
+player_points = 0
+dealer_points = 0
+
 loop do
+
   prompt "Welcome to Twenty-One!"
 
   # initialize vars
   deck = initialize_deck
   player_cards = []
   dealer_cards = []
-
-
 
   # initial deal
   2.times do
@@ -134,6 +160,8 @@ loop do
   if busted?(player_score)
     compare_cards(dealer_cards, dealer_score, player_cards, player_score)
     display_result(dealer_score, player_score)
+    dealer_points += 1
+    round_points(dealer_points, player_points)
     play_again? ? next : break
   else
     prompt "You stayed at #{player_score}"
@@ -155,6 +183,8 @@ loop do
     prompt "Dealer total is now; #{dealer_score}"
     compare_cards(dealer_cards, dealer_score, player_cards, player_score)
     display_result(dealer_score, player_score)
+    player_points += 1
+    round_points(dealer_points, player_points)
     play_again? ? next : break
   else
     prompt "Dealer stays at #{dealer_score}"
@@ -162,8 +192,17 @@ loop do
 
   compare_cards(dealer_cards, dealer_score, player_cards, player_score)
   display_result(dealer_score, player_score)
-
-  break unless play_again?
+  if detect_result(dealer_score, player_score) == :player
+    player_points += 1
+  elsif detect_result(dealer_score, player_score) == :dealer
+    dealer_points += 1
+  end
+  round_points(dealer_points, player_points)
+  if player_points == 5 || dealer_points == 5
+    break
+  else
+    break unless play_again?
+  end
 end
 
 prompt "Thank you for playing Twenty-One! Good Bye!"
