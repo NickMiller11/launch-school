@@ -1,0 +1,66 @@
+1) a method that returns the sum of two integers
+
+2) a method that takes an array of strings, and returns a string
+that is all those strings concatenated together
+
+3) a method that takes an array of integers, and returns a new array
+with every other element
+
+
+-------
+
+1) given two integers, add integer 1 to integer 2
+
+START
+
+*Given two integers being passed into the method as arguments
+
+Add integer 1 to integer 2
+
+END
+
+--------
+
+2) given an array of strings
+- initialize a variable and set to an empty string
+- call method each on the array passed into the method
+- concatenate each string onto the empty string
+- return the string variable
+
+START
+
+*Give an array of strings being passed into the method as an argument
+
+SET a variable as an empty string
+
+Call the each method on the input array
+  Concatenate each string from the array onto the empty string variable
+
+RETURN the string variable
+
+END
+
+--------
+
+3) a method that takes an array of integers, and returns a new array
+with every other element
+
+3) given an array of integers
+create a new empty array and assign it to a variable
+call the each with index method on the input array
+push the integer into the new array if the index is odd
+return the new array
+
+START
+
+*Given an array of integers being passed into the method as an argument
+
+SET a variable as an empty array
+
+Call the method each_with_index on the input array
+  IF the index is odd
+    Call the method push on each integer
+
+RETURN the new array of integers
+
+END
