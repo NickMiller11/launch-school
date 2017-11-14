@@ -82,7 +82,8 @@ loop do
 
   monthly_interest_rate = (apr.to_f / 100) / 12
   loan_duration_months = loan_duration_years.to_i * 12
-  monthly_payment = loan_amount.to_i * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)**(-loan_duration_months)))
+  intra_calc = (1 - (1 + monthly_interest_rate)**-loan_duration_months)
+  monthly_payment = loan_amount.to_i * (monthly_interest_rate / intra_calc)
 
   prompt("Your monthly payment is $#{format('%.2f', monthly_payment)}")
   prompt("Would you like to perform another calculation?")
