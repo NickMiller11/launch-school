@@ -28,6 +28,10 @@ def display_results(player, computer)
   end
 end
 
+def display_score(player, computer)
+  prompt("Player score: #{player}, Computer score: #{computer}")
+end
+
 def convert_choice(player)
   case player
   when 'r'
@@ -73,7 +77,14 @@ loop do
     computer_wins += 1
   end
 
-  display_score() # need to create this method
+  display_score(player_wins, computer_wins) # need to create this method
+  if player_wins == 5
+    prompt("The player is the grand winner!")
+    break
+  elsif computer_wins == 5
+    prompt("The computer is the grand winner!")
+    break
+  end
 
   prompt("Do you want to play again?")
   answer = gets.chomp
