@@ -14,11 +14,17 @@
 #
 # Write a method that returns one UUID when called with no parameters.
 
-def uuid_generator
-  first_section =
-  second_section =
-  third_section =
-  fourth_section =
-  fifth_section =
+LETTERS_AND_NUMBERS = (0..9).to_a + ('a'..'z').to_a
 
+
+
+def uuid_generator
+  first_section = 8.times.map { LETTERS_AND_NUMBERS.sample }.join
+  second_section = 4.times.map { LETTERS_AND_NUMBERS.sample }.join
+  third_section = 4.times.map { LETTERS_AND_NUMBERS.sample }.join
+  fourth_section = 4.times.map { LETTERS_AND_NUMBERS.sample }.join
+  fifth_section = 12.times.map { LETTERS_AND_NUMBERS.sample }.join
+  uuid = "#{first_section}=#{second_section}-#{third_section}-#{fourth_section}-#{fifth_section}"
 end
+
+p uuid_generator
