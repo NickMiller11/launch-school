@@ -5,10 +5,66 @@
 # well. Create instance methods that allow the car to speed up, brake, and shut
 # the car off.
 
+# class MyCar # first attempt
+#   attr_accessor :color
+#   attr_reader :year
+#   attr_reader :model
+#
+#   def initialize(year, color, model)
+#     @year = year
+#     @color = color
+#     @model = model
+#     @current_speed = 0
+#   end
+#
+#   def speed_up(number)
+#     @current_speed += number
+#     puts "You push the gas and accelerate #{number} mph."
+#   end
+#
+#
+#   def brake(number)
+#     @current_speed -= number
+#     puts "You push the brake and decelerate #{number} mph."
+#   end
+#
+#   def current_speed
+#     puts "You are now going #{@current_speed} mph."
+#   end
+#
+#   def shut_down
+#     @current_speed = 0
+#     puts "Let's park this bad boy!"
+#   end
+#
+#   def spray_paint(color)
+#     self.color = color
+#     puts "You spray paint your car #{color}."
+#   end
+# end
+#
+# mimi = MyCar.new(2017, 'Toyota Mirai', 'silver')
+# mimi.speed_up(20)
+# mimi.current_speed
+# mimi.speed_up(20)
+# mimi.current_speed
+# mimi.brake(20)
+# mimi.current_speed
+# mimi.brake(20)
+# mimi.current_speed
+# mimi.shut_down
+# mimi.current_speed
+#
+# mimi.color = 'blue'
+# puts mimi.color
+# puts mimi.year
+#
+# mimi.spray_paint('red') # first attempt
+
 class MyCar
+
   attr_accessor :color
   attr_reader :year
-  attr_reader :model
 
   def initialize(year, color, model)
     @year = year
@@ -19,44 +75,48 @@ class MyCar
 
   def speed_up(number)
     @current_speed += number
-    puts "You push the gas and accelerate #{number} mph."
+    puts "You have accelerated #{number} mph."
   end
-
 
   def brake(number)
     @current_speed -= number
-    puts "You push the brake and decelerate #{number} mph."
+    puts "You have decelerated #{number} mph."
   end
 
   def current_speed
-    puts "You are now going #{@current_speed} mph."
+    puts "You are currently going #{@current_speed} mph."
   end
 
-  def shut_down
+  def shut_off
     @current_speed = 0
-    puts "Let's park this bad boy!"
+    puts "You have shut off the car."
   end
 
   def spray_paint(color)
     self.color = color
-    puts "You spray paint your car #{color}."
+    puts "You've given your car a beautiful spray paint job turning it #{self.color}"
   end
+
+  def self.gas_mileage(gallons, miles)
+    mileage = miles / gallons
+    "Your car gets #{mileage} mpg."
+  end
+
+  def to_s
+    "My car is a #{year} #{color} #{@model}!"
+  end
+
 end
 
-mimi = MyCar.new(2017, 'Toyota Mirai', 'silver')
-mimi.speed_up(20)
+mimi = MyCar.new(2017, 'silver', 'Toyota Mirai')
+mimi.speed_up(35)
 mimi.current_speed
-mimi.speed_up(20)
+mimi.brake(15)
 mimi.current_speed
-mimi.brake(20)
-mimi.current_speed
-mimi.brake(20)
-mimi.current_speed
-mimi.shut_down
-mimi.current_speed
+mimi.shut_off
 
-mimi.color = 'blue'
+mimi.spray_paint("red")
 puts mimi.color
 puts mimi.year
-
-mimi.spray_paint('red')
+puts MyCar.gas_mileage(5,300)
+puts mimi
