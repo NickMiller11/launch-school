@@ -1,4 +1,4 @@
-# .rubocop.yml for 101 Lessons 2-5 (24 Aug 2017)
+# .rubocop.yml for non-101 courses (13 Mar 2017)
 
 AllCops:
   # Display cop names
@@ -14,7 +14,7 @@ AllCops:
   StyleGuideBaseURL: https://github.com/bbatsov/ruby-style-guide
   # What version of the Ruby interpreter is the inspected code intended to
   # run on? (If there is more than one, set this to the lowest version.)
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.3
 
 Style/BlockComments:
   Description: 'Do not use block comments.'
@@ -66,7 +66,8 @@ Style/FrozenStringLiteralComment:
 
 Style/GuardClause:
   Description: Check for conditionals that can be replaced with guard clauses.
-  Enabled: false
+  Enabled: true
+  MinBodyLength: 1
 
 Style/HashSyntax:
   Description: >-
@@ -140,7 +141,18 @@ Style/ParenthesesAroundCondition:
 
 Style/PercentLiteralDelimiters:
   Description: 'Use `%`-literal delimiters consistently'
-  Enabled: false
+  Enabled: true
+  PreferredDelimiters:
+    '%':  ()
+    '%i': '[]'
+    '%I': '[]'
+    '%q': ()
+    '%Q': ()
+    '%r': '{}'
+    '%s': ()
+    '%w': '[]'
+    '%W': '[]'
+    '%x': ()
 
 Style/PerlBackrefs:
   Description: Avoid Perl-style regex back references.
@@ -167,7 +179,7 @@ Style/SafeNavigation:
                   This cop transforms usages of a method call safeguarded by
                   a check for the existance of the object to
                   safe navigation (`&.`).
-  Enabled: false
+  Enabled: true
 
 Style/SingleLineBlockParams:
   Description: Enforces the names of some block params.
@@ -206,7 +218,8 @@ Metrics/AbcSize:
 
 Metrics/BlockLength:
   Description: Limit size of blocks.
-  Enabled: false
+  Enabled: true
+  Max: 20
 
 Metrics/ClassLength:
   Description: 'Avoid classes longer than 100 lines of code.'
@@ -223,7 +236,7 @@ Metrics/LineLength:
   - https
 
 Metrics/MethodLength:
-  Description: 'Avoid methods longer than 15 lines of code.'
+  Description: 'Avoid methods longer than 10 lines of code.'
   Enabled: true
   CountComments: false  # count full line comments?
   Max: 15
