@@ -25,35 +25,83 @@
 #
 # Examples:
 
+=begin
+
+Input: Integers
+Output: Integers
+
+Rules:
+- use enqueue to add an element to the buffer
+- if adding an element to the buffer makes the buffer more than 3 items, replace
+  - oldest element
+- use dequeue to remove oldest element from the buffer
+- return nil if trying to dequeue from empty buffer
+
+Algorithm:
+- Enqueue
+  - push elements onto the array
+  - use max 3 method to check array size
+  
+- Dequeue
+  - return nil if array is empty
+  - use shift to remove oldest item (index 0)
+  
+  
+- Max 3 check
+  - check to make sure array size is not more than 3.  
+  - if it is, delete and return the oldest value (index 0)
+
+=end
+
 require 'pry'
 
 class CircularQueue
 
   def initialize(size)
-    @arr = Array.new(3)
+    @arr = Array.new
+    @size = size
   end
 
   def enqueue(var)
     @arr.push(var)
-    @arr.shift
-    binding.pry
+    max_three
+    # binding.pry
   end
 
   def dequeue
-    loop do
-      return nil if @arr.all? { |var| var == nil }
-      break if @arr.first != nil
-      @arr << @arr.shift
-    end
-
-    @arr << nil
+    return nil if @arr.empty?
     @arr.shift
-    binding.pry
+    # binding.pry
+  end
+  
+  private
+  
+  def max_three
+    @arr.shift if @arr.size > @size
   end
 end
 
 
 queue = CircularQueue.new(3)
+queue.dequeue
+
+queue.enqueue(1)
+queue.enqueue(2)
+queue.dequeue
+
+queue.enqueue(3)
+queue.enqueue(4)
+puts queue.dequeue == 2
+
+queue.enqueue(5)
+queue.enqueue(6)
+queue.enqueue(7)
+puts queue.dequeue == 5
+puts queue.dequeue == 6
+puts queue.dequeue == 7
+puts queue.dequeue == nil
+
+queue = CircularQueue.new(4)
 puts queue.dequeue == nil
 
 queue.enqueue(1)
@@ -62,34 +110,15 @@ puts queue.dequeue == 1
 
 queue.enqueue(3)
 queue.enqueue(4)
-puts queue.dequeue #== 2
-#
-# queue.enqueue(5)
-# queue.enqueue(6)
-# queue.enqueue(7)
-# puts queue.dequeue == 5
-# puts queue.dequeue == 6
-# puts queue.dequeue == 7
-# puts queue.dequeue == nil
-#
-# queue = CircularQueue.new(4)
-# puts queue.dequeue == nil
-#
-# queue.enqueue(1)
-# queue.enqueue(2)
-# puts queue.dequeue == 1
-#
-# queue.enqueue(3)
-# queue.enqueue(4)
-# puts queue.dequeue == 2
-#
-# queue.enqueue(5)
-# queue.enqueue(6)
-# queue.enqueue(7)
-# puts queue.dequeue == 4
-# puts queue.dequeue == 5
-# puts queue.dequeue == 6
-# puts queue.dequeue == 7
-# puts queue.dequeue == nil
+puts queue.dequeue == 2
+
+queue.enqueue(5)
+queue.enqueue(6)
+queue.enqueue(7)
+puts queue.dequeue == 4
+puts queue.dequeue == 5
+puts queue.dequeue == 6
+puts queue.dequeue == 7
+puts queue.dequeue == nil
 
 # The above code should display true 15 times.
