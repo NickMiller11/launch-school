@@ -6,18 +6,25 @@
 
 module Walkable
   def walk
-    puts "#{name} #{gait} forward"
+    puts "#{self} #{gait} forward"
   end
 end
 
 class Noble
-  attr_reader :name
+  attr_reader :name, :title
 
   include Walkable
 
   def initialize(name, title)
-    @name = title + ' ' + name
+    @name = name
+    @title = title
   end
+
+  def to_s
+    "#{title} #{name}"
+  end
+
+  private
 
   def gait
     "struts"
@@ -32,9 +39,12 @@ p byron.walk
 # We must have access to both name and title because they are needed for
 # other purposes that we aren't showing here.
 
-byron.name
+p byron.name
 # => "Byron"
-byron.title
+p byron.title
 # => "Lord"
 
-# -- still not finished
+# --
+
+# seems like we could approach this a couple different ways.
+# 1) We could override the walk method in the Walkable module
