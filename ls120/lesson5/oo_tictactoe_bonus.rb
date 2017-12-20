@@ -61,6 +61,7 @@ class Board
     return false if markers.size != 3
     markers.min == markers.max
   end
+  
 end
 
 class Square
@@ -105,27 +106,39 @@ class TTTGame
     @human = Player.new(HUMAN_MARKER)
     @computer = Player.new(COMPUTER_MARKER)
     @current_marker = FIRST_TO_MOVE
+    @human_wins = 0
+    @computer_wins = 0
   end
 
   def play
     clear
     display_welcome_message
-
+    
     loop do
+      reset_games_played
       display_board
-
+      
       loop do
-        current_player_moves
-        break if board.someone_won? || board.full?
-        clear_screen_and_display_board
+        loop do
+          current_player_moves
+          break if board.someone_won? || board.full?
+          clear_screen_and_display_board
+        end
+        
+        display_result
+        increment_games_played
+        display_games_played
+        break if @human_wins == 5 || @computer_wins == 5
+        gets
+        reset
+        display_board
       end
-
-      display_result
+      
       break unless play_again?
       reset
       display_play_again_message
     end
-
+    
     display_goodbye_message
   end
 
@@ -149,6 +162,7 @@ class TTTGame
     @current_marker == HUMAN_MARKER
   end
 
+
   def display_board
     puts "You're a #{human.marker}. Computer is a #{computer.marker}."
     puts ""
@@ -157,7 +171,7 @@ class TTTGame
   end
 
   def human_moves
-    puts "Choose a square between (#{board.unmarked_keys.join(', ')}): "
+    puts "Choose a square between (#{joinor(board.unmarked_keys)}): "
     square = nil
     loop do
       square = gets.chomp.to_i
@@ -220,6 +234,36 @@ class TTTGame
   def display_play_again_message
     puts "Let's play again!"
     puts ""
+  end
+  
+  def joinor(arr, delimiter=', ', word='or')
+    case arr.size
+    when 0 then ''
+    when 1 then arr.first
+    when 2 then arr.join(" #{word} ")
+    else
+      arr[-1] = "#{word} #{arr.last}"
+      arr.join(delimiter)
+    end
+  end
+  
+  def display_games_played
+    puts "Player wins: #{@human_wins} | Computer wins: #{@computer_wins}"
+    puts "First to 5 games wins!"
+  end
+    
+  def increment_games_played
+    case board.winning_marker
+    when human.marker
+      @human_wins += 1
+    when computer.marker
+      @computer_wins += 1
+    end
+  end
+  
+  def reset_games_played
+    @human_wins = 0
+    @computer_wins = 0
   end
 end
 
