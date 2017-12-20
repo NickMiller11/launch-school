@@ -1,3 +1,5 @@
+require 'pry'
+
 class Board
   WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
                   [[1, 4, 7], [2, 5, 8], [3, 6, 9]] + # cols
@@ -14,6 +16,7 @@ class Board
 
   def unmarked_keys
     @squares.keys.select { |key| @squares[key].unmarked? }
+    binding.pry
   end
 
   def full?
@@ -61,7 +64,13 @@ class Board
     return false if markers.size != 3
     markers.min == markers.max
   end
-  
+
+  def two_identical_markers?(squares)
+    markers = squares.select(&:marked?).collect(&:marker)
+    return false if markers.size != 2
+    markers.min == markers.max
+  end
+
 end
 
 class Square
@@ -113,18 +122,18 @@ class TTTGame
   def play
     clear
     display_welcome_message
-    
+
     loop do
       reset_games_played
       display_board
-      
+
       loop do
         loop do
           current_player_moves
           break if board.someone_won? || board.full?
           clear_screen_and_display_board
         end
-        
+
         display_result
         increment_games_played
         display_games_played
@@ -133,12 +142,12 @@ class TTTGame
         reset
         display_board
       end
-      
+
       break unless play_again?
       reset
       display_play_again_message
     end
-    
+
     display_goodbye_message
   end
 
@@ -157,7 +166,7 @@ class TTTGame
     clear
     display_board
   end
-  
+
   def human_turn?
     @current_marker == HUMAN_MARKER
   end
@@ -183,6 +192,13 @@ class TTTGame
   end
 
   def computer_moves
+    # square = nil
+    #
+    # WINNING_LINES.each do |line|
+    #   square = immediate_threat?
+    #   break if square
+    # end
+
     board[board.unmarked_keys.sample] = computer.marker
   end
 
@@ -235,7 +251,7 @@ class TTTGame
     puts "Let's play again!"
     puts ""
   end
-  
+
   def joinor(arr, delimiter=', ', word='or')
     case arr.size
     when 0 then ''
@@ -246,12 +262,12 @@ class TTTGame
       arr.join(delimiter)
     end
   end
-  
+
   def display_games_played
     puts "Player wins: #{@human_wins} | Computer wins: #{@computer_wins}"
     puts "First to 5 games wins!"
   end
-    
+
   def increment_games_played
     case board.winning_marker
     when human.marker
@@ -260,11 +276,12 @@ class TTTGame
       @computer_wins += 1
     end
   end
-  
+
   def reset_games_played
     @human_wins = 0
     @computer_wins = 0
   end
+
 end
 
 game = TTTGame.new
