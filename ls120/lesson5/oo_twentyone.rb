@@ -41,6 +41,8 @@
 # - start
 
 # ------ SPIKE ----------
+require 'pry'
+
 module Hand
   def show_hand
     puts "---- #{name}'s Hand ----"
@@ -54,13 +56,13 @@ module Hand
   def total
     total = 0
     cards.each do |card|
-      if card.ace?
-        total += 11
-      elsif card.jack? || card.queen? || card.king?
-        total += 10
-      else
-        total += card.face.to_i
-      end
+      total += if card.ace?
+                 11
+               elsif card.jack? || card.queen? || card.king?
+                 10
+               else
+                 card.face.to_i
+               end
     end
 
     # correct for Aces
@@ -117,7 +119,7 @@ class Dealer < Participant
 
   def show_flop
     puts "---- #{name}'s Hand ----"
-    puts "#{cards.first}"
+    puts cards.first.to_s
     puts " ?? "
     puts ""
   end
@@ -130,7 +132,7 @@ class Deck
     @cards = []
     Card::SUITS.each do |suit|
       Card::FACES.each do |face|
-        @cards << Card.new(suit,face)
+        @cards << Card.new(suit, face)
       end
     end
 
@@ -227,27 +229,35 @@ class TwentyOne
     puts "#{player.name}'s turn..."
 
     loop do
-      puts "Would you like to (h)it or (s)tay?"
-      answer = nil
-      loop do
-        answer = gets.chomp.downcase
-        break if ['h', 's'].include?(answer)
-        puts "Sorry, must enter 'h' or 's'."
-      end
-
+      answer = player_hit_or_stay
       if answer == 's'
         puts "#{player.name} stays!"
         break
       elsif player.busted?
         break
-      else
-        #show update only for hit
-        player.add_card(deck.deal_one)
-        puts "#{player.name} hits!"
-        player.show_hand
+      elsif answer == 'h'
+        # show update only for hit
+        player_hit
         break if player.busted?
       end
     end
+  end
+
+  def player_hit
+    player.add_card(deck.deal_one)
+    puts "#{player.name} hits!"
+    player.show_hand
+  end
+
+  def player_hit_or_stay
+    puts "Would you like to (h)it or (s)tay?"
+    answer = nil
+    loop do
+      answer = gets.chomp.downcase
+      break if ['h', 's'].include?(answer)
+      puts "Sorry, must enter 'h' or 's'."
+    end
+    answer
   end
 
   def dealer_turn
