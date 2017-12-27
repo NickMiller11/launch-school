@@ -79,3 +79,25 @@ class Cat < Animal
     'meow!'
   end
 end
+
+=begin
+3. Draw a class hierarchy diagram of the classes from step #2
+
+4. What is the method lookup path and how is it important?
+
+Cat
+Animal
+Object
+Kernal
+Basic Object
+
+Dog
+Animal
+Object
+Kernal
+Basic Object
+
+This is important because it will tell us, in order, where Ruby will look for
+methods when invoked.
+
+=end
