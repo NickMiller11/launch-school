@@ -18,15 +18,19 @@ class Move
   end
 
   def >(other_move)
-    (rock? && other_move.scissors?) ||
-      (paper? && other_move.rock?) ||
-      (scissors? && other_move.paper?)
+    (rock? && (other_move.scissors? || other_move.lizard?)) ||
+      (paper? && (other_move.rock? || other_move.spock?)) ||
+      (scissors? && (other_move.paper? || other_move.lizard?)) ||
+      (lizard? && (other_move.spock? || other_move.paper?)) ||
+      (spock? && (other_move.rock? || other_move.scissors?))
   end
 
   def <(other_move)
-    (rock? && other_move.paper?) ||
-      (paper? && other_move.scissors?) ||
-      (scissors? && other_move.rock?)
+    (rock? && (other_move.paper? || other_move.spock?)) ||
+      (paper? && (other_move.scissors? || other_move.lizard?)) ||
+      (scissors? && other_move.rock?) ||
+      (lizard?
+      (spock?
   end
 
   def to_s
@@ -39,8 +43,7 @@ class Player
 
   def initialize
     set_name
-    # @score = 0
-    @score = Score.new
+    @score = 0
   end
 end
 
@@ -78,14 +81,6 @@ class Computer < Player
   end
 end
 
-class Score
-  attr_accessor :value
-  
-  def initialize
-    @value = 0
-  end
-end
-
 class RPSGame
   attr_accessor :human, :computer
 
@@ -106,17 +101,17 @@ class RPSGame
     puts "You chose #{human.move}."
     puts "The computer chose #{computer.move}."
   end
-  
+
   def display_score
-    puts "You have #{human.score.value} points."
-    puts "The computer has #{computer.score.value} points."
+    puts "You have #{human.score} points."
+    puts "The computer has #{computer.score} points."
   end
-  
+
   def increment_score
     if human.move > computer.move
-      human.score.value += 1
+      human.score += 1
     elsif human.move < computer.move
-      computer.score.value += 1
+      computer.score += 1
     end
   end
 
@@ -127,6 +122,21 @@ class RPSGame
       puts "#{computer.name} won!"
     else
       puts "It's a tie!"
+    end
+  end
+
+  def reset_points
+    human.score = 0
+    computer.score = 0
+  end
+
+  def display_tenpoint_winner
+    if human.score == 10
+      puts "You win the game with 10 points!"
+      reset_points
+    elsif computer.score == 10
+      puts "The computer wins the game with 10 points!"
+      reset_points
     end
   end
 
@@ -153,6 +163,7 @@ class RPSGame
       display_winner
       increment_score
       display_score
+      display_tenpoint_winner
       break unless play_again?
     end
     display_goodbye_message
