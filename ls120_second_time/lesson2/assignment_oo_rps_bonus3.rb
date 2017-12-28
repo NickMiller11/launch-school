@@ -1,9 +1,10 @@
 class Move
-  VALUES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
+  
+  VALUES = ['Rock', 'Paper', 'Scissors', 'Lizard', 'Spock']
 
-  def initialize(value)
-    @value = value
-  end
+  # def initialize(value)
+  #   @value = value
+  # end
 
   def scissors?
     @value == 'scissors'
@@ -42,8 +43,23 @@ class Move
   end
 
   def to_s
-    @value
+    "#{self.class}"
   end
+end
+
+class Rock < Move
+end
+
+class Paper < Move
+end
+
+class Scissors < Move
+end
+
+class Lizard < Move
+end
+
+class Spock < Move
 end
 
 class Player
@@ -71,11 +87,17 @@ class Human < Player
     choice = nil
     loop do
       puts "Please choose rock, paper, scissors, lizard, or spock:"
-      choice = gets.chomp
+      choice = gets.chomp.capitalize
       break if Move::VALUES.include?(choice)
       puts "Sorry, invalid choice."
     end
-    self.move = Move.new(choice)
+    self.move = case choice
+    when 'Rock' then Rock.new 
+    when 'Paper' then Paper.new
+    when 'Scissors' then Scissors.new 
+    when 'Lizard' then Lizard.new 
+    when 'Spock' then Spock.new 
+    end
   end
 end
 
@@ -85,7 +107,13 @@ class Computer < Player
   end
 
   def choose
-    self.move = Move.new(Move::VALUES.sample)
+    self.move = case Move::VALUES.sample
+    when 'Rock' then Rock.new 
+    when 'Paper' then Paper.new
+    when 'Scissors' then Scissors.new 
+    when 'Lizard' then Lizard.new 
+    when 'Spock' then Spock.new 
+    end
   end
 end
 
