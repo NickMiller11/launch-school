@@ -1,6 +1,8 @@
 # rps_bonus_lizard_spock_history_weights_personalities.rb
 # frozen_string_literal: true
 
+require 'pry'
+
 module Interface
   private
 
@@ -46,6 +48,7 @@ class History
       percent = (win_count.fdiv(mv_outs[mv].size) * 100).round
       [mv, percent]
     end
+    binding.pry
     percentages.to_h
   end
 
@@ -66,7 +69,9 @@ class History
       #                           #=> [['scissors', [:win]], ['paper', [:lose]]]
       #      .to_h                #=> {"scissors"=>[:win], "paper"=>[:lose]}
   def compare_moves_to_outcomes(other)
+
     mv_outs = moves.map(&:to_s).zip(other.outcomes)
+    binding.pry
     mv_outs.group_by(&:first)
            .map { |mv, mv_out| [mv.downcase, mv_out.map(&:last)] }
            .to_h
@@ -240,6 +245,7 @@ class Number5 < Computer
 
   def weighted_moves(other)
     percentages = history.calc_win_percentage_by_moves(other.history)
+    binding.pry
     Move::VALUES.flat_map { |mv| [mv] * (100 - percentages[mv]) }
   end
 end
@@ -358,7 +364,8 @@ class RPSGame
     clear_screen
     display_welcome_msg
     @human = Human.new
-    @computer = COMPUTER_NAMES.sample.new
+    @computer = Number5.new
+    # COMPUTER_NAMES.sample.new
   end
 
   def play
