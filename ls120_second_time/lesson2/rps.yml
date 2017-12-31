@@ -1,0 +1,15 @@
+welcome: "Welcome to Rock, Paper, Scissors, Lizard, Spock game."
+fun: 'Have fun!'
+name: "Please enter your name: "
+invalid_name: "That's not a valid name!"
+line: "****************************************************************"
+rules: 'Each player chooses one of the following options : Rock, Paper, Scissors, Lizard or Spock'
+invalid_choice: "That's not a valid choice! Try again..."
+options: Please choose Rock (r), Paper (p), Scissors (sc), Lizard (l) or Spock (sp).
+round_win: You've won this round!
+round_loss: "You've lost this round!"
+tie: "It's a tie!"
+enter: 'Press Enter to continue...'
+invalid_entry: 'Invalid entry...press Enter...'
+winning_rules: "Victory gives you 1 point. First player who gets 3 points wins. "
+end_game: "Thank you for playing Rock, Paper, Scissors, Lizard, Spock game!"
