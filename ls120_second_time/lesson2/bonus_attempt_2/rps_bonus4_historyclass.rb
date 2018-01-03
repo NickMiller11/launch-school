@@ -1,90 +1,56 @@
-=begin
-
-I copied some code from here - 
-https://github.com/ianq/LC_ObjectOrientedProgramming/blob/master/lesson_2/oo_rpsls.rb
-
-I was having a hard time trying to figure out how to make each move its own class
-and still be able to compare them, i.e. doing comparisons on objects from different
-classes.
-
-After looking at some other people's code, it seems like one approach is to 
-create a method in each move's individual class and basically hardcode what beats
-it (or what it beats)
-
-Update: I finally got it to work.  I'm not sure I like the version with
-these as separate classes, it seems more convoluted.
-
-=end
-
 require 'pry'
 
-class Rock
-  def initialize
-    @name = 'rock'
+class Move
+  VALUES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
+
+  def initialize(value)
+    @value = value
   end
-  
-  def winning_move?(other_move)
-    ['paper', 'spock'].include?(other_move)
+
+  def scissors?
+    @value == 'scissors'
   end
-  
+
+  def rock?
+    @value == 'rock'
+  end
+
+  def paper?
+    @value == 'paper'
+  end
+
+  def lizard?
+    @value == 'lizard'
+  end
+
+  def spock?
+    @value == 'spock'
+  end
+
+  def >(other_move)
+    (rock? && (other_move.scissors? || other_move.lizard?)) ||
+      (paper? && (other_move.rock? || other_move.spock?)) ||
+      (scissors? && (other_move.paper? || other_move.lizard?)) ||
+      (lizard? && (other_move.paper? || other_move.spock?)) ||
+      (spock? && (other_move.rock? || other_move.scissors?))
+  end
+
+  def <(other_move)
+    (rock? && (other_move.paper? || other_move.spock?)) ||
+      (paper? && (other_move.scissors? || other_move.lizard?)) ||
+      (scissors? && (other_move.rock? || other_move.spock?)) ||
+      (lizard? && (other_move.rock? || other_move.scissors?)) ||
+      (spock? && (other_move.lizard? || other_move.paper?))
+  end
+
   def to_s
-    @name
+    @value
   end
 end
 
-class Paper
+class History
   def initialize
-    @name = 'paper'
-  end
-  
-  def winning_move?(other_move)
-    ['scissors', 'lizard'].include?(other_move)
-  end
-  
-  def to_s
-    @name
-  end
-end
-
-class Scissors
-  def initialize
-    @name = 'scissors'
-  end
-  
-  def winning_move?(other_move)
-    ['rock', 'spock'].include?(other_move)
-  end
-  
-  def to_s
-    @name
-  end
-end
-
-class Lizard
-  def initialize
-    @name = 'lizard'
-  end
-  
-  def winning_move?(other_move)
-    ['rock', 'scissors'].include?(other_move)
-  end
-  
-  def to_s
-    @name
-  end
-end
-
-class Spock
-  def initialize
-    @name = 'spock'
-  end
-  
-  def winning_move?(other_move)
-    ['paper', 'lizard'].include?(other_move)
-  end
-  
-  def to_s
-    @name
+    @log = []
   end
 end
 
@@ -95,18 +61,17 @@ class Player
     set_name
     @points = 0
   end
-  
+
   def reset_points
     @points = 0
   end
-  
+
   def increment_point
     @points += 1
   end
 end
 
 class Human < Player
-
   def set_name
     n = ""
     loop do
@@ -121,24 +86,12 @@ class Human < Player
   def choose
     choice = nil
     loop do
-      puts "Please choose one of the following: #{RPSGame::VALUES.join(', ')}"
+      puts "Please choose one of the following: #{Move::VALUES.join(', ')}"
       choice = gets.chomp
-      break if RPSGame::VALUES.include?(choice)
+      break if Move::VALUES.include?(choice)
       puts "Sorry, invalid choice."
     end
-    
-    case choice
-    when "rock"
-      self.move = Rock.new
-    when "paper"
-      self.move = Paper.new
-    when "scissors"
-      self.move = Scissors.new
-    when "lizard"
-      self.move = Lizard.new
-    when "spock"
-      self.move = Spock.new 
-    end
+    self.move = Move.new(choice)
   end
 end
 
@@ -148,7 +101,7 @@ class Computer < Player
   end
 
   def choose
-    self.move = [Rock.new, Paper.new, Scissors.new, Lizard.new, Spock.new].sample
+    self.move = Move.new(Move::VALUES.sample)
   end
 end
 
@@ -156,16 +109,14 @@ class RPSGame
   attr_accessor :human, :computer
 
   POINTS_TO_WIN = 3
-  
-  VALUES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
 
   def initialize
     @human = Human.new
     @computer = Computer.new
   end
-  
+
   def format_choices_for_display
-    VALUES.map(&:capitalize).join(', ')
+    Move::VALUES.map(&:capitalize).join(', ')
   end
 
   def display_welcome_message
@@ -181,19 +132,18 @@ class RPSGame
     puts "You chose #{human.move}."
     puts "The computer chose #{computer.move}."
   end
-  
+
   def display_score
     puts "*** Current Score ***"
     puts "Player: #{human.points} | Computer: #{computer.points}"
   end
-  
+
   def determine_winner
-    if human.move.winning_move?(computer.move.to_s)
-      computer.name
-    elsif computer.move.winning_move?(human.move.to_s)
+    if human.move > computer.move
       human.name
+    elsif human.move < computer.move
+      computer.name
     end
-    # binding.pry
   end
 
   def display_round_winner
@@ -205,7 +155,7 @@ class RPSGame
       puts "It's a tie!"
     end
   end
-  
+
   def increment_winner_point
     if determine_winner == human.name
       human.increment_point
@@ -213,11 +163,11 @@ class RPSGame
       computer.increment_point
     end
   end
-  
+
   def point_victory
     human.points == POINTS_TO_WIN || computer.points == POINTS_TO_WIN
   end
-  
+
   def reset_all_points
     human.reset_points
     computer.reset_points
@@ -235,7 +185,7 @@ class RPSGame
     return false if answer.downcase == 'n'
     return true if answer.downcase == 'y'
   end
-  
+
   def play_round
     human.choose
     computer.choose
