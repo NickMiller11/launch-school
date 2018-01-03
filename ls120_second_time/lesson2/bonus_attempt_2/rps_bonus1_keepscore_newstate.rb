@@ -43,11 +43,11 @@ class Player
     set_name
     @points = 0
   end
-  
+
   def reset_points
     @points = 0
   end
-  
+
   def increment_point
     @points += 1
   end
@@ -110,12 +110,12 @@ class RPSGame
     puts "You chose #{human.move}."
     puts "The computer chose #{computer.move}."
   end
-  
+
   def display_score
     puts "*** Current Score ***"
     puts "Player: #{human.points} | Computer: #{computer.points}"
   end
-  
+
   def determine_winner
     if human.move > computer.move
       human.name
@@ -133,7 +133,7 @@ class RPSGame
       puts "It's a tie!"
     end
   end
-  
+
   def increment_winner_point
     if determine_winner == human.name
       human.increment_point
@@ -141,7 +141,7 @@ class RPSGame
       computer.increment_point
     end
   end
-  
+
   def point_victory
     human.points == POINTS_TO_WIN || computer.points == POINTS_TO_WIN
   end
@@ -158,7 +158,7 @@ class RPSGame
     return false if answer.downcase == 'n'
     return true if answer.downcase == 'y'
   end
-  
+
   def play_round
     human.choose
     computer.choose
