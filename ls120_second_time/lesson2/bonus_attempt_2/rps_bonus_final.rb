@@ -44,7 +44,7 @@ class Move
   end
 
   def to_s
-    @value
+    value
   end
 end
 
