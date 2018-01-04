@@ -1,7 +1,16 @@
+=begin
+
+In this version, I created a history class which has a "log" ivar
+The log ivar holds each move as a string in an array
+
+=end
+
 require 'pry'
 
 class Move
   VALUES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
+
+  attr_accessor :value
 
   def initialize(value)
     @value = value
@@ -49,17 +58,20 @@ class Move
 end
 
 class History
+  attr_accessor :log
+
   def initialize
     @log = []
   end
 end
 
 class Player
-  attr_accessor :move, :name, :points
+  attr_accessor :move, :name, :points, :history
 
   def initialize
     set_name
     @points = 0
+    @history = History.new
   end
 
   def reset_points
@@ -68,6 +80,10 @@ class Player
 
   def increment_point
     @points += 1
+  end
+
+  def add_move_to_history
+    history.log << move.value
   end
 end
 
@@ -96,8 +112,11 @@ class Human < Player
 end
 
 class Computer < Player
+end
+
+class MrData < Computer
   def set_name
-    self.name = ['R2D2', 'Hal', 'Chappie', 'Sonny', 'Number 5'].sample
+    self.name = 'Mr. Data'
   end
 
   def choose
@@ -105,14 +124,38 @@ class Computer < Player
   end
 end
 
+class Skynet < Computer
+  def set_name
+    self.name = 'Skynet'
+  end
+
+  def choose
+    self.move = Move.new(Move::VALUES.sample)
+  end
+end
+
+class Tron < Computer
+  def set_name
+    self.name = 'Tron'
+  end
+
+  def choose
+    if human.history.empty?
+      self.move = Move.new(Move::VALUES.sample)
+    else
+      self.move = Move.new(human.history.last)
+    end
+  end
+end
+
 class RPSGame
   attr_accessor :human, :computer
 
-  POINTS_TO_WIN = 3
+  POINTS_TO_WIN = 5
 
   def initialize
     @human = Human.new
-    @computer = Computer.new
+    @computer = [Tron.new].sample
   end
 
   def format_choices_for_display
@@ -164,6 +207,12 @@ class RPSGame
     end
   end
 
+  def update_history
+    human.add_move_to_history
+    computer.add_move_to_history
+    binding.pry
+  end
+
   def point_victory
     human.points == POINTS_TO_WIN || computer.points == POINTS_TO_WIN
   end
@@ -192,6 +241,7 @@ class RPSGame
     display_moves
     increment_winner_point
     display_round_winner
+    update_history
     display_score
   end
 
