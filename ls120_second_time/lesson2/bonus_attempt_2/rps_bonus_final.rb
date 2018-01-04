@@ -1,12 +1,20 @@
-require 'pry'
-
 module Display
   def format_choices_for_display
     Move::VALUES.map(&:capitalize).join(', ')
   end
-  
+
   def clear_screen
     system("clear") || system("cls")
+  end
+
+  def press_enter_to_continue
+    puts ""
+    puts "Press Enter to continue..."
+    gets.chomp
+  end
+
+  def blank_line
+    puts ""
   end
 end
 
@@ -59,11 +67,11 @@ class Player
   end
 
   def reset_points
-    @points = 0
+    self.points = 0
   end
 
   def increment_point
-    @points += 1
+    self.points += 1
   end
 
   def add_move_to_history
@@ -73,25 +81,33 @@ class Player
   def add_to_outcome(result)
     history.outcome[result] << move.value
   end
+
+  def reset_log
+    history.log = []
+  end
+
+  def reset_outcome
+    history.outcome = { win: [], loss: [], tie: [] }
+  end
 end
 
 class Human < Player
   def set_name
-    n = ""
+    name = ""
     loop do
       puts "What's your name?"
-      n = gets.chomp.capitalize
-      break if n =~ /\S/
+      name = gets.chomp.capitalize
+      break if name =~ /\S/
       puts "Sorry, must enter a value."
     end
-    self.name = n
+    self.name = name
   end
 
   def choose
     choice = nil
     loop do
       puts "Please choose one of the following: #{Move::VALUES.join(', ')}"
-      choice = gets.chomp
+      choice = gets.chomp.downcase
       break if Move::VALUES.include?(choice)
       puts "Sorry, invalid choice."
     end
@@ -99,6 +115,7 @@ class Human < Player
   end
 end
 
+# reduces the frequency of moves that have led to 40% or more of losses
 class MrData < Player
   def set_name
     self.name = 'Mr. Data'
@@ -119,6 +136,7 @@ class MrData < Player
   end
 end
 
+# chooses scissors more frequency and never chooses rock
 class Skynet < Player
   def set_name
     self.name = 'Skynet'
@@ -136,6 +154,7 @@ class Skynet < Player
   end
 end
 
+# chooses the last move that the player chose
 class Tron < Player
   def set_name
     self.name = 'Tron'
@@ -167,27 +186,62 @@ class RPSGame
     puts "Welcome to #{format_choices_for_display}!"
     puts "You will be playing against #{computer.name}."
     puts "First one to #{POINTS_TO_WIN} points wins."
-    puts ""
-  end
-
-  def display_goodbye_message
-    puts "Thanks for playing #{format_choices_for_display}.  Good bye!"
+    blank_line
   end
 
   def display_moves
-    puts ""
+    blank_line
     puts "You chose #{human.move}."
-    puts "The computer chose #{computer.move}."
+    puts "#{computer.name} chose #{computer.move}."
   end
 
   def display_current_score
     puts "*** Current Score ***"
-    puts "Player: #{human.points} | Computer: #{computer.points}"
+    puts "Player: #{human.points} | #{computer.name}: #{computer.points}"
   end
-  
+
+  def display_round_winner
+    if determine_winner == human.name
+      puts "#{human.name} won!"
+    elsif determine_winner == computer.name
+      puts "#{computer.name} won!"
+    else
+      puts "It's a tie!"
+    end
+    press_enter_to_continue
+    clear_screen
+  end
+
+  def display_total_winner
+    if human.points == POINTS_TO_WIN
+      puts("#{human.name} won the game! Great job!")
+    else
+      puts("#{computer.name} won the game! Better luck next time.")
+    end
+    blank_line
+  end
+
   def display_final_score
     puts "*** Final Score ***"
-    puts "Player: #{human.points} | Computer: #{computer.points}"
+    puts "Player: #{human.points} | #{computer.name}: #{computer.points}"
+  end
+
+  def display_move_history
+    blank_line
+    round = 1
+    idx = 0
+    human.history.log.each do |move|
+      puts "Round #{round}: #{human.name} chose #{move} and #{computer.name}" \
+      " chose #{computer.history.log[idx]}."
+      round += 1
+      idx += 1
+    end
+    blank_line
+  end
+
+  def display_goodbye_message
+    blank_line
+    puts "Thanks for playing #{format_choices_for_display}.  Good bye!"
   end
 
   def determine_winner
@@ -218,27 +272,6 @@ class RPSGame
     end
   end
 
-  def display_round_winner
-    if determine_winner == human.name
-      puts "#{human.name} won!"
-    elsif determine_winner == computer.name
-      puts "#{computer.name} won!"
-    else
-      puts "It's a tie!"
-    end
-    gets.chomp
-    clear_screen
-  end
-  
-  def display_total_winner
-    if human.points == POINTS_TO_WIN 
-      puts("#{human.name} won the game! Great job!")
-    else
-      puts("#{computer.name} won the game! Better luck next time.")
-    end
-    puts ""
-  end
-  
   def increment_winner_point
     if determine_winner == human.name
       human.increment_point
@@ -253,14 +286,18 @@ class RPSGame
   end
 
   def point_victory
-    human.points == POINTS_TO_WIN || computer.points == POINTS_TO_WIN
+    human.points >= POINTS_TO_WIN || computer.points >= POINTS_TO_WIN
   end
 
-  def reset_all_points
+  def reset
     human.reset_points
+    human.reset_log
+    human.reset_outcome
     computer.reset_points
+    computer.reset_log
+    computer.reset_outcome
   end
-  
+
   def see_move_history?
     answer = nil
     loop do
@@ -269,22 +306,8 @@ class RPSGame
       break if ['y', 'n'].include? answer.downcase
       puts "Sorry, must be y or n."
     end
-    
-    return false if answer.downcase == 'n'
-    return true if answer.downcase == 'y'
-  end
-  
-  def display_move_history
-    round = 1
-    idx = 0
-    human.history.log.each do |move|
-      # binding.pry
-      puts "Round #{round}: #{move} | #{computer.history.log[idx]}"
-      round += 1
-      idx += 1
-    end
-    gets.chomp
-    clear_screen
+
+    answer.downcase == 'y'
   end
 
   def play_again?
@@ -296,8 +319,7 @@ class RPSGame
       puts "Sorry, must be y or n."
     end
 
-    return false if answer.downcase == 'n'
-    return true if answer.downcase == 'y'
+    answer.downcase == 'y'
   end
 
   def play_round
@@ -323,7 +345,8 @@ class RPSGame
       display_total_winner
       display_move_history if see_move_history?
       break unless play_again?
-      reset_all_points
+      reset
+      clear_screen
     end
     display_goodbye_message
   end
