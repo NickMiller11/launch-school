@@ -285,7 +285,7 @@ class RPSGame
     computer.add_move_to_history
   end
 
-  def point_victory
+  def point_victory?
     human.points >= POINTS_TO_WIN || computer.points >= POINTS_TO_WIN
   end
 
@@ -302,24 +302,24 @@ class RPSGame
     answer = nil
     loop do
       puts "Would you like to see the move history? (y/n)"
-      answer = gets.chomp
-      break if ['y', 'n'].include? answer.downcase
+      answer = gets.chomp.downcase
+      break if ['y', 'n'].include? answer
       puts "Sorry, must be y or n."
     end
 
-    answer.downcase == 'y'
+    answer == 'y'
   end
 
   def play_again?
     answer = nil
     loop do
       puts "Would you like to play again? (y/n)"
-      answer = gets.chomp
-      break if ['y', 'n'].include? answer.downcase
+      answer = gets.chomp.downcase
+      break if ['y', 'n'].include? answer
       puts "Sorry, must be y or n."
     end
 
-    answer.downcase == 'y'
+    answer == 'y'
   end
 
   def play_round
@@ -338,7 +338,7 @@ class RPSGame
     loop do
       loop do
         play_round
-        break if point_victory
+        break if point_victory?
         display_current_score
       end
       display_final_score
