@@ -106,3 +106,103 @@ end
 front of it.
 
 =end
+
+=begin
+
+6)
+
+What could we add to the class below to access the instance variable @volume?
+
+class Cube
+  attr_reader :volume
+
+  def initialize(volume)
+    @volume = volume
+  end
+end
+
+=end
+
+=begin
+
+7)
+
+What is the default return value of to_s when invoked on an object? 
+Where could you go to find out if you want to be sure?
+
+=> The default return value of to_s is the class and object id of the object
+
+=end
+
+=begin
+
+8)
+
+If we have a class such as the one below:
+
+class Cat
+  attr_accessor :type, :age
+
+  def initialize(type)
+    @type = type
+    @age  = 0
+  end
+
+  def make_one_year_older
+    self.age += 1
+  end
+end
+
+You can see in the make_one_year_older method we have used self. 
+What does self refer to here?
+
+=> self refers to the instance when using the setter method to 
+increment the age by one.
+
+=end
+
+=begin
+
+9) 
+
+If we have a class such as the one below:
+
+class Cat
+  @@cats_count = 0
+
+  def initialize(type)
+    @type = type
+    @age  = 0
+    @@cats_count += 1
+  end
+
+  def self.cats_count
+    @@cats_count
+  end
+end
+
+In the name of the cats_count method we have used self. 
+What does self refer to in this context?
+
+=> In this context, it is denotating a class method definition.
+
+=end
+
+=begin
+
+10)
+
+If we have the class below, 
+what would you need to call to create a new instance of this class.
+
+class Bag
+  def initialize(color, material)
+    @color = color
+    @material = material
+  end
+end
+
+Bag.new("green", "paper")
+
+=end
+
