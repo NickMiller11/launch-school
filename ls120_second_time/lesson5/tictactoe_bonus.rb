@@ -1,3 +1,15 @@
+module Display
+  def joinor(choices, spacer = ', ', word = 'or')
+    case choices.size
+    when 0 then ''
+    when 1 then choices.first
+    when 2 then choices.join(" #{word} ")
+    else 
+      "#{choices[0..-2].join(spacer)}" + "#{spacer}"  "#{word} #{choices[-1]}"
+    end
+  end
+end
+
 class Board
   WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] +
                   [[1, 4, 7], [2, 5, 8], [3, 6, 9]] +
@@ -86,14 +98,17 @@ class Square
 end
 
 class Player
-  attr_reader :marker
+  attr_reader :marker, :points
 
   def initialize(marker)
     @marker = marker
+    @points = 0
   end
 end
 
 class TTTGame
+  include Display
+  
   HUMAN_MARKER = "X"
   COMPUTER_MARKER = "O"
   FIRST_TO_MOVE = HUMAN_MARKER
@@ -157,7 +172,7 @@ class TTTGame
   end
 
   def human_moves
-    puts "Choose a square (#{board.unmarked_keys.join(', ')}): "
+    puts "Choose a square (#{joinor(board.unmarked_keys)}): "
     square = nil
     loop do
       square = gets.chomp.to_i
@@ -179,6 +194,15 @@ class TTTGame
     else
       computer_moves
       @current_marker = HUMAN_MARKER
+    end
+  end
+  
+  def increment_score
+    case board.winning_marker
+    when human.marker
+      human.points += 1
+    when computer.marker
+      computer.points += 1
     end
   end
 
