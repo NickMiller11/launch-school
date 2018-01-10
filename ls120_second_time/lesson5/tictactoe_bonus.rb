@@ -1,10 +1,12 @@
+require 'pry'
+
 module Display
   def joinor(choices, spacer = ', ', word = 'or')
     case choices.size
     when 0 then ''
     when 1 then choices.first
     when 2 then choices.join(" #{word} ")
-    else 
+    else
       "#{choices[0..-2].join(spacer)}" + "#{spacer}"  "#{word} #{choices[-1]}"
     end
   end
@@ -46,6 +48,16 @@ class Board
     nil
   end
 
+  def computer_ai_defence
+    WINNING_LINES.each do |line|
+      squares = @squares.values_at(*line)
+      if computer_under_threat?(squares)
+        return line[squares.index { |sq| sq.marker == Square::INITIAL_MARKER }]
+      end
+    end
+    nil
+  end
+
   def reset
     (1..9).each { |key| @squares[key] = Square.new }
   end
@@ -73,6 +85,13 @@ class Board
     return false if markers.size != 3
     markers.min == markers.max
   end
+
+  def computer_under_threat?(squares)
+    markers = squares.select(&:marked_by_human?).collect(&:marker)
+    return false if markers.size != 2
+    markers.min == markers.max
+  end
+
 end
 
 class Square
@@ -95,23 +114,33 @@ class Square
   def marked?
     marker != INITIAL_MARKER
   end
+
+  def marked_by_human?
+    marker == TTTGame::HUMAN_MARKER
+  end
 end
 
 class Player
-  attr_reader :marker, :points
+  attr_reader :marker
+  attr_accessor :points
 
   def initialize(marker)
     @marker = marker
-    @points = 0
+    reset_points
+  end
+
+  def reset_points
+    self.points = 0
   end
 end
 
 class TTTGame
   include Display
-  
+
   HUMAN_MARKER = "X"
   COMPUTER_MARKER = "O"
   FIRST_TO_MOVE = HUMAN_MARKER
+  POINTS_TO_WIN = 3
 
   attr_reader :board, :human, :computer
 
@@ -125,29 +154,36 @@ class TTTGame
   def play
     clear
     display_welcome_message
-
     loop do
-      display_board
-
+      reset_points
       loop do
-        current_player_moves
-        break if board.someone_won? || board.full?
-        clear_screen_and_display_board if human_turn?
+        display_board
+
+        loop do
+          current_player_moves
+          break if board.someone_won? || board.full?
+          clear_screen_and_display_board if human_turn?
+        end
+        increment_score
+        display_result
+        gets.chomp
+        reset
+        display_point_status
+        break if win_by_points?
+        display_play_again_message
       end
-
-      display_result
+      display_total_winner
       break unless play_again?
-      reset
-      display_play_again_message
     end
-
     display_goodbye_message
   end
+
 
   private
 
   def display_welcome_message
     puts "Welcome to Tic Tac Toe!"
+    puts "First player to #{POINTS_TO_WIN} points wins!"
     puts ""
   end
 
@@ -184,8 +220,28 @@ class TTTGame
   end
 
   def computer_moves
-    board[board.unmarked_keys.sample] = computer.marker
+    if board.computer_ai_defence == nil
+      board[board.unmarked_keys.sample] = computer.marker
+    else
+      board[board.computer_ai_defence] = computer.marker
+    end
   end
+
+  # def three_identical_markers?(squares)
+  #   markers = squares.select(&:marked?).collect(&:marker)
+  #   return false if markers.size != 3
+  #   markers.min == markers.max
+  # end
+  #
+  # def winning_marker
+  #   WINNING_LINES.each do |line|
+  #     squares = @squares.values_at(*line)
+  #     if three_identical_markers?(squares)
+  #       return squares.first.marker
+  #     end
+  #   end
+  #   nil
+  # end
 
   def current_player_moves
     if human_turn?
@@ -196,7 +252,7 @@ class TTTGame
       @current_marker = HUMAN_MARKER
     end
   end
-  
+
   def increment_score
     case board.winning_marker
     when human.marker
@@ -244,6 +300,29 @@ class TTTGame
   def display_play_again_message
     puts "Let's play again!"
     puts ""
+  end
+
+  def reset_points
+    human.reset_points
+    computer.reset_points
+  end
+
+  def display_point_status
+    puts "*** Current Points ***"
+    puts "Player: #{human.points} | Computer: #{computer.points}"
+    puts ""
+  end
+
+  def win_by_points?
+    human.points >= POINTS_TO_WIN || computer.points >= POINTS_TO_WIN
+  end
+
+  def display_total_winner
+    if human.points >= POINTS_TO_WIN
+      puts "Congratulations! You're the winner!"
+    else
+      puts "The computer won, better luck next time!"
+    end
   end
 end
 
