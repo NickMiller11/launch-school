@@ -10,6 +10,11 @@ module Display
       "#{choices[0..-2].join(spacer)}" + "#{spacer}"  "#{word} #{choices[-1]}"
     end
   end
+  
+  def press_enter_to_continue
+    puts "Press enter to continue..."
+    gets.chomp
+  end
 end
 
 class Board
@@ -48,15 +53,17 @@ class Board
     nil
   end
 
-  def computer_ai_defence
-    WINNING_LINES.each do |line|
-      squares = @squares.values_at(*line)
-      if computer_under_threat?(squares)
-        return line[squares.index { |sq| sq.marker == Square::INITIAL_MARKER }]
-      end
-    end
-    nil
-  end
+  # def immediate_threat?(line, brd, marker)
+  #   WINNING_LINES.each do |line|
+  #     squares = @squares.values_at(*line)
+  #     if .values_at(*line).count(marker) == 2
+  #       # binding.pry
+  #       brd.select{|k,v| line.include?(k) && v == INITIAL_MARKER}.keys.first
+  #     else
+  #       nil
+  #     end
+  #   end
+  # end
 
   def reset
     (1..9).each { |key| @squares[key] = Square.new }
@@ -86,11 +93,11 @@ class Board
     markers.min == markers.max
   end
 
-  def computer_under_threat?(squares)
-    markers = squares.select(&:marked_by_human?).collect(&:marker)
-    return false if markers.size != 2
-    markers.min == markers.max
-  end
+  # def computer_under_threat?(squares)
+  #   markers = squares.select(&:marked_by_human?).collect(&:marker)
+  #   return false if markers.size != 2
+  #   markers.min == markers.max
+  # end
 
 end
 
@@ -116,16 +123,14 @@ class Square
   end
 
   def marked_by_human?
-    marker == TTTGame::HUMAN_MARKER
+    marker == human.marker
   end
 end
 
 class Player
-  attr_reader :marker
-  attr_accessor :points
+  attr_accessor :marker, :name, :points
 
-  def initialize(marker)
-    @marker = marker
+  def initialize
     reset_points
   end
 
@@ -134,21 +139,60 @@ class Player
   end
 end
 
+class Computer < Player
+  def initialize(marker)
+    @marker = marker
+    @name = ["Mr. Data", "Skynet", "Tron"].sample
+    super()
+  end
+end
+
+class Human < Player
+  def initialize
+    set_name
+    set_marker
+    super()
+  end
+  
+  def set_name
+    name = ""
+    loop do
+      puts "What's your name?"
+      name = gets.chomp.capitalize
+      break if name =~ /\S/
+      puts "Sorry, must enter a value."
+    end
+    self.name = name
+  end
+  
+  def set_marker
+    marker = nil
+    loop do
+      puts "What would you like your game marker to be?"
+      puts "Please enter 1 character that is not a space or O."
+      marker = gets.chomp
+      break if /[^\s]/.match(marker) && /[^O]/.match(marker)
+      puts "I'm sorry, that's an invalid choice."
+      puts ""
+    end
+    self.marker = marker
+  end
+end
+
 class TTTGame
   include Display
 
   HUMAN_MARKER = "X"
   COMPUTER_MARKER = "O"
-  FIRST_TO_MOVE = HUMAN_MARKER
   POINTS_TO_WIN = 3
 
   attr_reader :board, :human, :computer
 
   def initialize
     @board = Board.new
-    @human = Player.new(HUMAN_MARKER)
-    @computer = Player.new(COMPUTER_MARKER)
-    @current_marker = FIRST_TO_MOVE
+    @human = Human.new
+    @computer = Computer.new(COMPUTER_MARKER)
+    @current_marker = human.marker
   end
 
   def play
@@ -166,7 +210,7 @@ class TTTGame
         end
         increment_score
         display_result
-        gets.chomp
+        press_enter_to_continue
         reset
         display_point_status
         break if win_by_points?
@@ -182,7 +226,8 @@ class TTTGame
   private
 
   def display_welcome_message
-    puts "Welcome to Tic Tac Toe!"
+    puts "Hi #{human.name}! Welcome to Tic Tac Toe!"
+    puts "You will be playing against #{computer.name}."
     puts "First player to #{POINTS_TO_WIN} points wins!"
     puts ""
   end
@@ -197,11 +242,11 @@ class TTTGame
   end
 
   def human_turn?
-    @current_marker == HUMAN_MARKER
+    @current_marker == human.marker
   end
 
   def display_board
-    puts "You're a #{human.marker}. Computer is a #{computer.marker}."
+    puts "You're a #{human.marker}. #{computer.name} is a #{computer.marker}."
     puts ""
     board.draw
     puts ""
@@ -220,28 +265,8 @@ class TTTGame
   end
 
   def computer_moves
-    if board.computer_ai_defence == nil
-      board[board.unmarked_keys.sample] = computer.marker
-    else
-      board[board.computer_ai_defence] = computer.marker
-    end
+    board[board.unmarked_keys.sample] = computer.marker
   end
-
-  # def three_identical_markers?(squares)
-  #   markers = squares.select(&:marked?).collect(&:marker)
-  #   return false if markers.size != 3
-  #   markers.min == markers.max
-  # end
-  #
-  # def winning_marker
-  #   WINNING_LINES.each do |line|
-  #     squares = @squares.values_at(*line)
-  #     if three_identical_markers?(squares)
-  #       return squares.first.marker
-  #     end
-  #   end
-  #   nil
-  # end
 
   def current_player_moves
     if human_turn?
@@ -249,7 +274,7 @@ class TTTGame
       @current_marker = COMPUTER_MARKER
     else
       computer_moves
-      @current_marker = HUMAN_MARKER
+      @current_marker = human.marker
     end
   end
 
@@ -267,7 +292,7 @@ class TTTGame
 
     case board.winning_marker
     when human.marker
-      puts "You won!"
+      puts "#{human.name} won!"
     when computer.marker
       puts "Computer won!"
     else
@@ -293,7 +318,7 @@ class TTTGame
 
   def reset
     board.reset
-    @current_marker = FIRST_TO_MOVE
+    @current_marker = human.marker
     clear
   end
 
@@ -309,7 +334,7 @@ class TTTGame
 
   def display_point_status
     puts "*** Current Points ***"
-    puts "Player: #{human.points} | Computer: #{computer.points}"
+    puts "Player: #{human.points} | #{computer.name}: #{computer.points}"
     puts ""
   end
 
@@ -319,9 +344,9 @@ class TTTGame
 
   def display_total_winner
     if human.points >= POINTS_TO_WIN
-      puts "Congratulations! You're the winner!"
+      puts "Congratulations! #{human.name} is the winner!"
     else
-      puts "The computer won, better luck next time!"
+      puts "#{computer.name} won, better luck next time!"
     end
   end
 end
