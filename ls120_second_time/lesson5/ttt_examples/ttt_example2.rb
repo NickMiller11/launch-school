@@ -4,6 +4,7 @@
 # https://launchschool.com/posts/24e7b953
 
 require 'yaml'
+require 'pry'
 
 module Display
   private
@@ -361,11 +362,11 @@ class TTTGame
 
   def computer_moves
     square = computer_offensive_move
-
+    binding.pry
     if !square
       square = computer_defensive_move
     end
-
+    binding.pry
     square = 5 if !square && board.center_open?
     square = board.unmarked_keys.to_a.sample if !square
 
