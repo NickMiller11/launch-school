@@ -10,16 +10,20 @@ module Display
       "#{choices[0..-2].join(spacer)}" + "#{spacer}"  "#{word} #{choices[-1]}"
     end
   end
-  
+
   def press_enter_to_continue
     puts "Press enter to continue..."
     gets.chomp
   end
-  
+
+  def clear
+    system "clear"
+  end
+
   def blank_line
     puts ""
   end
-  
+
   def display_welcome_message
     puts "Welcome to Tic Tac Toe, #{human.name}!"
     puts "You will be playing against #{computer.name}."
@@ -35,14 +39,15 @@ module Display
     clear
     display_board
   end
-  
+
   def display_board
+    display_scoreboard
     puts "You're a #{human.marker}. #{computer.name} is a #{computer.marker}."
     puts ""
     board.draw
     puts ""
   end
-  
+
   def display_result
     clear_screen_and_display_board
 
@@ -55,18 +60,18 @@ module Display
       puts "It's a tie!"
     end
   end
-  
+
   def display_play_again_message
     puts "Let's play again!"
     blank_line
   end
-  
+
   def display_scoreboard
     puts "*** Scoreboard ***"
     puts "Player: #{human.points} | #{computer.name}: #{computer.points}"
     puts ""
   end
-  
+
   def display_total_winner
     if human.points >= TTTGame::POINTS_TO_WIN
       puts "Congratulations! #{human.name} is the winner!"
@@ -74,7 +79,7 @@ module Display
       puts "#{computer.name} won, better luck next time!"
     end
   end
-  
+
 end
 
 class Board
@@ -98,7 +103,7 @@ class Board
   def full?
     unmarked_keys.empty?
   end
-  
+
   def center_square_empty?
     @squares[5].unmarked?
   end
@@ -203,13 +208,13 @@ end
 
 class Human < Player
   include Display
-  
+
   def initialize
     set_name
     set_marker
     super()
   end
-  
+
   def set_name
     name = ""
     loop do
@@ -221,7 +226,7 @@ class Human < Player
     blank_line
     self.name = name
   end
-  
+
   def set_marker
     marker = nil
     loop do
@@ -240,22 +245,23 @@ end
 class TTTGame
   include Display
 
-  HUMAN_MARKER = "X"
   COMPUTER_MARKER = "O"
   POINTS_TO_WIN = 3
 
   attr_reader :board, :human, :computer
 
   def initialize
+    clear
     @board = Board.new
     @human = Human.new
     @computer = Computer.new(COMPUTER_MARKER)
-    @current_marker = human.marker
+    @current_marker = nil
+    @first_move = nil
   end
 
   def play
     game_setup
-    
+
     loop do
       reset_points
       loop do
@@ -263,11 +269,10 @@ class TTTGame
         play_round
         increment_score
         display_result
+        display_play_again_message
         press_enter_to_continue
         reset
-        display_scoreboard
         break if win_by_points?
-        display_play_again_message
       end
       display_total_winner
       break unless play_again?
@@ -276,13 +281,13 @@ class TTTGame
   end
 
   private
-  
+
   def game_setup
     who_moves_first
     clear
     display_welcome_message
   end
-  
+
   def play_round
     loop do
       current_player_moves
@@ -290,7 +295,7 @@ class TTTGame
       clear_screen_and_display_board if human_turn?
     end
   end
-  
+
   def who_moves_first
     answer = nil
     puts "Would you like the (P)layer or (C)omputer to first?"
@@ -299,7 +304,7 @@ class TTTGame
       break if ['P', 'C'].include?(answer)
       puts "Please select (P)layer or (C)omputer."
     end
-    answer == 'P' ? @current_marker = human.marker : @current_marker = computer.marker
+    answer == 'P' ? @first_move = human.marker : @current_marker = computer.marker
   end
 
   def human_turn?
@@ -329,15 +334,15 @@ class TTTGame
 
   def computer_moves
     square = computer_ai_logic(computer.marker)
-    
+
     if !square
       square = computer_ai_logic(human.marker)
     end
-    
+
     square = 5 if !square && board.center_square_empty?
-    
+
     square = board.unmarked_keys.sample if !square
-    
+
     board[square] = computer.marker
   end
 
@@ -372,13 +377,9 @@ class TTTGame
     answer == 'y'
   end
 
-  def clear
-    system "clear"
-  end
-
   def reset
     board.reset
-    @current_marker = human.marker
+    @current_marker = @first_move
     clear
   end
 
