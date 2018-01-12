@@ -27,7 +27,7 @@ Deck
   - deal
 Game
   - start
-  
+
 =end
 
 require 'pry'
@@ -36,16 +36,16 @@ module Display
   def blank_line
     puts ""
   end
-  
+
   def clear_screen
     system('clear') || system('cls')
   end
-  
+
   def display_welcome_message
     clear_screen
     puts "Welcome to Twenty-One!"
   end
-  
+
   def display_goodbye_message
     blank_line
     puts "Thanks for playing Twenty-One!  Goodbye!"
@@ -53,33 +53,55 @@ module Display
 end
 
 class Participant
-  attr_accessor :hand
-  
+  attr_accessor :hand, :stay
+
   def initialize
     @hand = []
+    @stay = false
   end
-  
-  def hit
-    binding.pry
-    deck.deal_one_card(hand)
-    binding.pry
+
+  def stay?
+    stay
   end
-  
-  def stay
-    
+
+  def stay!
+    self.stay = true
   end
-  
+
   def busted?
-    
+
   end
-  
+
   def total
-    # definitely looks like we need to know about "cards" to produce some total
+    total = 0
+
+    hand.each do |card|
+      case card.rank
+      when "Jack", "Queen", "King" then total += 10
+      when 
+
+      binding.pry
+      if card.rank == "Jack" ||
+      card.rank == "Queen" ||
+      card.rank == "King"
+        total += 10
+      elsif card.rank == "Ace"
+        total += 11
+      else
+        total += card.rank
+      end
+
+      hand.select { |card| card.rank == "Ace" }.count.times do
+        sum -= 10 if sum > 21
+      end
+    end
+    binding.pry
+    total
   end
 end
 
 class Player < Participant
-  
+
 end
 
 class Dealer < Participant
@@ -88,43 +110,43 @@ end
 
 class Deck
   attr_reader :deck
-  
+
   def initialize
     @deck = []
     Card::SUIT.each do |suit|
       Card::RANK.each do |rank|
-        @deck << Card.new(rank, suit)
+        @deck << Card.new(suit, rank)
       end
     end
     @deck.shuffle!
   end
-  
+
   def initial_deal(hand)
-   2.times do 
+   2.times do
      hand << deck.pop
    end
   end
-  
+
   def deal_one_card(hand)
     hand << deck.pop
   end
-  
+
   def shuffle!
     @deck.shuffle!
   end
 end
 
 class Card
-  attr_reader = :suit, :rank
-  
-  RANK = (2..10).to_a.concat(["Jack", "Queen", "King", "Ace"]) 
+  attr_reader :suit, :rank
+
+  RANK = (2..10).to_a.concat(["Jack", "Queen", "King", "Ace"])
   SUIT = ["Clubs", "Diamonds", "Hearts", "Spades"]
-  
+
   def initialize(suit, rank)
     @suit = suit
     @rank = rank
   end
-  
+
   def to_s
     "#{@suit} of #{@rank}"
   end
@@ -132,42 +154,44 @@ end
 
 class Game
   include Display
-  
+
   attr_accessor :player, :dealer, :deck
-  
+
   def initialize
     @player = Player.new
     @dealer = Dealer.new
     @deck = Deck.new
   end
-  
+
   def start
     display_welcome_message
     loop do
       deal_cards
       show_initial_cards
-      
+
       loop do
+        puts player.total
         player_turn
-        binding.pry
+        clear_screen
         show_cards
+        binding.pry
         break
         dealer_turn
         show_result
         break if busted? || both_stay?
       end
       break unless play_again?
-      
+
     end
     display_goodbye_message
-    
+
   end
-  
+
   def deal_cards
     deck.initial_deal(player.hand)
     deck.initial_deal(dealer.hand)
   end
-  
+
   def show_initial_cards
     blank_line
     puts "In your hand, you have:"
@@ -176,17 +200,20 @@ class Game
     blank_line
     puts "In the dealer's hand, they have:"
     puts "1. #{dealer.hand.first}"
-    puts "2. [Unknown]"
+    puts "2. [Unknown Card]"
     blank_line
   end
-  
+
   def player_turn
     move = get_player_move
-    binding.pry
     case move
     when 'h' then deck.deal_one_card(player.hand)
-    when 's' then player.stay
+    when 's' then player.stay!
     end
+  end
+
+  def dealer_turn
+
   end
 
   def get_player_move
@@ -199,7 +226,7 @@ class Game
     end
     answer
   end
-  
+
   def show_player_cards
     puts "You have:"
     player.hand.each do |card|
@@ -207,20 +234,24 @@ class Game
     end
     blank_line
   end
-  
+
   def show_dealer_cards
     dealer_hand = dealer.hand[0..-2]
     puts "Dealer has:"
     dealer_hand.each do |card|
       puts card
     end
+    puts "[Unknown Card]"
   end
-  
+
   def show_cards
     show_player_cards
     show_dealer_cards
   end
+
+  def both_stay?
+    player.stay? && dealer.stay?
+  end
 end
 
 Game.new.start
-  
