@@ -270,7 +270,7 @@ class TTTGame
 
   private
 
-  def assign_current_marker
+  def assign_first_turn_marker
     @current_marker = @first_move
   end
 
@@ -310,9 +310,11 @@ class TTTGame
 
   def game_setup
     who_moves_first
-    assign_current_marker
+    assign_first_turn_marker
     clear_screen
     display_welcome_message
+    press_enter_to_continue
+    clear_screen
   end
 
   def human_moves
@@ -354,7 +356,7 @@ class TTTGame
 
   def play_game
     loop do
-      assign_current_marker
+      assign_first_turn_marker
       display_board
       play_round
       increment_score
@@ -376,7 +378,7 @@ class TTTGame
 
   def reset_game
     board.reset
-    @current_marker = @first_move
+    assign_first_turn_marker
     clear_screen
   end
 
@@ -387,7 +389,7 @@ class TTTGame
 
   def who_moves_first
     answer = nil
-    puts "Would you like the (P)layer or (C)omputer to first?"
+    puts "Would you like the (P)layer or (C)omputer to go first?"
     loop do
       answer = gets.chomp.upcase
       break if ['P', 'C'].include?(answer)
