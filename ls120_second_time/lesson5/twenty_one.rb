@@ -32,6 +32,9 @@ Game
 
 require 'pry'
 
+# working on dealer_turn method
+# need to add logic if dealer busts
+
 module Display
   def blank_line
     puts ""
@@ -49,6 +52,10 @@ module Display
   def display_goodbye_message
     blank_line
     puts "Thanks for playing Twenty-One!  Goodbye!"
+  end
+
+  def display_you_busted_message
+    puts "You have #{player.total} points. You busted!"
   end
 end
 
@@ -69,7 +76,7 @@ class Participant
   end
 
   def busted?
-
+    total > 21
   end
 
   def total
@@ -78,24 +85,15 @@ class Participant
     hand.each do |card|
       case card.rank
       when "Jack", "Queen", "King" then total += 10
-      when 
-
-      binding.pry
-      if card.rank == "Jack" ||
-      card.rank == "Queen" ||
-      card.rank == "King"
-        total += 10
-      elsif card.rank == "Ace"
-        total += 11
+      when "Ace" then total += 11
       else
         total += card.rank
       end
 
       hand.select { |card| card.rank == "Ace" }.count.times do
-        sum -= 10 if sum > 21
+        total -= 10 if total > 21
       end
     end
-    binding.pry
     total
   end
 end
@@ -122,9 +120,9 @@ class Deck
   end
 
   def initial_deal(hand)
-   2.times do
-     hand << deck.pop
-   end
+    2.times do
+      hand << deck.pop
+    end
   end
 
   def deal_one_card(hand)
@@ -148,7 +146,7 @@ class Card
   end
 
   def to_s
-    "#{@suit} of #{@rank}"
+    "#{@rank} of #{@suit}"
   end
 end
 
@@ -166,22 +164,20 @@ class Game
   def start
     display_welcome_message
     loop do
-      deal_cards
-      show_initial_cards
-
       loop do
-        puts player.total
+        deal_cards # need to get rid of old cards if playing again
+        show_initial_cards
         player_turn
-        clear_screen
-        show_cards
-        binding.pry
-        break
+        if player.busted?
+          display_you_busted_message
+          break
+        end
         dealer_turn
-        show_result
-        break if busted? || both_stay?
+        binding.pry
+        show_result # not implemented
       end
       break unless play_again?
-
+      clear_screen
     end
     display_goodbye_message
 
@@ -205,15 +201,31 @@ class Game
   end
 
   def player_turn
-    move = get_player_move
-    case move
-    when 'h' then deck.deal_one_card(player.hand)
-    when 's' then player.stay!
+    loop do
+      move = get_player_move
+      case move
+      when 'h'
+        deck.deal_one_card(player.hand)
+        puts "You hit!"
+      when 's'
+        player.stay!
+        puts "You stay!"
+      end
+      blank_line
+      show_cards
+      binding.pry
+      break if player.stay? || player.busted?
     end
   end
 
   def dealer_turn
-
+    loop do
+      break if dealer.total > 17
+      puts "Dealer hits!"
+      deck.deal_one_card(dealer.hand)
+    end
+    puts "Dealer stays!"
+    dealer.stay
   end
 
   def get_player_move
@@ -242,6 +254,7 @@ class Game
       puts card
     end
     puts "[Unknown Card]"
+    blank_line
   end
 
   def show_cards
@@ -251,6 +264,17 @@ class Game
 
   def both_stay?
     player.stay? && dealer.stay?
+  end
+
+  def play_again?
+    puts "Would you like to play again? (y/n)"
+    answer = nil
+    loop do
+      answer = gets.chomp.downcase
+      break if ['y', 'n'].include?(answer)
+      puts "I'm sorry, that's not a valid response."
+    end
+    answer = 'y'
   end
 end
 
