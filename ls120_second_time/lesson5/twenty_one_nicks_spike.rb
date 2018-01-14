@@ -10,6 +10,7 @@ module Display
   def display_welcome_message
     clear_screen
     puts "Welcome to Twenty-One!"
+    blank_line
   end
 
   def display_goodbye_message
@@ -52,6 +53,8 @@ module Display
 end
 
 class Participant
+  include Display
+
   attr_accessor :hand, :stay
 
   def initialize
@@ -100,11 +103,25 @@ class Participant
 end
 
 class Player < Participant
-
+  def show_cards
+    puts "You have:"
+    hand.each do |card|
+      puts "=> #{card}"
+    end
+    blank_line
+  end
 end
 
 class Dealer < Participant
-
+  def show_cards
+    dealer_hand = hand[0..-2]
+    puts "Dealer has:"
+    dealer_hand.each do |card|
+      puts "=> #{card}"
+    end
+    puts "=> [Unknown Card]"
+    blank_line
+  end
 end
 
 class Deck
@@ -168,7 +185,7 @@ class Game
       reset_stay_and_cards
       loop do
         deal_cards
-        show_initial_cards
+        show_cards
         player_turn
         if player.busted?
           display_you_busted_message
@@ -198,18 +215,6 @@ class Game
     deck.initial_deal(dealer.hand)
   end
 
-  def show_initial_cards
-    blank_line
-    puts "In your hand, you have:"
-    puts "1. #{player.hand.first}"
-    puts "2. #{player.hand.last}"
-    blank_line
-    puts "In the dealer's hand, they have:"
-    puts "1. #{dealer.hand.first}"
-    puts "2. [Unknown Card]"
-    blank_line
-  end
-
   def player_turn
     loop do
       move = get_player_move
@@ -228,6 +233,7 @@ class Game
       show_cards
       break if player.stay? || player.busted?
     end
+    press_enter_to_continue
   end
 
   def dealer_turn
@@ -243,6 +249,7 @@ class Game
     clear_screen
     puts "Dealer stays!"
     blank_line
+    show_cards
     dealer.stay
   end
 
@@ -257,27 +264,9 @@ class Game
     answer
   end
 
-  def show_player_cards
-    puts "You have:"
-    player.hand.each do |card|
-      puts card
-    end
-    blank_line
-  end
-
-  def show_dealer_cards
-    dealer_hand = dealer.hand[0..-2]
-    puts "Dealer has:"
-    dealer_hand.each do |card|
-      puts card
-    end
-    puts "[Unknown Card]"
-    blank_line
-  end
-
   def show_cards
-    show_player_cards
-    show_dealer_cards
+    player.show_cards
+    dealer.show_cards
   end
 
   def reset_stay_and_cards
@@ -287,6 +276,7 @@ class Game
   end
 
   def play_again?
+    blank_line
     puts "Would you like to play again? (y/n)"
     answer = nil
     loop do
