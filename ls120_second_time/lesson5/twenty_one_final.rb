@@ -1,5 +1,3 @@
-require 'pry'
-
 module Display
   def blank_line
     puts ""
@@ -44,7 +42,7 @@ module Display
 
   def display_dealer_won_message
     puts ["The dealer won!  Better luck next time #{player.name}!",
-          "The dealer won!  Maybe you should practice more?",
+          "The dealer won!  You've got to keep trying!",
           "The dealer won!  Good thing this wasn't for money!"].sample
   end
 
