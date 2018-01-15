@@ -1,3 +1,5 @@
+require 'pry'
+
 module Display
   def blank_line
     puts ""
@@ -8,8 +10,7 @@ module Display
   end
 
   def display_welcome_message
-    clear_screen
-    puts "Welcome to Twenty-One!"
+    puts "Welcome to Twenty-One, #{player.name}!"
     blank_line
   end
 
@@ -35,31 +36,65 @@ module Display
     puts "Final Score: Player - #{player.total} | Dealer - #{dealer.total}"
   end
 
-  def show_result
+  def display_player_won_message
+    puts ["You won! Great job, #{player.name}! Try playing at a casino!",
+          "Yon won! You should go pro, #{player.name}!",
+          "Yon won! Let's face it, the computer isn't THAT difficult."].sample
+  end
+
+  def display_dealer_won_message
+    puts ["The dealer won!  Better luck next time #{player.name}!",
+          "The dealer won!  Maybe you should practice more?",
+          "The dealer won!  Good thing this wasn't for money!"].sample
+  end
+
+  def show_busted_result
     if player.busted?
-      puts "The dealer won!  Better luck next time!"
-    elsif dealer.total > player.total
-      display_final_score
-      puts "The dealer won!  Better luck next time!"
+      display_you_busted_message
+      blank_line
+      display_dealer_won_message
     elsif dealer.busted?
-      puts "You won!  Great job! You should trying playing at a casino..."
+      display_dealer_busted_message
+      blank_line
+      display_player_won_message
+    end
+  end
+
+  def show_points_result
+    if dealer.total > player.total
+      display_dealer_won_message
     elsif dealer.total < player.total
-      display_final_score
-      puts "You won!  Great job! You should trying playing at a casino..."
+      display_player_won_message
     else
       puts "You tied!"
     end
+  end
+
+  def show_result
+    player.busted? || dealer.busted? ? show_busted_result : show_points_result
+  end
+
+  def display_result_and_score
+    show_result
+    blank_line
+    display_final_score
+  end
+
+  def display_hit_message
+    puts "#{self.class} hits!"
   end
 end
 
 class Participant
   include Display
 
-  attr_accessor :hand, :stay
+  attr_accessor :hand, :stay, :name
+  attr_reader :deck
 
-  def initialize
+  def initialize(deck)
     @hand = []
     @stay = false
+    @deck = deck
   end
 
   def stay?
@@ -74,7 +109,7 @@ class Participant
     total > 21
   end
 
-  def reset_stay
+  def reset_stay_indicator
     self.stay = false
   end
 
@@ -100,15 +135,65 @@ class Participant
   def discard_old_hand
     self.hand = []
   end
+
+  def hit!
+    display_hit_message
+    blank_line
+    deck.deal_one_card(hand)
+  end
 end
 
 class Player < Participant
+
+  def initialize(deck)
+    @name = set_name
+    super
+  end
+
+  def set_name
+    clear_screen
+    puts "What is your name?"
+    name = ""
+    loop do
+      name = gets.chomp.capitalize
+      break if name =~ /\S/
+      puts "Sorry, must enter a value."
+    end
+    blank_line
+    self.name = name
+  end
+
   def show_cards
-    puts "You have:"
+    puts "#{name} has:"
     hand.each do |card|
       puts "=> #{card}"
     end
     blank_line
+  end
+
+  def request_player_move
+    puts "Would you like to (h)it or (s)tay?"
+    answer = nil
+    loop do
+      answer = gets.chomp.downcase
+      break if ['h', 's'].include?(answer)
+      puts "I'm sorry, that's not a valid choice."
+    end
+    answer
+  end
+
+  def assign_move
+    move = request_player_move
+    case move
+    when 'h'
+      hit!
+      clear_screen
+      puts "You hit!"
+    when 's'
+      stay!
+      clear_screen
+      puts "You stay!  Dealer's turn."
+    end
   end
 end
 
@@ -121,6 +206,11 @@ class Dealer < Participant
     end
     puts "=> [Unknown Card]"
     blank_line
+  end
+
+  def assign_move
+    clear_screen
+    hit! if total < 17
   end
 end
 
@@ -174,39 +264,35 @@ class Game
   attr_accessor :player, :dealer, :deck
 
   def initialize
-    @player = Player.new
-    @dealer = Dealer.new
     @deck = Deck.new
+    @player = Player.new(deck)
+    @dealer = Dealer.new(deck)
   end
 
   def start
     display_welcome_message
+
     loop do
-      reset_stay_and_cards
-      loop do
-        deal_cards
-        show_cards
-        player_turn
-        if player.busted?
-          display_you_busted_message
-          break
-        end
-        dealer_turn
-        if dealer.busted?
-          display_dealer_busted_message
-          break
-        end
-        show_result
-        break
-      end
+      reset_game
+      main_game
+      show_cards
+      display_result_and_score
       break unless play_again?
       clear_screen
     end
-    display_goodbye_message
 
+    display_goodbye_message
   end
 
   private
+
+  def main_game
+    deal_cards
+    show_cards
+    player_turn
+    press_enter_to_continue
+    dealer_turn unless player.busted?
+  end
 
   def deal_cards
     player.discard_old_hand
@@ -217,51 +303,23 @@ class Game
 
   def player_turn
     loop do
-      move = get_player_move
-      case move
-      when 'h'
-        deck.deal_one_card(player.hand)
-        clear_screen
-        puts "You hit!"
-        blank_line
-      when 's'
-        player.stay!
-        clear_screen
-        puts "You stay!"
-        blank_line
-      end
-      show_cards
+      player.assign_move
+      blank_line
+      show_cards unless player.stay? || player.busted?
       break if player.stay? || player.busted?
     end
-    press_enter_to_continue
   end
 
   def dealer_turn
     loop do
-      break if dealer.total > 17
-      clear_screen
-      puts "Dealer hits!"
-      blank_line
-      deck.deal_one_card(dealer.hand)
+      dealer.assign_move
       show_cards
       press_enter_to_continue
+      clear_screen
+      break if dealer.total >= 17
     end
-    clear_screen
     puts "Dealer stays!"
     blank_line
-    show_cards
-    dealer.stay
-  end
-
-  def get_player_move
-    puts "Would you like to (h)it or (s)tay?"
-    answer = nil
-    loop do
-      answer = gets.chomp.downcase
-      break if ['h', 's'].include?(answer)
-      puts "I'm sorry, that's not a valid choice."
-    end
-    answer
   end
 
   def show_cards
@@ -269,9 +327,9 @@ class Game
     dealer.show_cards
   end
 
-  def reset_stay_and_cards
-    player.reset_stay
-    dealer.reset_stay
+  def reset_game
+    player.reset_stay_indicator
+    dealer.reset_stay_indicator
     self.deck = Deck.new
   end
 

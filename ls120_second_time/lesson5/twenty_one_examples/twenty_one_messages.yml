@@ -1,0 +1,22 @@
+instructions: |
+  HOW TO PLAY TWENTY ONE:
+  Both the player and dealer receive two cards initially. The player can then choose to HIT or STAY. If the player hits, she'll receive another card. If she doesn't BUST by exceeding a total of %{BLACKJACK} points, then she can choose to hit again until she busts or stays. If the player busts, she loses.
+  After the player stays, it's the dealer's turn. The dealer then chooses to hit or stay. The game is over when the dealer either busts or stays and the cards are compared. The player can win the game if the dealer busts, by having a hand that totals to %{BLACKJACK} (unless the dealer also has %{BLACKJACK}), or by having a hand which totals higher than the dealer's hand without exceeding %{BLACKJACK}.
+welcome: "Welcome to Twenty One!"
+get_player_name: "What's your name?"
+name_required: "You must enter a name."
+opponent_name: "You'll be playing against the dealer, %{dealer}."
+start_game: "Ante up, %{player}! Press enter to deal! "
+hit_or_stay: "Enter 'h' to hit or 's' to stay: "
+must_hit_or_stay: "You must enter 'h' to hit or 's' to stay: "
+player_cards: "=> %{name}'s cards are: "
+dealer_cards: "=> %{name} is showing: "
+unknown_card: "Unknown card"
+gambler_total: "The total of %{name}'s hand is %{total}."
+rank_and_suit: "%{rank} of %{suit}"
+goodbye: "Thanks for playing Twenty One. Goodbye!"
+buster_busted: "%{buster} busted!"
+winner_won: "%{winner} won!"
+push: "Push! No one won this game!"
+play_again: "Would you like to play again? Enter 'y' or 'n': "
+valid_y_or_n: "You must enter 'y' or 'n'."
