@@ -137,6 +137,7 @@ class Participant
   end
 
   def hit!
+    clear_screen
     display_hit_message
     blank_line
     deck.deal_one_card(hand)
@@ -144,7 +145,6 @@ class Participant
 end
 
 class Player < Participant
-
   def initialize(deck)
     @name = set_name
     super
@@ -171,6 +171,22 @@ class Player < Participant
     blank_line
   end
 
+  def assign_move
+    move = request_player_move
+    case move
+    when 'h'
+      hit!
+    when 's'
+      stay!
+      clear_screen
+      puts "You stay!  Dealer's turn."
+      blank_line
+      press_enter_to_continue
+    end
+  end
+
+  private
+
   def request_player_move
     puts "Would you like to (h)it or (s)tay?"
     answer = nil
@@ -180,20 +196,6 @@ class Player < Participant
       puts "I'm sorry, that's not a valid choice."
     end
     answer
-  end
-
-  def assign_move
-    move = request_player_move
-    case move
-    when 'h'
-      hit!
-      clear_screen
-      puts "You hit!"
-    when 's'
-      stay!
-      clear_screen
-      puts "You stay!  Dealer's turn."
-    end
   end
 end
 
@@ -236,6 +238,8 @@ class Deck
   def deal_one_card(hand)
     hand << deck.pop
   end
+
+  private
 
   def shuffle!
     @deck.shuffle!
@@ -290,7 +294,6 @@ class Game
     deal_cards
     show_cards
     player_turn
-    press_enter_to_continue
     dealer_turn unless player.busted?
   end
 
@@ -304,7 +307,6 @@ class Game
   def player_turn
     loop do
       player.assign_move
-      blank_line
       show_cards unless player.stay? || player.busted?
       break if player.stay? || player.busted?
     end
@@ -312,11 +314,11 @@ class Game
 
   def dealer_turn
     loop do
+      break if dealer.total >= 17
       dealer.assign_move
       show_cards
       press_enter_to_continue
       clear_screen
-      break if dealer.total >= 17
     end
     puts "Dealer stays!"
     blank_line

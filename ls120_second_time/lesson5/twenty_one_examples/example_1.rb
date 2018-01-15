@@ -1,375 +1,228 @@
-require 'yaml'
-
-MESSAGES = YAML.load_file('twenty_one_messages.yml')
-
-module Displayable
-  def clear_screen
-    system('cls') || system('clear')
+module Hand
+  def hit(one_card)
+    cards << one_card
   end
 
-  def display_welcome
-    clear_screen
-    puts MESSAGES['welcome']
-    puts ''
+  def ace_value(new_value)
+    ace = cards.select { |card| card.split[0] == 'A' }
+    if ace.size >= 1 && new_value < 11
+      new_value + 10
+    else
+      new_value + 0
+    end
   end
 
-  def display_instructions
-    clear_screen
-    puts MESSAGES['instructions'] % { BLACKJACK: TwentyOneGame::BLACKJACK }
+  def show_initial_cards
+    puts "#{player.name}'s hand is #{player.cards.join(', ')}."
     puts ''
-    puts MESSAGES['opponent_name'] % { dealer: dealer }
-    puts MESSAGES['start_game'] % { player: player }
-    gets
+    puts "#{dealer.name} is showing #{dealer.cards.first}."
+  end
+
+  def deal
+    2.times do
+      player.cards << deck.pop
+      dealer.cards << deck.pop
+    end
   end
 end
 
-class Gambler
-  attr_accessor :hand, :name
-
+class Participant
   def initialize
-    @hand = Hand.new
-    @name = ''
+    @cards = []
+  end
+
+  def total
+    values = []
+    cards.each do |card|
+      values << case card[0]
+                when 'K' then 10
+                when 'Q' then 10
+                when 'J' then 10
+                when 'A' then 1
+                else
+                  card.split[0].to_i
+                end
+    end
+    values = values.inject(:+)
+    values
+    # ace_value(values)
   end
 
   def busted?
-    hand.total > TwentyOneGame::BLACKJACK
+    return true if total > 21
   end
 
-  def twenty_one?
-    hand.total == TwentyOneGame::BLACKJACK
-  end
-
-  def bust_or_twenty_one?
-    busted? || twenty_one?
-  end
-
-  def to_s
-    name
-  end
-
-  def display_total_of_hand
-    puts ''
-    puts MESSAGES['gambler_total'] % { name: name, total: hand.update_total }
-  end
-end
-
-class Player < Gambler
-  def set_name
-    name = ''
-    loop do
-      puts MESSAGES['get_player_name']
-      name = gets.chomp
-      break if name =~ /\S/
-      puts MESSAGES['name_required']
-    end
-    self.name = name.capitalize
-  end
-
-  def take_turn
-    puts ''
-    puts MESSAGES['hit_or_stay']
-    input = nil
-
-    loop do
-      input = gets.chomp.downcase
-      break if ['h', 's'].include? input
-      puts MESSAGES['must_hit_or_stay']
-    end
-
-    input
-  end
-
-  def show_hand
-    puts MESSAGES['player_cards'] % { name: name }
-    puts hand.to_s
-    puts ''
-  end
-end
-
-class Dealer < Gambler
-  DEALER_STAYS_AT = 17
-
-  ROBOTS = ['R2D2', 'Hal', 'Chappie', 'Sonny', 'Number 5']
-
-  def initialize
-    super
-    @name = ROBOTS.sample
-  end
-
-  def take_turn
-    'hit' if hand.update_total < DEALER_STAYS_AT
-  end
-
-  def show_hand
-    puts MESSAGES['dealer_cards'] % { name: name }
-    hand.cards.reverse_each do |card|
-      if card.showing
-        puts card
-      else
-        puts MESSAGES['unknown_card']
-      end
-    end
-  end
-
-  def show_final_hand
-    puts MESSAGES['dealer_cards'] % { name: name }
-    hand.cards.reverse_each { |card| puts card }
-  end
-end
-
-class Card
-  FACE_CARD_VALUE = 10
-  ACE_DEFAULT_VALUE = 11
-
-  attr_reader :suit, :rank, :value
-  attr_accessor :showing
-
-  RANKS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace']
-  SUITS = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
-  VALUES =
-    RANKS.each_with_object({}) do |rank, values|
-      values[rank] =
-        if rank.is_a?(Integer)
-          rank
-        elsif rank == 'Ace'
-          ACE_DEFAULT_VALUE
-        else
-          FACE_CARD_VALUE
-        end
-    end
-
-  def initialize(suit, rank)
-    @showing = false
-    @suit = suit
-    @rank = rank
-    @value = VALUES[rank]
-  end
-
-  def to_s
-    MESSAGES['rank_and_suit'] % { rank: rank, suit: suit }
+  def show_cards
+    puts "#{name} has #{cards.join(', ')} for a total of #{total}."
   end
 end
 
 class Deck
-  attr_reader :cards
-
-  STANDARD_52 =
-    Card::SUITS.each_with_object([]) do |suit, deck|
-      Card::RANKS.each { |rank| deck << Card.new(suit, rank) }
-    end
+  SUITS = ['Hearts', 'Diamonds', 'Spades', 'Clubs']
+  VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'K', 'Q', 'J', 'A']
 
   def initialize
-    @cards = STANDARD_52
-    @size = @cards.size
+    @suits = SUITS
+    @values = VALUES
   end
 
-  def size
-    cards.size
-  end
-
-  def initial_deal!(gambler1, gambler2)
-    cards.shuffle!
-
-    [gambler1, gambler2].each do |gambler|
-      hand = gambler.hand.cards
-      2.times { hand << cards.pop }
-      hand.last.showing = true
+  def new_deck
+    deck = []
+    @suits.map do |suit|
+      @values.map do |value|
+        deck << "#{value} of #{suit}"
+      end
     end
-  end
-
-  def hit!(gambler)
-    hand = gambler.hand
-    hand.cards << cards.pop
-    hand.cards.last.showing = true
-    hand.update_total
+    deck
   end
 end
 
-class Hand
-  attr_accessor :cards, :total
+class Player < Participant
+  include Hand
+  attr_accessor :name, :cards
+
+  def initialize
+    @name = name
+    @cards = []
+  end
+end
+
+class Dealer < Participant
+  include Hand
+  attr_accessor :cards
+  attr_reader :name
 
   def initialize
     @cards = []
-    @total = 0
-  end
-
-  def >(other_player)
-    total > other_player.total
-  end
-
-  def to_s
-    cards.each(&:to_s)
-  end
-
-  def update_total
-    self.total = cards.map(&:value).inject(:+)
-
-    cards.select { |card| card.rank == 'Ace' }.count.times do
-      break if total <= TwentyOneGame::BLACKJACK
-      self.total -= 10
-    end
-
-    total
+    @name = ['R2D2', 'Chappie', 'Hal', 'Wall-E'].sample
   end
 end
 
-class TwentyOneGame
-  include Displayable
-
-  BLACKJACK = 21
-
-  attr_accessor :deck, :player, :dealer
+class Game
+  include Hand
+  attr_accessor :player, :dealer, :deck
 
   def initialize
+    @deck = Deck.new.new_deck
     @player = Player.new
     @dealer = Dealer.new
-    @deck = Deck.new
   end
 
   def start
-    display_welcome
-    player.set_name
-    display_instructions
-
-    main_game_loop
-
-    clear_screen
-    puts MESSAGES['goodbye']
+    game_start
+    loop do
+      deck.shuffle!
+      deal
+      turns_loop
+      puts ""
+      display_winners
+      puts "Do you want to play again? (y or n)"
+      answer = gets.chomp
+      break unless answer == 'y'
+      reset
+      system 'clear'
+    end
   end
 
-  private
-
-  def main_game_loop
+  def game_start
+    puts "Welcome to 21! What is your name?"
     loop do
-      deck.initial_deal!(player, dealer)
+      player.name = gets.chomp
+      break if player.name.size > 1 && player.name =~ /[^ ]/
+      puts "Please enter your name."
+    end
+    introductions
+  end
 
+  def introductions
+    puts "Nice to meet you, #{player.name}"
+    puts "Your dealer will be #{dealer.name}"
+    puts ''
+    puts "The goal of 21 is to get as close to 21 without going over."
+    puts "Lets play!"
+    puts ''
+    sleep(2)
+  end
+
+  def turns_loop
+    loop do
+      show_initial_cards
       player_turn
-      dealer_turn unless player.busted?
+      break if player.busted?
+      dealer_turn
+      break
+    end
+  end
 
-      display_final_outcome
-      play_again? ? reset! : break
+  def display_winners
+    dealer.show_cards
+    player.show_cards
+    puts ''
+    winner
+  end
+
+  def winner
+    if player_won?
+    elsif dealer_won?
+    elsif dealer.total == player.total
+      puts "It's a push!"
+    end
+  end
+
+  def player_won?
+    if dealer.busted?
+      puts "Dealer busted with #{dealer.total}! You win!"
+    elsif player.total > dealer.total && player.busted? != true
+      puts "#{player.name} won!"
+    end
+  end
+
+  def dealer_won?
+    if player.busted?
+      puts "You busted with #{player.total}! Dealer wins"
+    elsif dealer.total > player.total && dealer.busted? != true
+      puts "#{dealer.name} won!"
     end
   end
 
   def player_turn
     loop do
-      display_hands
-      player.display_total_of_hand
-
       break if player.busted?
+      player_turn_prompt
+      choice = gets.chomp
 
-      break unless player.take_turn == 'h'
-      deck.hit!(player)
+      loop do
+        break if choice == 'hit' || choice == 'stay'
+        puts "Please enter hit or stay."
+        choice = gets.chomp
+      end
+
+      system "clear"
+      return nil if choice == 'stay'
+      player.hit(deck.pop)
     end
+  end
+
+  def player_turn_prompt
+    puts "You now have a total of: #{player.total}"
+    puts "Dealer is showing #{dealer.cards.first}"
+    puts ''
+    puts "Would you like to hit or stay?"
+  end
+
+  def reset
+    self.deck = Deck.new.new_deck
+    player.cards = []
+    dealer.cards = []
   end
 
   def dealer_turn
     loop do
-      display_hands
-
-      break if dealer.bust_or_twenty_one?
-
-      if dealer.take_turn == 'hit'
-        puts "#{dealer} chose to hit..."
-        sleep 1.5
-        deck.hit!(dealer)
-      else
-        puts "#{dealer} chose to stay..."
-        sleep 1.5
-        break
-      end
+      break if dealer.total >= 17
+      dealer.hit(deck.pop)
+      dealer.total
     end
-  end
-
-  def determine_winner
-    if player.busted? || dealer.twenty_one? || twenty_one_tie?
-      dealer
-    elsif dealer.busted? || player.twenty_one?
-      player
-    else
-      compare_hands
-    end
-  end
-
-  def buster
-    if player.busted?
-      player
-    elsif dealer.busted?
-      dealer
-    end
-  end
-
-  def twenty_one_tie?
-    player.hand.total == BLACKJACK && dealer.hand.total == BLACKJACK
-  end
-
-  def compare_hands
-    if dealer.hand > player.hand
-      dealer
-    elsif player.hand > dealer.hand
-      player
-    end
-  end
-
-  def display_hands
-    clear_screen
-    player.show_hand
-    dealer.show_hand
-    puts ''
-  end
-
-  def display_final_hands
-    clear_screen
-
-    player.show_hand
-    dealer.show_final_hand
-  end
-
-  def display_buster
-    puts ''
-    puts MESSAGES['buster_busted'] % { buster: buster.name }
-  end
-
-  def display_winner
-    puts ''
-    winner = determine_winner
-
-    if winner
-      puts MESSAGES['winner_won'] % { winner: winner.name }
-    else
-      puts MESSAGES['push'].upcase
-    end
-  end
-
-  def display_final_outcome
-    display_final_hands
-
-    player.display_total_of_hand
-    dealer.display_total_of_hand
-
-    display_buster if buster
-    display_winner
-  end
-
-  def play_again?
-    response = nil
-    puts ''
-    puts MESSAGES['play_again']
-
-    loop do
-      response = gets.chomp.downcase
-      break if ['y', 'n'].include? response
-      puts MESSAGES['valid_y_or_n']
-    end
-
-    response == 'y'
-  end
-
-  def reset!
-    self.deck = Deck.new
-    player.hand = Hand.new
-    dealer.hand = Hand.new
   end
 end
 
-TwentyOneGame.new.start
+Game.new.start
