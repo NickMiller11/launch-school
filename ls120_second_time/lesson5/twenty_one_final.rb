@@ -30,7 +30,7 @@ module Display
     gets.chomp
   end
 
-  def display_current_player_score
+  def display_current_player_points
     puts "#{player.name}'s current point total: #{player.total}"
   end
 
@@ -332,7 +332,7 @@ class Game
 
   def show_points_and_cards
     show_cards
-    display_current_player_score
+    display_current_player_points
     blank_line
   end
 
