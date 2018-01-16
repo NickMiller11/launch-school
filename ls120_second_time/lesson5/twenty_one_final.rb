@@ -18,7 +18,7 @@ module Display
   end
 
   def display_you_busted_message
-    puts "You have #{player.total} points. You busted!"
+    puts "Oh no! You busted!"
   end
 
   def display_dealer_busted_message
@@ -28,6 +28,10 @@ module Display
   def press_enter_to_continue
     puts "Press enter to continue..."
     gets.chomp
+  end
+
+  def display_current_player_score
+    puts "#{player.name}'s current point total: #{player.total}"
   end
 
   def display_final_score
@@ -277,7 +281,7 @@ class Game
     loop do
       reset_game
       main_game
-      show_cards
+      show_points_and_cards
       display_result_and_score
       break unless play_again?
       clear_screen
@@ -290,7 +294,7 @@ class Game
 
   def main_game
     deal_cards
-    show_cards
+    show_points_and_cards
     player_turn
     dealer_turn unless player.busted?
   end
@@ -305,8 +309,7 @@ class Game
   def player_turn
     loop do
       player.assign_move
-      show_cards unless player.stay? || player.busted?
-      break if player.stay? || player.busted?
+      player.stay? || player.busted? ? break : show_points_and_cards
     end
   end
 
@@ -314,7 +317,7 @@ class Game
     loop do
       break if dealer.total >= 17
       dealer.assign_move
-      show_cards
+      show_points_and_cards
       press_enter_to_continue
       clear_screen
     end
@@ -325,6 +328,12 @@ class Game
   def show_cards
     player.show_cards
     dealer.show_cards
+  end
+
+  def show_points_and_cards
+    show_cards
+    display_current_player_score
+    blank_line
   end
 
   def reset_game
