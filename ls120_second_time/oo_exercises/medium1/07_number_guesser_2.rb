@@ -3,9 +3,11 @@
 
 class GuessingGame
 
-  def initialize
-    @guesses = 7
-    @answer = (1..100).to_a.sample
+  def initialize(min, max)
+    @min = min
+    @max = max
+    @guesses = Math.log2(@max - @min).to_i + 1
+    @answer = (@min..@max).to_a.sample
   end
 
   def play
@@ -31,15 +33,15 @@ class GuessingGame
 
   def ask_number
     num = nil
-    puts "Enter a number between 1 and 100: "
+    puts "Enter a number between #{@min} and #{@max}: "
     loop do
       num = gets.chomp.to_i
-      break if num.between?(1, 100)
+      break if num.between?(@min, @max)
       puts "Invalid guess.  Enter a number between 1 and 100: "
     end
     num
   end
 end
 
-game = GuessingGame.new
+game = GuessingGame.new(501, 1500)
 game.play
