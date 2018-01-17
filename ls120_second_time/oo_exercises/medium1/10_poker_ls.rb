@@ -10,15 +10,19 @@ evaluates those cards as a Poker hand.
 require 'pry'
 
 class PokerHand
-  attr_reader :hand
-
   def initialize(deck)
-    @hand = []
-    create_hand(deck)
+    @cards = []
+    @rank_count = Hash.new(0)
+
+    5.times do
+      card = deck.draw
+      @cards << card
+      @rank_count[card.rank] += 1
+    end
   end
 
   def print
-    puts hand
+    puts @cards
   end
 
   def evaluate
@@ -38,51 +42,46 @@ class PokerHand
 
   private
 
-  def to_s
-    hand.each { |card| puts card }
+  def flush?
+    suit = @cards.first.suit
+    @cards.all? { |card| card.suit == suit }
   end
 
-  def create_hand(deck)
-    5.times do
-      hand << deck.draw
-    end
+  def straight?
+    return false if @rank_count.any? { |_, count| count > 1 }
+    @cards.min.value == @cards.max.value - 4
   end
 
-  def royal_flush?
-    straight_flush? && hand.map(&:value).min == 10
+  def n_of_a_kind?(number)
+    @rank_count.one? { |_, count| count == number }
   end
 
   def straight_flush?
     flush? && straight?
   end
 
+  def royal_flush?
+    straight_flush? && @cards.min.rank == 10
+  end
+
   def four_of_a_kind?
-    hand.any? { |card| hand.count(card) == 4 }
+    n_of_a_kind?(4)
   end
 
   def full_house?
-    three_of_a_kind? && pair?
-  end
-
-  def flush?
-    hand.map(&:suit).uniq.size == 1
-  end
-
-  def straight?
-    ranks = hand.map(&:value)
-    ranks.max - ranks.min == 4 && hand.map(&:rank).uniq.size == 5
+    n_of_a_kind?(3) && n_of_a_kind?(2)
   end
 
   def three_of_a_kind?
-    hand.any? { |card| hand.count(card) == 3 }
+    n_of_a_kind?(3)
   end
 
   def two_pair?
-    pair? && hand.map(&:rank).uniq.size == 3
+    @rank_count.select { |_, count| count == 2}.size == 2
   end
 
   def pair?
-    hand.any? { |card| hand.count(card) == 2 }
+    n_of_a_kind?(2)
   end
 end
 
