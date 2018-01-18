@@ -10,13 +10,19 @@ evaluates those cards as a Poker hand.
 require 'pry'
 
 class PokerHand
+  attr_reader :hand
+
   def initialize(deck)
     @hand = []
     create_hand(deck)
   end
 
   def print
+<<<<<<< HEAD
+    puts hand
+=======
     @hand.each { |card| puts card }
+>>>>>>> f8ff0f987ca26f899934428ef0aa605ac364004b
   end
 
   def evaluate
@@ -36,42 +42,77 @@ class PokerHand
 
   private
 
+<<<<<<< HEAD
+  def to_s
+    hand.each { |card| puts card }
+  end
+
+  def create_hand(deck)
+    5.times do
+      hand << deck.draw
+=======
   def create_hand(deck)
     5.times do
       @hand << deck.draw
+>>>>>>> f8ff0f987ca26f899934428ef0aa605ac364004b
     end
   end
 
   def royal_flush?
+<<<<<<< HEAD
+    straight_flush? && hand.map(&:value).min == 10
+  end
+
+  def straight_flush?
+    flush? && straight?
+=======
     # straight_flush and rank minimum is 10
   end
 
   def straight_flush?
     straight? && flush?
+>>>>>>> f8ff0f987ca26f899934428ef0aa605ac364004b
   end
 
   def four_of_a_kind?
+    hand.any? { |card| hand.count(card) == 4 }
   end
 
   def full_house?
+<<<<<<< HEAD
+    three_of_a_kind? && pair?
+  end
+
+  def flush?
+    hand.map(&:suit).uniq.size == 1
+=======
     three_of_a_kind? && two_pair?
   end
 
   def flush?
     # all suits are the same
+>>>>>>> f8ff0f987ca26f899934428ef0aa605ac364004b
   end
 
   def straight?
+    ranks = hand.map(&:value)
+    ranks.max - ranks.min == 4 && hand.map(&:rank).uniq.size == 5
   end
 
   def three_of_a_kind?
+    hand.any? { |card| hand.count(card) == 3 }
   end
 
   def two_pair?
+    pair? && hand.map(&:rank).uniq.size == 3
   end
 
   def pair?
+<<<<<<< HEAD
+    hand.any? { |card| hand.count(card) == 2 }
+=======
 
+>>>>>>> f8ff0f987ca26f899934428ef0aa605ac364004b
   end
 end
 
