@@ -1,35 +1,80 @@
-=begin
-
-Input: string, array
-Output: array
-
-Rules:
-- return a list of items in same order with sequential duplicates removed
-
-Algo:
-- create a new array
-- use each with index to push item to new array if object at i - 1 doesn't
-  - equal object at i
-
-=end
-
-require 'pry'
-
-def unique_in_order(iterable)
-  new_arr = []
-  iterable = iterable.split('') if iterable.is_a?(Array) == false
-  iterable.each_with_index do |el, idx|
-    if idx == 0
-      new_arr << el
-    elsif iterable[idx] != iterable[idx - 1]
-      new_arr << el
-    end
-    # binding.pry
+module Delegate
+  def delegate_work
   end
-  new_arr
 end
 
+class Employee
+  attr_reader :name, :serial_num, :type, :vacation_days, :desk
 
-p unique_in_order('AAAABBBCCDAABBB') #== ['A', 'B', 'C', 'D', 'A', 'B']
-p unique_in_order('ABBCcAD')         #== ['A', 'B', 'C', 'c', 'A', 'D']
-p unique_in_order([1,2,2,3,3])       #== [1,2,3]
+  def initialize(name, serial_num)
+    @name = name
+    @serial_num = serial_num
+  end
+
+  def to_s
+    <<-MSG
+      Name: #{name}
+      Type: #{type}
+      Serial number: #{serial_num}
+      Vacation days: #{vacation_days}
+      Desk: #{desk}
+    MSG
+  end
+end
+
+class PartTimeEmployee < Employee
+  def initialize(name, serial_num)
+    super(name, serial_num)
+    @type = "Part-time"
+    @vacation_days = 0
+    @desk = "open workspace"
+  end
+end
+
+class FullTimeEmployee < Employee
+  def take_vacation
+  end
+end
+
+class Regular < FullTimeEmployee
+  def initialize(name, serial_num)
+    super(name, serial_num)
+    @type = "Regular"
+    @vacation_days = 10
+    @desk = "cubical farm"
+  end
+end
+
+class Executive < FullTimeEmployee
+  include Delegate
+
+  def initialize(name, serial_num)
+    super(name, serial_num)
+    @type = "Executive"
+    @vacation_days = 20
+    @desk = "corner office"
+  end
+end
+
+class Manager < FullTimeEmployee
+  include Delegate
+
+  def initialize(name, serial_num)
+    super(name, serial_num)
+    @type = "Manager"
+    @vacation_days = 14
+    @desk = "private office"
+  end
+end
+
+dave = Manager.new("Dave", 12345)
+puts dave
+puts
+tom = Executive.new("Tom", 67890)
+puts tom
+puts
+holly = Regular.new("Holly", 24680)
+puts holly
+puts
+kenji = PartTimeEmployee.new("Kenji", 13579)
+puts kenji
