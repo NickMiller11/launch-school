@@ -6,7 +6,7 @@ require_relative 'car'
 
 # assert
 class CarTest < MiniTest::Test
-  
+
   def test_car_exists
     car = Car.new
     assert(car)
