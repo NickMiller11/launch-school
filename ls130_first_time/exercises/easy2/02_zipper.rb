@@ -22,12 +22,30 @@ output: one array including nested arrays with alternating elements from each
   - input array
 
 rules:
-
-
+- create an array with nested arrays containing elements at the same index
+  - of each input array
 
 algorithm:
+- create a results array
+- create a counter
+- create a loop
+  - push element at counter index from each array to results array
+  - increment counter
+  - break if counter equals array size
+- return results array
 
 =end
+
+def zip(arr1, arr2)
+  results = []
+  counter = 0
+  loop do
+    results.push([arr1[counter], arr2[counter]])
+    counter += 1
+    break if counter == arr1.size
+  end
+  results
+end
 
 
 
