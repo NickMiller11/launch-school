@@ -19,6 +19,24 @@
 
 # Examples:
 
+=begin
+
+input: array, empty collection
+output: collection
+
+rules:
+- pass in each element of an input collection and an empty collection into the block
+- do not use block return value
+
+algorithm:
+
+=end
+
+def each_with_object(array, collection)
+  array.each { |el| yield(el, collection) }
+  collection
+end
+
 result = each_with_object([1, 3, 5], []) do |value, list|
   list << value**2
 end
