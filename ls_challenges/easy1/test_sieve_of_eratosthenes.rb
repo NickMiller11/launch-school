@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 Minitest::Reporters.use!
 
-require_relative 'sieve_of_eratosthenes'
+require_relative '02_sieve_of_eratosthenes'
 
 class SieveTest < Minitest::Test
   def test_a_few_primes
@@ -11,7 +11,6 @@ class SieveTest < Minitest::Test
   end
 
   def test_primes
-    skip
     expected = [
       2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59,
       61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127,

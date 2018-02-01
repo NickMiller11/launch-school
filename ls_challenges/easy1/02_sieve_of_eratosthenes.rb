@@ -43,3 +43,28 @@ algorithm:
 
 
 =end
+
+class Sieve
+  def initialize(max)
+    @max = max
+  end
+
+  def primes
+    number_set = (2..@max).to_a
+    counter = 2
+
+    loop do
+
+      number_set.each do |num|
+        next if num == counter
+        number_set.delete(num) if num % counter == 0
+      end
+
+      counter += 1
+      break if counter >= number_set[-1] / 2
+    end
+
+    number_set
+  end
+end
+
