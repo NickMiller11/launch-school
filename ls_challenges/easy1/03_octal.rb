@@ -56,15 +56,24 @@ require 'pry'
 
 class Octal
   def initialize(num)
-    @num = num.chars.map(&:to_i)
+    @num = num.chars
   end
 
   def to_decimal
+    return 0 if check_invalid_entry
+    @num.map!(&:to_i)
     counter = @num.size
+
     new_array = @num.map do |int|
       counter -= 1
       int*(8**counter)
     end
+
     new_array.reduce(:+)
   end
+
+  def check_invalid_entry
+    @num.any? { |number| number.to_i >= 8 || number.to_i.to_s != number }
+  end
 end
+
