@@ -24,13 +24,18 @@ rules:
 
 algorithm:
 - return nil if arr.empty?
--
+- instantiate a variable to track max value
+- yield to block and set return value to variable if return value is larger
+  than existing variable value
+- return variable
 
 =end
 
 def max_by(arr)
   return nil if arr.empty?
-
+  max = arr.first
+  arr[1..-1].each { |value| max = value if yield(value) > yield(max) }
+  max
 end
 
 p max_by([1, 5, 3]) { |value| value + 2 } == 5
