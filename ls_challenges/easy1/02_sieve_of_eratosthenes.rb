@@ -68,3 +68,47 @@ class Sieve
   end
 end
 
+# Thoughts after watching solution video:
+
+# It might have been a more literal interpretation of the problem
+# if I marked the numbers in an array in some way (for example, as nil)
+# and compacted the array rather than deleting.
+
+# Deleting is also not as optimized. When you delete an element in an array,
+# the system needs to move each element after it down an index
+
+#FizzBuzz Practice
+
+
+result = Array.new
+
+1.upto(100) do |num|
+  case
+  when num % 3 == 0 && num % 5 == 0 then result << "FizzBuzz"
+  when num % 3 == 0                 then result << "Fizz"
+  when num % 5 == 0                 then result << "Buzz"
+  else                                   result << num
+  end
+end
+
+puts result.join(" ")
+
+class FizzBuzz
+  def self.print_fizz_buzz(limit=100)
+    @numbers = (1..limit).to_a
+    @numbers.map! do |number|
+      if number % 3 == 0 && number % 5 == 0
+        'FizzBuzz'
+      elsif number % 3 == 0
+        'Fizz'
+      elsif number % 5 == 0
+        'Buzz'
+      else
+        number
+      end
+    end
+    puts @numbers.join(" ")
+  end
+end
+
+FizzBuzz.print_fizz_buzz(100)
