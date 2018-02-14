@@ -1,4 +1,4 @@
-lass Todo
+class Todo
   DONE_MARKER = 'X'
   UNDONE_MARKER = ' '
 
