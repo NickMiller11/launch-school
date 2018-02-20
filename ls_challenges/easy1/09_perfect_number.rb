@@ -54,6 +54,21 @@ Notes from video:
 
 - make sure to not include the number in the range using three dots ...
 
+- if you are going to define only class methods, you can add class << self
+  to the line after the class definition to define everything as a class method
+
+  ex:
+
+  class PerfectNumber
+    class << self
+      def classify(number) # this is now a class method
+
+  More here - http://yehudakatz.com/2009/11/15/metaprogramming-in-ruby-its-all-about-the-self/
+
+- on class instance variables (one student had in their  max_rotation code)
+  Dave Thomas on Ruby Object Models - https://www.youtube.com/watch?v=X2sgQ38UDVY
+  
+
 =end
 
 =begin
