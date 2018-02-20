@@ -43,14 +43,37 @@ algorithm:
 
 =end
 
+require 'pry'
+
 class DNA
   def initialize(strand)
     @strand = strand
   end
 
   def hamming_distance(distance)
-    equalize_size if @strand.size != distance.size
-    comparison = @strand.chars.zip(distance.chars)
+    min_size = [@strand.size, distance.size].min
+
+    comparison = @strand[0, min_size].chars.zip(distance[0, min_size].chars)
     comparison.select { |sub_arr| sub_arr.first != sub_arr.last }.count
+
+
+    # if @strand.size < distance.size
+    #   compare_strand = @strand
+    #   compare_distance = distance[0, @strand.size]
+    # elsif @strand.size > distance.size
+    #   compare_strand = @strand[0, distance.size]
+    #   compare_distance = distance
+    # else
+    #   compare_strand, compare_distance = @strand, distance
+    # end
+
+    # comparison = compare_strand.chars.zip(compare_distance.chars)
+    # comparison.select { |sub_arr| sub_arr.first != sub_arr.last }.count
   end
 end
+
+dna = DNA.new('AGACAACAGCCAGCCGCCGGATT')
+
+p dna.hamming_distance('AGGCAA')
+p dna.hamming_distance('AGACATCTTTCAGCCGCCGGATTAGGCAA')
+p dna.hamming_distance('AGG')
