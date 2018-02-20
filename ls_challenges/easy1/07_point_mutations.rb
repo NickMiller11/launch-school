@@ -60,6 +60,16 @@ end
 
 Notes from the video:
 
+-You can use #each to iterate through indices.
+ For example:
 
+ (0..(min_size - 1)).each do |index|
+   counter +=1 if @strand[index] != distance[index]
+ end
+
+ I supposed you could also do the above with #each_with_index on an array
+ and just underbar the char value and just use the index value
+
+- You can use (A...B) to do A up to B but not including B (use three dots)
 
 =end
