@@ -62,13 +62,22 @@ class Oddwords
 
   def convert
     arr = @string.split(' ')
-    binding.pry
-    arr.each_with_index { |word, index| index.odd ? puts word.reverse : puts word }
+    arr.each_with_index { |word, index| word.reverse! if index.odd? }
+    fix_last_period(arr)
+    arr.join(' ')
   end
+
+  private
+
+  def fix_last_period(arr)
+    arr[-1] == "." ? arr.pop : arr[-1].delete!(".")
+    arr[-1].insert(-1, '.')
+  end
+
 end
 
-test = Oddwords.new("whats the matter with kansas.")
-test.convert
+test = Oddwords.new("whats the matter now with kansas.")
+p test.convert
 
 
 
