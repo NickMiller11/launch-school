@@ -52,5 +52,49 @@ end
 
 Notes from video:
 
+Regarding the bonus -
+
+hide inconsistency behind:
+- methods
+- lamdas (procs)
+- classes
+
+Methods:
+
+lookup table
+def initialize
+  @verse_lookup = Hash.new(:verse_main).merge{ 0 => :verse_0, 1 => :verse_1, 2 => :verse_2 }
+end
+
+def verse(number)
+  method = @verse_lookup(number)
+  result = send(method)
+  return result
+end
+
+def verse_main
+end
+
+def verse_2
+end
+
+def verse_1
+end
+
+def verse_0
+end
+
+Lambdas: (I don't fully understand this...)
+
+def new
+  @verse_lookup =
+  { 0 => lambda {"..."},
+    1 => lambda {"..."},
+    2 => lambda {"..."},
+    3..99: lambda {|number| " #{number}...#{number-1}"
+  }
+end
+
+Classes:
 
 =end
