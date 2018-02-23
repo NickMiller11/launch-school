@@ -47,3 +47,10 @@ class BeerSong
     verses(99, 0)
   end
 end
+
+=begin
+
+Notes from video:
+
+
+=end
