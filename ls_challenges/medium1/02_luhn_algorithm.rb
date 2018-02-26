@@ -59,8 +59,58 @@ input: integer
 output: integer
 
 rules:
+Checksum algorithm:
 - starting from the rightmost digit, double the value of every second digit
+  - if the digit becomes 10 or more, subtract 9 from the result
+- add all digits together
+- number is valid if sum ends in 0
+- number is invalid all other times
+
+Methods:
+- check if number is valid (using above logic)
 
 algorithm:
+Addends:
+- use the checksum algorithm to convert the number
+
+create
+- create a new Luhn object
+- get the checksum and see if it's valid
 
 =end
+
+class Luhn
+  def initialize(number)
+    @number = number
+  end
+
+  def addends
+    arr = @number.digits
+
+    arr = arr.map.with_index do |digit, index|
+      if index.odd?
+        sum = digit * 2
+        sum >= 10 ? sum - 9 : sum
+      else
+        digit
+      end
+    end
+
+    arr.reverse
+  end
+
+  def checksum
+    addends.reduce(:+)
+  end
+
+  def valid?
+    checksum.digits.first == 0
+  end
+
+  def self.create(num)
+    times_ten = num * 10
+    test_number = Luhn.new(times_ten)
+    test_number.valid? ? times_ten : times_ten + (10 - test_number.checksum % 10)
+  end
+end
+
