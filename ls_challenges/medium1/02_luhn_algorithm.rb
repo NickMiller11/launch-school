@@ -109,8 +109,11 @@ class Luhn
 
   def self.create(num)
     times_ten = num * 10
-    test_number = Luhn.new(times_ten)
-    test_number.valid? ? times_ten : times_ten + (10 - test_number.checksum % 10)
+    test_number = new(times_ten)
+    if test_number.valid?
+      times_ten
+    else
+      times_ten + (10 - test_number.checksum % 10)
+    end
   end
 end
-
