@@ -89,3 +89,34 @@ class Translation
     result
   end
 end
+
+=begin
+
+Notes from video:
+- be careful of using ivar's in class methods (don't do it in general)
+
+- rather than calling methods to generate ivars to be used in class methods,
+  just create a local variable and assign it to the return value of those methods
+
+- if you're using #each to explicitly step through a collection, there is usually
+  a better way to do what you're trying to do
+
+- use "unless" instead of "if" something == false
+
+- if you use loop, while, for, or each, there is usually a more expressive method
+  you can use and use less code/less manual code
+
+- a clearer data structure for the codons would have been 'AUG' => 'Methionine'
+  rather than getting clever and putting them in an array
+
+- a good way to do raise the InvalidCodonError is:
+  CODONS.fetch(codon) { raise InvalidCodonError }
+  Need to use the simple hash structure described above to take advantage of this
+
+- a class is a special module that you can call .new on.  In other words, if you
+  never want to call .new, you can just make it a module instead of a class.
+  It becomes just a holder of a bag of methods at that point.
+
+- I could easily refactor self.of_rna to use each_with_object instead of each
+
+=end
