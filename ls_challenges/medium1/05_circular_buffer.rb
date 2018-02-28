@@ -48,10 +48,13 @@ algorithm:
 
 =end
 
-class BufferEmptyException < StandardError; end
-class BufferFullException < StandardError; end
+
 
 class CircularBuffer
+
+  class BufferEmptyException < StandardError; end
+  class BufferFullException < StandardError; end
+
   def initialize(size)
     @buffer = Array.new(size)
   end
@@ -59,7 +62,7 @@ class CircularBuffer
   def read
     raise BufferEmptyException unless @buffer.any?
     @buffer.push(nil)
-    @buffer.shift
+           .shift
   end
 
   def write(obj)
@@ -83,3 +86,10 @@ class CircularBuffer
     @buffer.map! { |x| x = nil }
   end
 end
+
+=begin
+
+Notes on video:
+
+
+=end
