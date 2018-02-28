@@ -55,6 +55,8 @@ algorithm:
 
 require 'pry'
 
+class InvalidCodonError < StandardError; end
+
 class Translation
   CODONS = {
     ['AUG'] => 'Methionine',
@@ -79,7 +81,7 @@ class Translation
       if of_codon(codon) == "STOP"
         break
       elsif of_codon(codon) == nil
-        raise InvalidCodonError
+        raise(InvalidCodonError)
       else
         result << of_codon(codon)
       end
@@ -87,8 +89,3 @@ class Translation
     result
   end
 end
-
-# raising a custom error isn't working right now
-
-strand = 'CARROT'
-p Translation.of_rna(strand)
