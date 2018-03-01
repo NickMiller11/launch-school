@@ -91,5 +91,16 @@ end
 
 Notes on video:
 
+- seems like I made a crawling buffer, not a circular buffer. Not sure I
+  fully understand the difference...I guess the circular buffer tracks the
+  index of the oldest read and write objects so you can just replace/remove
+  with a new object rather than actually removing/adding objects to the array
+  Seems like the top solutions on the challenge site are also crawling buffers,
+  so I guess they're not paying that close attention to the difference
+
+- don't forget that sometimes array methods allow you to pass in a block
+  For example - @buffer.delete(@buffer[0]) { fail BufferEmptyException }
+
+
 
 =end
