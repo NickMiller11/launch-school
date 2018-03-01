@@ -38,23 +38,62 @@ algorithm:
   - fifth = 30-31
   - last = somewhere between 22-28 and 25-31
 
+- use range and look up specific day based on day of week
+- create and return new date object
+
 =end
 
 require 'date'
 
 class Meetup
-  DAYS_OF_WEEK = Date::DAYNAMES
+  MONTH_RANGES = {
+                  first: (1..7),
+                  second: (8..14),
+                  teenth: (13..19),
+                  third: (15..21),
+                  fourth: (22..29),
+                  last_28: (22..28),
+                  last_30: (24..30),
+                  last_31: (25..31)
+                  }
+
+  WEEKDAYS =      {
+                  monday: 1,
+                  tuesday: 2,
+                  wednesday: 3,
+                  thursday: 4,
+                  friday: 5,
+                  saturday: 6,
+                  sunday: 7
+                  }
 
   def initialize(month, year)
     @month = month
     @year = year
   end
 
-  def day(weekday, schedule)
 
+
+  def day(weekday, schedule)
+    if schedule == :last && Date.new(@year, @month, -1).mday == 28
+      find_correct_date(weekday, :last_28)
+    elsif schedule == :last && Date.new(@year, @month, -1).mday == 30
+      find_correct_date(weekday, :last_30)
+    elsif schedule == :last && Date.new(@year, @month, -1).mday == 31
+      find_correct_date(weekday, :last_31)
+    else
+      find_correct_date(weekday, schedule)
+    end
   end
 
+  private
+
+  def find_correct_date(weekday, schedule)
+    MONTH_RANGES[schedule].each do |date|
+      test_date = Date.new(@year, @month, date)
+      return test_date if test_date.cwday == WEEKDAYS[weekday]
+    end
+  end
 
 end
 
-Meetup.new(5, 2013).day(:monday, :teenth)
