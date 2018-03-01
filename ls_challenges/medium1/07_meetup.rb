@@ -29,7 +29,14 @@ rules:
   with "teenth" on the end (example: Wednesteenth)
 
 algorithm:
-- calculate
+- calculate range of week
+  - first = 1-7
+  - second = 8-14
+  - teenth = 13-19
+  - third = 15-21
+  - fourth = 22-29
+  - fifth = 30-31
+  - last = somewhere between 22-28 and 25-31
 
 =end
 
