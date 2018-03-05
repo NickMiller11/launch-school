@@ -46,7 +46,7 @@ algorithm:
 require 'date'
 
 class Meetup
-  MONTH_RANGES = {
+  MONTH_RANGES =  {
                   first: (1..7),
                   second: (8..14),
                   teenth: (13..19),
@@ -72,8 +72,6 @@ class Meetup
     @year = year
   end
 
-
-
   def day(weekday, schedule)
     if schedule == :last && Date.new(@year, @month, -1).mday == 28
       find_correct_date(weekday, :last_28)
@@ -97,3 +95,19 @@ class Meetup
 
 end
 
+=begin
+
+Notes from video:
+
+- Looking at the description of the problem can help you come up with names for
+  parameters or other variables.
+
+- Array#detect is like #select but will give you just the first element that the
+  block returns true for.
+
+- Learn more about the #send and #public_send methods here -
+  http://vaidehijoshi.github.io/blog/2015/05/05/metaprogramming-dynamic-methods-using-public-send/
+
+- try to rewrite this without using ranges
+
+=end
