@@ -63,7 +63,7 @@ class PhoneNumber
     @phone_number.size > 11 ||
     @phone_number.size < 10 ||
     (@phone_number.size == 11 && @phone_number.chr != '1')
-  end
+  end 
 
   def area_code
     @phone_number[-10..-8]
