@@ -45,32 +45,76 @@ to_s method
 =end
 
 class PhoneNumber
+  INVALID = '0000000000'
+
   def initialize(phone_number)
     @phone_number = phone_number
   end
 
   def number
-    result_number = @phone_number
-    result_number.gsub!(/[\W]|/, '')
-    if result_number.size == 10 && !result_number.match(/[a-z]/i)
-      result_number
-    elsif result_number.size == 11 && result_number.chr == '1'
-      result_number[1..-1]
-    else
-      '0000000000'
-    end
+    return INVALID if @phone_number.match(/[a-z]/i)
+    @phone_number.gsub!(/[\W]|/, '')
+    return INVALID if invalid?
+
+    @phone_number.size == 10 ? @phone_number : @phone_number[1..-1]
+  end
+
+  def invalid?
+    @phone_number.size > 11 ||
+    @phone_number.size < 10 ||
+    (@phone_number.size == 11 && @phone_number.chr != '1')
   end
 
   def area_code
-    number[0...3]
+    @phone_number[-10..-8]
+  end
+
+  def middle_three_digits
+    @phone_number[-7..-5]
+  end
+
+  def last_four_digits
+    @phone_number[-4..-1]
   end
 
   def to_s
-    area_code = @phone_number[-10..-8]
-    first_three = @phone_number[-7..-5]
-    last_four = @phone_number[-4..-1]
-    "(#{area_code}) #{first_three}-#{last_four}"
+    "(#{area_code}) #{middle_three_digits}-#{last_four_digits}"
   end
-
-
 end
+
+############ Original Refactored Solution ################
+
+# class PhoneNumber
+
+#   def initialize(phone_number)
+#     @phone_number = phone_number
+#   end
+
+#   def number
+#     @phone_number.gsub!(/[\W]|/, '')
+
+#     if @phone_number.size == 10 && !@phone_number.match(/[\D]/)
+#       @phone_number
+#     elsif @phone_number.size == 11 && @phone_number.chr == '1'
+#       @phone_number[1..-1]
+#     else
+#       '0000000000'
+#     end
+#   end
+
+#   def area_code
+#     @phone_number[-10..-8]
+#   end
+
+#   def middle_three_digits
+#     @phone_number[-7..-5]
+#   end
+
+#   def last_four_digits
+#     @phone_number[-4..-1]
+#   end
+
+#   def to_s
+#     "(#{area_code}) #{middle_three_digits}-#{last_four_digits}"
+#   end
+# end
