@@ -1,9 +1,12 @@
-def divisors(num)
-  (1..num**0.5).flat_map { |n| [n, num / n] if (num % n).zero? }.compact.uniq.sort
+
+def none?(arr)
+  arr.each_with_object(true) { |el| return false if yield(el) }
 end
 
-p divisors(1) == [1]
-p divisors(7) == [1, 7]
-p divisors(12) == [1, 2, 3, 4, 6, 12]
-p divisors(98) == [1, 2, 7, 14, 49, 98]
-p divisors(99400891) == [1, 9967, 9973, 99400891] # may take a minute
+p none?([1, 3, 5, 6]) { |value| value.even? } == false
+p none?([1, 3, 5, 7]) { |value| value.even? } == true
+p none?([2, 4, 6, 8]) { |value| value.odd? } == true
+p none?([1, 3, 5, 7]) { |value| value % 5 == 0 } == false
+p none?([1, 3, 5, 7]) { |value| true } == false
+p none?([1, 3, 5, 7]) { |value| false } == true
+p none?([]) { |value| true } == true
