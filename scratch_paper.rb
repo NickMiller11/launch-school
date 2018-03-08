@@ -1,12 +1,19 @@
 
-def none?(arr)
-  arr.each_with_object(true) { |el| return false if yield(el) }
-end
+# def map(arr)
+#   arr.each_with_object([]) do |value, object|
+#     object << yield(value)
+#   end
+# end
 
-p none?([1, 3, 5, 6]) { |value| value.even? } == false
-p none?([1, 3, 5, 7]) { |value| value.even? } == true
-p none?([2, 4, 6, 8]) { |value| value.odd? } == true
-p none?([1, 3, 5, 7]) { |value| value % 5 == 0 } == false
-p none?([1, 3, 5, 7]) { |value| true } == false
-p none?([1, 3, 5, 7]) { |value| false } == true
-p none?([]) { |value| true } == true
+# def map(arr)
+#   arr.reduce([]) do |result, value|
+#     result << yield(value)
+#   end
+# end
+
+p map([1, 3, 6]) { |value| value**2 } == [1, 9, 36]
+p map([]) { |value| true } == []
+p map(['a', 'b', 'c', 'd']) { |value| false } == [false, false, false, false]
+p map(['a', 'b', 'c', 'd']) { |value| value.upcase } == ['A', 'B', 'C', 'D']
+p map([1, 3, 4]) { |value| (1..value).to_a } == [[1], [1, 2, 3], [1, 2, 3, 4]]
+

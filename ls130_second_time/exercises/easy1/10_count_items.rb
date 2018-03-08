@@ -43,3 +43,20 @@ p count([1,2,3,4,5]) { |value| true } == 5
 p count([1,2,3,4,5]) { |value| false } == 0
 p count([]) { |value| value.even? } == 0
 p count(%w(Four score and seven)) { |value| value.size == 5 } == 2
+
+# Some other solutions I made/found that I liked
+
+# def count(arr)
+#   arr.reduce(0) do |memo, obj|
+#     yield(obj) ? memo + 1 : memo
+#   end
+# end
+
+# def count(arr, counter = 0, &block)
+#   return counter if arr.empty?
+#   count(arr.drop(1), &block) + (block.call(arr.first) ? 1 : 0)
+# end
+
+# def count(arr, &block) # I like this, you're passing the block into select as is
+#   arr.select(&block).length
+# end

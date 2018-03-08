@@ -58,3 +58,18 @@ p map([]) { |value| true } == []
 p map(['a', 'b', 'c', 'd']) { |value| false } == [false, false, false, false]
 p map(['a', 'b', 'c', 'd']) { |value| value.upcase } == ['A', 'B', 'C', 'D']
 p map([1, 3, 4]) { |value| (1..value).to_a } == [[1], [1, 2, 3], [1, 2, 3, 4]]
+
+# Some other methods I made/found
+
+
+# def map(arr)
+#   arr.each_with_object([]) do |value, object|
+#     object << yield(value)
+#   end
+# end
+
+# def map(arr)
+#   arr.reduce([]) do |result, value|
+#     result << yield(value)
+#   end
+# end

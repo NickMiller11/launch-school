@@ -38,3 +38,26 @@ def zip(arr1, arr2)
 end
 
 p zip([1, 2, 3], [4, 5, 6]) == [[1, 4], [2, 5], [3, 6]]
+
+# some other solutions I made/found
+
+# def zip(arr1, arr2)
+#   counter = 0
+#   result_array = []
+#   while counter < arr1.size
+#     result_array << [arr1[counter], arr2[counter]]
+#     counter += 1
+#   end
+#   result_array
+# end
+
+# def zip(arr1, arr2)
+#   arr1.each_with_object([]).with_index do | (value, obj), idx|
+#     obj << [value, arr2[idx]]
+#   end
+# end
+
+# map is a nice, simple solution here, and fulfills the requirement of returning a new array
+# def zip(a1, a2)
+#   a1.each_index.map { |i| [a1[i], a2[i]] }
+# end

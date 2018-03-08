@@ -61,3 +61,30 @@ p one?([1, 3, 5, 7]) { |value| value % 5 == 0 } # -> true
 p one?([1, 3, 5, 7]) { |value| true }           # -> false
 p one?([1, 3, 5, 7]) { |value| false }          # -> false
 p one?([]) { |value| true }                     # -> false
+
+# Here are some extra solutions I came up with/found
+
+# def one?(arr)
+#   counter = 0
+#   arr.each do |el|
+#     counter += 1 if yield(el)
+#     return false if counter >= 2
+#   end
+#   counter == 1
+# end
+
+# def one?(arr) # doesn't meet the short circuit requirement
+#   arr.each_with_object([]) { |el, obj| obj << el if yield(el)}.size == 1
+# end
+
+# def one?(arr) # nice use of reduce!
+#   arr.reduce(0) do |memo, num|
+#     return false if memo > 1
+#     yield(num) ? memo + 1 : memo
+#   end == 1
+# end
+
+# def one?(arr, counter = 0, &block)
+#   return counter == 1 if arr.empty? || counter > 1
+#   one?(arr.drop(1), block.call(arr.first) ? counter + 1 : counter, &block)
+# end
