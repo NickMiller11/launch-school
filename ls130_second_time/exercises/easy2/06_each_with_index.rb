@@ -49,3 +49,20 @@ puts result == [1, 3, 6]
 # 1 -> 3
 # 2 -> 36
 # true
+
+# other solutions that I worked on/found
+
+# recursive
+# def each_with_index(arr, index=0, &block)
+#   index < arr.size ? block.call(arr[index], index) : (return arr)
+#   each_with_index(arr, index + 1, &block)
+# end
+
+# # reduce
+# def each_with_index(arr)
+#   arr.reduce(0) do |idx, val|
+#     yield(val, idx)
+#     idx += 1
+#   end
+#   arr
+# end

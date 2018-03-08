@@ -1,15 +1,41 @@
-def drop_while(arr)
-  arr.each_with_index do |el, index|
-    return arr[index..-1] if !yield(el)
-  end
-  []
+# def each_cons(arr)
+#   arr[0..-2].each_with_index { |value, index| yield(value, arr[index + 1]) } ; nil
+# end
+
+# def each_cons(arr)
+#   index = 0
+#   while index < arr.size - 1
+#     yield(arr[index], arr[index + 1])
+#     index += 1
+#   end
+# end
+
+hash = {}
+each_cons([1, 3, 6, 10], 1) do |value|
+  hash[value] = true
 end
+p hash == { 1 => true, 3 => true, 6 => true, 10 => true }
 
+hash = {}
+each_cons([1, 3, 6, 10], 2) do |value1, value2|
+  hash[value1] = value2
+end
+p hash == { 1 => 3, 3 => 6, 6 => 10 }
 
+hash = {}
+each_cons([1, 3, 6, 10], 3) do |value1, *values|
+  hash[value1] = values
+end
+p hash == { 1 => [3, 6], 3 => [6, 10] }
 
-p drop_while([1, 3, 5, 6]) { |value| value.odd? } == [6]
-p drop_while([1, 3, 5, 6]) { |value| value.even? } == [1, 3, 5, 6]
-p drop_while([1, 3, 5, 6]) { |value| true } == []
-p drop_while([1, 3, 5, 6]) { |value| false } == [1, 3, 5, 6]
-p drop_while([1, 3, 5, 6]) { |value| value < 5 } == [5, 6]
-p drop_while([]) { |value| true } == []
+hash = {}
+each_cons([1, 3, 6, 10], 4) do |value1, *values|
+  hash[value1] = values
+end
+p hash == { 1 => [3, 6, 10] }
+
+hash = {}
+each_cons([1, 3, 6, 10], 5) do |value1, *values|
+  hash[value1] = values
+end
+p hash == {}

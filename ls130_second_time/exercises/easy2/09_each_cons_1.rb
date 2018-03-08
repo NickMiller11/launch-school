@@ -58,3 +58,17 @@ each_cons(['a', 'b']) do |value1, value2|
 end
 
 p hash == {'a' => 'b'}
+
+# some more practice with methods I wrote
+
+# def each_cons(arr)
+#   arr[0..-2].each_with_index { |value, index| yield(value, arr[index + 1]) } ; nil
+# end
+
+# def each_cons(arr)
+#   index = 0
+#   while index < arr.size - 1
+#     yield(arr[index], arr[index + 1])
+#     index += 1
+#   end
+# end
