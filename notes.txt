@@ -1,5 +1,13 @@
 For example, if in the course we say to start a Sinatra program using this command:
 $ bundle exec ruby program.rb
+or
+$ bundle exec rackup config.ru -p 9595
+
+You can use the curl command to act as a client and issue a request to the server
+$ curl -X GET localhost:9595 -m 30 -v
 
 On Cloud9, you'll need to do this:
 $ bundle exec ruby program.rb -p $PORT -o $IP
+or
+$ bundle exec rackup program.ru -p $PORT -o $IP
+
