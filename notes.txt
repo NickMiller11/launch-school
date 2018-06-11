@@ -11,6 +11,244 @@ $ bundle exec ruby program.rb -p $PORT -o $IP
 or
 $ bundle exec rackup program.ru -p $PORT -o $IP
 
-
+bundle exec ruby cms.rb -p $PORT -o $IP
+bundle exec ruby users.rb -p $PORT -o $IP
 bundle exec ruby todo.rb -p $PORT -o $IP
+bundle exec ruby book_viewer.rb -p $PORT -o $IP
 https://launch-school-nickmiller11.c9users.io/
+
+Todo List Project
+
+Project template -
+look at the template that we'll be building
+
+config.ru - describes what code needs to be run
+when the application is started
+
+Gemfile - just a few dependencies
+
+todo.rb - main file for the project.  Define all routes
+and functionality.  tilt/erubis gives us the ability
+to render erb files.
+
+Views dir - has layout.erb which is the main layout
+for the entire project. Requiring fonts from google
+and a couple stylesheets.
+
+Whitespace-reset - make styles more consistent across
+rendering sessions
+
+Application.css - main css file for the application
+
+# erb "You have no lists." <-- it is rendering this
+code inline
+
+### Viewing All Todo Lists
+
+Start by creating the ultimate state that you want in
+the routing
+  - use hard coded data to set up the structure first
+  - for example, we used a hard-coded "lunch groceries"
+    and "dinner groceries" as two sample lists when
+    building the logic for the view template.
+
+### Creating a new todo list
+
+- change it so that the data will persist between
+  different requests
+- add a form where users can enter the name of a new
+  list
+
+- move lists into a session...
+  - use the configure block to both increase readability
+    in your code, as well as to specify environments
+    "configure :development do ... end"
+
+  - "enable :sessions" enables sessions to keep state
+    during requests.  You can set the :session_secret
+    to something, ideally a randomly generated number
+    and stored in an environment variable
+
+  - if we don't specify a :session_secret value, sinatra
+    will create a different value automatically each time
+    the server restarts.  Setting a value ourselves, will
+    allow the data to persist no matter how many times we
+    restart the server.
+
+### URL Discussion
+
+- add comments to describe what each of the routes do
+
+- be consistent in the URL naming scheme
+
+### Clearing Cookies
+
+- manipulate cookies stored in the browser to reset session
+  - delete the cookie "rack.session" to clear the session data
+
+- you can cut the value of a cookie and paste it into a different cookie to
+  recreate the session
+
+### Flash Messages
+
+- Purpose - flash a message saying that a todo list was added successfully
+
+- Challenge - there are two different requests we need to work inside of
+
+- Easy way is to use the session date by adding a new key "success" to the
+  session hash
+
+  - add logic to the view template to display the value for session[:sucess]
+    if it exists -> simple if statement
+
+  - the problem is that the message will stay there.  In order to get the
+    message to show and leave, need to delete the value of session[:success]
+    instead of display it.  Deleting the value will return that value, causing
+    it to be displayed on the page, and then will be gone with the next refresh
+
+### Validations
+
+- Want to also display a message if something goes wrong
+
+- If there is no name passed when creating a todo list
+
+- Uses the same logic to flash the success method to flash one for errors
+
+- Uses String#strip to prevent a name of only whitespace characters
+
+- It's best to move the code for the flash messages (success and error) to the
+  layout view template as we'll probably want to use them in other instances
+  or show them on multiple pages.
+
+- With organizing routes:
+  - if a valid action takes place --> redirect
+  - if there is an error --> render a page
+
+  Why? Because of HTTP's stateless nature
+  - if there is an error, we want to go back and fix it.  This means having
+    access to our parameters and instance variables set in the current route.
+    If we redirect to a new page, we lost access to that data.
+
+### Refactoring Validations
+
+- Want to prevent duplicate todo list names
+  - add a validation as an elsif statement in the post "/lists" route
+  - make sure to have the error cases be the if/elsif statements.
+    - use else for the clear path
+    - this means that the code needs to go through the error cases first
+      before it gets to the clear path as the final case
+
+- If you wanted to display multiple errors, you could create an array
+  of error messages and iterate through them, displaying each on the screen
+
+### Capturing Template Content For Display Elsewhere
+
+- move navigational links from the bottom to the top
+  - Why?  We want it always visible.  If it's at the bottom, it could be pushed
+    off the page if there are many lists.
+
+  - The question is how do we put this view template-specific code in our
+    individual view templates to yield back to layout, but do it separately
+    from the main content that is being yielded with the regular 'yield'
+    statement?
+    - Use a "content_for" block -> part of the Sinatra Contrib library
+      - Needs to be required with -> require "sinatra/content_for"
+      - Structure is below
+
+        In the view:
+        <% content_for :some_key do %>
+          <chunk of="html">...</chunk>
+        <% end %>
+
+        In the layout:
+        <%= yield_content :some_key %>
+
+
+### Delete Todo Lists
+
+- You should never use a GET request when modifying or deleting data (whoops!)
+  - change it from a link to a form (GET to POST)
+
+### Marking Todos as Completed
+
+- Need to set the right form action, in other words,
+ exactly what URL does this form post to?
+  - in this case, something very similar to the URL we used
+  in the form to delete a todo
+    - "/lists/<%= @list_id %>/todos/<%= index %>/"
+
+- Need to also think about what value
+  - We don't want to just toggle the true/false status,
+    we want to specifically send a true or false message
+    depending on what we want the status to be.
+
+### Sorting and Filtering with Helpers
+
+- Can't sort by boolean -> not a sortable/comparable value
+  - they are naturally unordered
+
+- If not using a database and unique id's like a database
+  would handle, best to use view helpers to help view the
+  lists/todos in the order you want rather than actually
+  reordering the arrays since all lookup is based on
+  index in the array
+
+- I was actually able to do this on my own!  Here is my solution:
+
+# todo.rb
+  def create_sorted_structure(list)
+    sorted_list = list.each_with_object([]) { |item, obj| obj << item }
+    sorted_list
+  end
+
+  def sorted_lists(lists)
+    sorted_list = create_sorted_structure(lists)
+    sorted_list.sort_by { |list| list_complete?(list) ? 1 : 0 }
+  end
+
+  def sorted_todos(list)
+    sorted_todos = create_sorted_structure(list)
+    sorted_todos.sort_by { |todo| todo[:completed] ? 1 : 0 }
+  end
+
+# list.erb
+<ul>
+  <% sorted_todos(@list[:todos]).each_with_index do |todo,_| %>
+    <% if todo[:completed] %>
+      <li class="complete">
+    <% else %>
+      <li>
+    <% end %>
+      <form action="/lists/<%= @list_id %>/todos/<%= @list[:todos].index(todo) %>" method="post" class="check">
+        <input type="hidden" name="completed" value="<%= !todo[:completed] %>" />
+        <button type="submit">Complete</button>
+      </form>
+
+      <h3><%= todo[:name] %></h3>
+      <form action="/lists/<%= @list_id %>/todos/<%= @list[:todos].index(todo) %>/destroy" method="post" class="delete">
+        <button type="submit">Delete</button>
+      </form>
+    </li>
+  <% end %>
+</ul>
+
+# lists.erb
+
+<ul id="lists">
+  <% sorted_lists(@lists).each_with_index do |list,_| %>
+    <li class="<%= list_class(list) %>">
+      <a href="/lists/<%= @lists.index(list) %>">
+        <h2><%= list[:name] %></h2>
+        <p><%= todos_remaining_count(list) %> / <%= todos_count(list) %></p>
+      </a>
+    </li>
+  <% end %>
+</ul>
+
+- they ended up using the Enumerable#partition method to separate lists/todos
+  into two different collections
+
+- overall, the provided solution is vastly more elegant than mine, doing things
+  that I'm not 100% comfortable with like passing in a block and yielding back
+  to the block.  BUT the important point was that I did create a solution by
+  myself and it did work.
