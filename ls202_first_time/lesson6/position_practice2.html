@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Position Practice Problems</title>
+    <meta charset="utf-8" />
+    <style>
+      #positioned {
+        background-color: #ffc;
+        padding: 30px 15px;
+        left: 50%;
+        box-sizing: border-box;
+        margin-top: 20px;
+        margin-left:-200px;
+        top: 0;
+        width: 400px;
+        position: fixed;
+        z-index: 3;
+      }
+
+      #middle {
+        background-color: rgba(0, 0, 0, .6);
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        position: fixed;
+        z-index: 2;
+      }
+
+      #pinkbox {
+        background-color: pink;
+        height: 20px;
+        width: 20px;
+        position: absolute;
+        top: -10px;
+        left: -10px;
+      }
+
+      p {
+        z-index: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu cursus tortor, vulputate ultrices neque. Nulla feugiat diam eget pharetra mollis. Nam ac interdum massa, vel pellentesque lacus. Nullam vitae consequat velit. Curabitur eget nulla dui. Maecenas nulla magna, fermentum in dui laoreet, venenatis iaculis orci. Aliquam erat volutpat. Nam condimentum odio quis purus efficitur, et dictum massa volutpat. Morbi posuere dui eros, ut vestibulum neque tincidunt nec. Curabitur mollis vehicula malesuada. Vivamus fringilla cursus diam, nec consectetur nisi facilisis non. Donec sed nisi metus.</p>
+
+        <p>Praesent vitae risus dignissim, aliquet nulla nec, pretium ligula. Morbi urna elit, luctus eget elit nec, tincidunt pellentesque neque. Curabitur ac consequat mauris. Aenean porttitor rhoncus leo, vel consequat est mattis in. Morbi pulvinar nec est vel rutrum. Sed id rutrum ante. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec at turpis ut mauris facilisis eleifend eget at nisi. Cras lacus enim, egestas ac vehicula ac, luctus quis velit. Sed et cursus ante, nec sollicitudin nunc. Donec vel accumsan augue. Suspendisse eget accumsan massa, eget consequat urna. Vivamus commodo vel massa eget iaculis. Curabitur ligula urna, mattis sed congue ac, vehicula in lorem.</p>
+
+        <p>Suspendisse semper magna ac nunc fermentum, eu dignissim erat cursus. Duis scelerisque, purus non placerat cursus, sapien erat pellentesque lorem, et pulvinar mauris risus at augue. Phasellus sit amet justo erat. Vestibulum ullamcorper faucibus elit porta venenatis. Suspendisse tempor consequat diam sit amet fringilla. Donec maximus pulvinar ipsum, eget condimentum ligula ultrices ac. Maecenas elementum luctus fermentum. Integer finibus quis est nec rhoncus. Aliquam nec dictum lacus.</p>
+
+        <p>Nunc vitae sem sed nunc vehicula feugiat. Vestibulum at massa fringilla, tristique lacus vel, auctor ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean in justo odio. In luctus, tellus sed tincidunt posuere, velit sapien blandit nunc, eu commodo ipsum urna in ipsum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque ullamcorper congue justo, a porttitor ante commodo id. Aenean laoreet metus ante, vel fringilla lacus pulvinar ut. Donec interdum nunc eget sem mollis cursus. Pellentesque at libero mi. Morbi id tellus id urna auctor fermentum quis sit amet dui. Nulla tempor, nunc id semper consectetur, nunc dui pharetra quam, eget eleifend risus dolor ac tortor. In non massa tristique, malesuada massa sed, tincidunt est. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+
+        <p>Maecenas placerat id magna sed cursus. Sed eros nunc, consequat sed lacus eu, finibus pretium tellus. Sed pretium eu arcu non maximus. Morbi ac laoreet dui. Sed id nisl venenatis, scelerisque felis porttitor, rhoncus est. Nullam nisi purus, convallis ac est et, tincidunt fermentum nibh. Nam quis arcu erat.</p>
+
+        <p>In congue gravida mi eget tempus. Donec semper faucibus lectus, et semper diam. Suspendisse potenti. Maecenas a erat a nulla molestie commodo ac in tellus. Praesent pulvinar semper erat, id elementum sapien lacinia sit amet. Proin justo justo, tincidunt sed metus at, lacinia volutpat nulla. Donec eu dolor et leo placerat egestas. Sed sollicitudin in urna sit amet aliquam. Donec convallis ornare interdum. Nulla at commodo mauris, nec consectetur turpis.</p>
+
+        <p>Integer molestie nulla vitae felis auctor, ac volutpat nisi blandit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at quam in erat tempor ornare. Cras sit amet ligula eu lectus laoreet tempor. Nam id erat quis tortor interdum gravida sit amet in nisl. Praesent dui augue, accumsan non velit ultricies, pulvinar sollicitudin mi. Nunc sit amet tempor dui. Etiam arcu enim, rutrum non massa ut, efficitur facilisis augue.</p>
+
+        <p>Vivamus ac nunc neque. Vestibulum vehicula aliquet felis, at sollicitudin tellus egestas vitae. In ut tortor id mi tempor varius. Sed eros nisi, pharetra eu blandit et, interdum a leo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed placerat nunc vitae justo scelerisque, et pharetra purus ultricies. Praesent eget lectus id sapien ornare laoreet ut tincidunt sem. Nam et diam dui. Nunc vel mollis odio. In feugiat, ipsum facilisis volutpat consectetur, felis leo mollis erat, ultrices rhoncus lacus nisl eu mauris.</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu cursus tortor, vulputate ultrices neque. Nulla feugiat diam eget pharetra mollis. Nam ac interdum massa, vel pellentesque lacus. Nullam vitae consequat velit. Curabitur eget nulla dui. Maecenas nulla magna, fermentum in dui laoreet, venenatis iaculis orci. Aliquam erat volutpat. Nam condimentum odio quis purus efficitur, et dictum massa volutpat. Morbi posuere dui eros, ut vestibulum neque tincidunt nec. Curabitur mollis vehicula malesuada. Vivamus fringilla cursus diam, nec consectetur nisi facilisis non. Donec sed nisi metus.</p>
+
+        <p>Praesent vitae risus dignissim, aliquet nulla nec, pretium ligula. Morbi urna elit, luctus eget elit nec, tincidunt pellentesque neque. Curabitur ac consequat mauris. Aenean porttitor rhoncus leo, vel consequat est mattis in. Morbi pulvinar nec est vel rutrum. Sed id rutrum ante. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec at turpis ut mauris facilisis eleifend eget at nisi. Cras lacus enim, egestas ac vehicula ac, luctus quis velit. Sed et cursus ante, nec sollicitudin nunc. Donec vel accumsan augue. Suspendisse eget accumsan massa, eget consequat urna. Vivamus commodo vel massa eget iaculis. Curabitur ligula urna, mattis sed congue ac, vehicula in lorem.</p>
+
+        <p>Suspendisse semper magna ac nunc fermentum, eu dignissim erat cursus. Duis scelerisque, purus non placerat cursus, sapien erat pellentesque lorem, et pulvinar mauris risus at augue. Phasellus sit amet justo erat. Vestibulum ullamcorper faucibus elit porta venenatis. Suspendisse tempor consequat diam sit amet fringilla. Donec maximus pulvinar ipsum, eget condimentum ligula ultrices ac. Maecenas elementum luctus fermentum. Integer finibus quis est nec rhoncus. Aliquam nec dictum lacus.</p>
+
+        <p>Nunc vitae sem sed nunc vehicula feugiat. Vestibulum at massa fringilla, tristique lacus vel, auctor ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean in justo odio. In luctus, tellus sed tincidunt posuere, velit sapien blandit nunc, eu commodo ipsum urna in ipsum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque ullamcorper congue justo, a porttitor ante commodo id. Aenean laoreet metus ante, vel fringilla lacus pulvinar ut. Donec interdum nunc eget sem mollis cursus. Pellentesque at libero mi. Morbi id tellus id urna auctor fermentum quis sit amet dui. Nulla tempor, nunc id semper consectetur, nunc dui pharetra quam, eget eleifend risus dolor ac tortor. In non massa tristique, malesuada massa sed, tincidunt est. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+
+        <p>Maecenas placerat id magna sed cursus. Sed eros nunc, consequat sed lacus eu, finibus pretium tellus. Sed pretium eu arcu non maximus. Morbi ac laoreet dui. Sed id nisl venenatis, scelerisque felis porttitor, rhoncus est. Nullam nisi purus, convallis ac est et, tincidunt fermentum nibh. Nam quis arcu erat.</p>
+
+        <p>In congue gravida mi eget tempus. Donec semper faucibus lectus, et semper diam. Suspendisse potenti. Maecenas a erat a nulla molestie commodo ac in tellus. Praesent pulvinar semper erat, id elementum sapien lacinia sit amet. Proin justo justo, tincidunt sed metus at, lacinia volutpat nulla. Donec eu dolor et leo placerat egestas. Sed sollicitudin in urna sit amet aliquam. Donec convallis ornare interdum. Nulla at commodo mauris, nec consectetur turpis.</p>
+
+        <p>Integer molestie nulla vitae felis auctor, ac volutpat nisi blandit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at quam in erat tempor ornare. Cras sit amet ligula eu lectus laoreet tempor. Nam id erat quis tortor interdum gravida sit amet in nisl. Praesent dui augue, accumsan non velit ultricies, pulvinar sollicitudin mi. Nunc sit amet tempor dui. Etiam arcu enim, rutrum non massa ut, efficitur facilisis augue.</p>
+
+        <p>Vivamus ac nunc neque. Vestibulum vehicula aliquet felis, at sollicitudin tellus egestas vitae. In ut tortor id mi tempor varius. Sed eros nisi, pharetra eu blandit et, interdum a leo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed placerat nunc vitae justo scelerisque, et pharetra purus ultricies. Praesent eget lectus id sapien ornare laoreet ut tincidunt sem. Nam et diam dui. Nunc vel mollis odio. In feugiat, ipsum facilisis volutpat consectetur, felis leo mollis erat, ultrices rhoncus lacus nisl eu mauris.</p>
+      </section>
+    <div id="positioned">
+      I'm positioned!
+      <div id="pinkbox"></div>
+    </div>
+    <div id="middle"></div>
+
+  </body>
+</html>

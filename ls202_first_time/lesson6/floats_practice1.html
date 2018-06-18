@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>your page title goes here</title>
+    <meta charset="utf-8" />
+    <style>
+      * {
+        margin: 0;
+      }
+
+      body {
+        background-color: #ccc;
+      }
+
+      section {
+        max-width: 1000px;
+        margin: 0 auto;
+        background-color: white;
+        /*overflow: hidden;*/
+      }
+
+      section::after {
+        clear: both;
+        content: "";
+        display: block;
+      }
+
+      article, aside {
+        padding: 1em;
+        box-sizing: border-box;
+      }
+
+      article {
+        background-color: yellow;
+        width: 70%;
+        float: left;
+      }
+
+      aside {
+        background-color: green;
+        overflow: hidden;
+        float: none;
+      }
+
+      footer {
+        background-color: #ebecff;
+        clear: both;
+        padding: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <article>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut nisi quis nunc blandit ullamcorper. Donec porttitor pellentesque rhoncus. Quisque ultricies erat lacus, sit amet rhoncus ante rutrum at. Pellentesque libero turpis, sagittis non neque nec, semper gravida arcu. Proin nec rutrum orci. Fusce non lectus dapibus, imperdiet lacus sed, pharetra arcu. Sed et gravida nulla. Nunc finibus vel lacus sit amet feugiat. Cras cursus erat ut velit dignissim, et venenatis nisl posuere. Nulla id dignissim nisi, ut vehicula tortor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque egestas sem non lorem tempus ultrices. Morbi lobortis id dolor id dapibus.</p>
+
+        <p>Morbi tellus purus, vulputate quis ullamcorper sed, posuere vitae libero. Quisque dignissim turpis ac dictum fringilla. Nunc nec turpis ut tellus dictum tempor. Donec in ipsum vitae massa venenatis sagittis. In mollis turpis et tellus facilisis, ut finibus mauris molestie. Morbi rhoncus metus facilisis magna feugiat vulputate. Vestibulum tincidunt orci lectus, at ultricies odio porta eu. Morbi elit nisi, bibendum nec dui dapibus, malesuada volutpat felis. Phasellus tincidunt nisl porttitor vulputate commodo. Nam non velit bibendum, aliquam felis sed, rhoncus quam. Vestibulum rhoncus purus sodales ante molestie, in eleifend mi consequat. Suspendisse potenti.</p>
+
+        <p>Aliquam ut tortor porta, eleifend ex at, mollis leo. In vestibulum risus tellus, ut tincidunt lectus pulvinar vel. Cras lobortis, mauris id tincidunt commodo, augue magna placerat enim, pellentesque gravida ligula mauris vel lorem. Nunc ut nisl felis. Pellentesque aliquet, mi eget blandit varius, nunc diam cursus odio, sed porttitor sem lacus a massa. Curabitur tristique malesuada malesuada. Suspendisse vel viverra nunc.</p>
+      </article>
+      <aside>
+        <p>Sed eu ultrices massa. Suspendisse in pretium lectus. Cras tempor, odio a eleifend facilisis, quam urna luctus massa, et pretium tellus felis quis mauris. Nam ornare ut massa sit amet fermentum. Nunc in tortor at mauris maximus efficitur id ac erat. Donec elementum sollicitudin sapien in pellentesque. Vestibulum quam diam, faucibus in pellentesque venenatis, interdum nec eros. Vivamus ac maximus arcu, nec laoreet risus. Quisque dignissim lobortis lorem, nec consequat nibh accumsan vitae. Aenean non diam lacus.</p>
+
+        <p>Curabitur eu risus arcu. Ut ultricies blandit elementum. Etiam volutpat lacinia pretium. Duis vel iaculis ante. Donec sed ultrices lorem, eget hendrerit purus. Pellentesque placerat eleifend commodo. Donec vehicula ullamcorper malesuada. Integer nec finibus tellus, quis interdum dolor. Donec a purus in mauris viverra rutrum. Etiam volutpat dui tortor, ac ultrices ipsum convallis ut. Vestibulum neque quam, sagittis ut magna eu, auctor faucibus orci. Sed in eros neque. Phasellus vestibulum rutrum nunc eget ornare. Nullam eget elit commodo, accumsan urna et, iaculis elit. Morbi in pretium dolor, sit amet dignissim orci. Sed lacinia consectetur justo ac faucibus.</p>
+      </aside>
+      <footer>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mi risus, porttitor eu imperdiet et, auctor viverra felis. Sed feugiat blandit massa. Pellentesque eget aliquet leo, quis sagittis augue. Donec cursus augue a facilisis pulvinar. Ut faucibus libero nulla, vitae facilisis justo luctus in. Nulla at nibh ut justo tempus porttitor. Donec vitae sagittis justo.</p>
+      </footer>
+    </section>
+  </body>
+</html>
