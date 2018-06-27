@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Practice Problems - Forms</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <form action="#" method="post">
+      <fieldset>
+        <dl>
+          <dt><label for="firstname">First Name</label></dt>
+          <dd><input type="text" name="firstname" id="firstname" required></dd>
+
+          <dt><label for="lastname">Last Name</label></dt>
+          <dd><input type="text" name="lastname" id="lastname" required></dd>
+
+          <dt><label for="email">Email</label></dt>
+          <dd>
+            <input type="email" name="email" id="email"
+                 autocomplete="off" autocorrect="off"
+                 autocapitalize="none" required>
+          </dd>
+
+          <dt><label for="phonetype">Phone Type</label></dt>
+          <dd><select name="phonetype" id="phonetype">
+            <option selected>Home</option>
+            <option>Business</option>
+            <option>Mobile</option>
+          </select></dd>
+
+          <dt><label for="phone">Phone Number</label></dt>
+          <dd><input type="tel" name="phone" id="phone" required></dd>
+        </dl>
+
+        <input type="submit" value="Send">
+
+      </fieldset>
+    </form>
+  </body>
+</html>
