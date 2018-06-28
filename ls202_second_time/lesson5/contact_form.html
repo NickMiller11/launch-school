@@ -3,6 +3,7 @@
   <head>
     <title>Contact Form</title>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <form action="#" method="post">
@@ -108,15 +109,29 @@
             <label for="colors">Which of these colors do you like best?</label>
           </dt>
           <dd>
-            <select id="colors">
-              <option selected>Red</option>
-              <option>Orange</option>
-              <option>Yellow</option>
-              <option>Green</option>
-              <option>Blue</option>
-              <option>Indigo</option>
-              <option>Violet</option>
-            </select>
+            <ul>
+              <li>
+                <label><input type="radio" value="red">Red</label>
+              </li>
+              <li>
+                <label><input type="radio" value="orange">Orange</label>
+              </li>
+              <li>
+                <label><input type="radio" value="yellow">Yellow</label>
+              </li>
+              <li>
+                <label><input type="radio" value="green">Green</label>
+              </li>
+              <li>
+                <label><input type="radio" value="blue">Blue</label>
+              </li>
+              <li>
+                <label><input type="radio" value="indigo">Indigo</label>
+              </li>
+              <li>
+                <label><input type="radio" value="violet">Violet</label>
+              </li>
+            </ul>
           </dd>
 
           <dt>
@@ -124,15 +139,23 @@
           </dt>
 
           <dd>
-            <select id="tech" multiple size="3">
-              <option>HTML</option>
-              <option>CSS</option>
-              <option>Javascript</option>
-              <option>Ruby</option>
-              <option>Rails</option>
-              <option>Python</option>
-              <option>Django</option>
-            </select>
+            <ul>
+              <li>
+                <label><input type="checkbox" value="tech">HTML</label>
+              </li>
+              <li>
+                <label><input type="checkbox" value="tech">CSS</label>
+              </li>
+              <li>
+                <label><input type="checkbox" value="tech">Javascript</label>
+              </li>
+              <li>
+                <label><input type="checkbox" value="tech">Ruby</label>
+              </li>
+              <li>
+                <label><input type="checkbox" value="tech">Rails</label>
+              </li>
+            </ul>
           </dd>
 
           <dt>
