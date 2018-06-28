@@ -101,7 +101,7 @@
           </dt>
           <dd>
             <input type="number" id="zipcode" name="zipcode"
-                   placeholder="90210" min="00001" max="99999">
+                   placeholder="90210" min="0" max="99999">
           </dd>
 
           <dt>
@@ -109,11 +109,43 @@
           </dt>
           <dd>
             <select id="colors">
-              <option></option>
+              <option selected>Red</option>
+              <option>Orange</option>
+              <option>Yellow</option>
+              <option>Green</option>
+              <option>Blue</option>
+              <option>Indigo</option>
+              <option>Violet</option>
             </select>
           </dd>
 
+          <dt>
+            <label for="tech">Which web technologies do you want to learn</label>
+          </dt>
+
+          <dd>
+            <select id="tech" multiple size="3">
+              <option>HTML</option>
+              <option>CSS</option>
+              <option>Javascript</option>
+              <option>Ruby</option>
+              <option>Rails</option>
+              <option>Python</option>
+              <option>Django</option>
+            </select>
+          </dd>
+
+          <dt>
+            <label for="comment">Comments</label>
+          </dt>
+          <dd>
+            <textarea id="comment" rows="6" cols="80">
+            </textarea>
+          </dd>
         </dl>
+        <input type="hidden" value="2018-06-27">
+        <input type="submit" value="Send">
+        <input type="reset">
       </fieldset>
     </form>
   </body>
