@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Practice Problems - Positioning</title>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        z-index: 1;
+      }
+
+      #middle {
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, .6);
+      }
+
+      #positioned {
+        position: absolute;
+        left: 50%;
+        margin-left: -200px;
+        top: 5%;
+        width: 400px;
+        background: lightyellow;
+        padding: 10px;
+        box-sizing: border-box;
+        z-index: 3;
+      }
+
+      #pink {
+      background-color: pink;
+      height: 20px;
+      width: 20px;
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="positioned">
+      <p>I'm positioned!</p>
+      <div id="pink">
+
+      </div>
+    </div>
+    <div id="middle">
+
+    </div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consequat felis a tempor fermentum. Integer gravida consectetur suscipit. Nullam ultrices in mi et sagittis. In condimentum erat nec nibh hendrerit, id elementum velit egestas. Nam eget dui efficitur, porttitor dui vitae, molestie nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Aliquam dictum odio nec finibus tempor. Nullam aliquam elit turpis, eu volutpat tortor bibendum quis.</p>
+    <p>Suspendisse hendrerit sagittis massa. Vestibulum sit amet placerat purus, id pharetra orci. Vivamus massa quam, fermentum et mi sed, interdum auctor enim. Sed eget magna orci. Quisque justo felis, hendrerit nec elit dictum, laoreet tristique purus. Mauris blandit velit ut orci placerat molestie. Mauris velit mauris, gravida quis arcu pharetra, faucibus hendrerit nunc. Vivamus ultrices lobortis turpis, sit amet eleifend sem molestie sit amet. Duis quis erat nibh. Nunc quam velit, placerat eget volutpat in, vehicula non massa. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla laoreet at sapien eu viverra. Sed pharetra ultricies est. Nunc tempor fringilla augue nec dictum. Ut id congue enim.</p>
+    <p>Curabitur elementum sem ut libero imperdiet, vitae ullamcorper nisi auctor. Donec quis neque id arcu finibus interdum. In hac habitasse platea dictumst. Integer id commodo leo. Nullam elementum, purus at pulvinar fringilla, libero metus scelerisque dolor, mollis dapibus urna mauris ut magna. Vestibulum vitae tortor a felis tincidunt mattis. Aliquam et porttitor erat, a pulvinar ante. Integer convallis neque at eros hendrerit blandit.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consequat felis a tempor fermentum. Integer gravida consectetur suscipit. Nullam ultrices in mi et sagittis. In condimentum erat nec nibh hendrerit, id elementum velit egestas. Nam eget dui efficitur, porttitor dui vitae, molestie nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Aliquam dictum odio nec finibus tempor. Nullam aliquam elit turpis, eu volutpat tortor bibendum quis.</p>
+    <p>Suspendisse hendrerit sagittis massa. Vestibulum sit amet placerat purus, id pharetra orci. Vivamus massa quam, fermentum et mi sed, interdum auctor enim. Sed eget magna orci. Quisque justo felis, hendrerit nec elit dictum, laoreet tristique purus. Mauris blandit velit ut orci placerat molestie. Mauris velit mauris, gravida quis arcu pharetra, faucibus hendrerit nunc. Vivamus ultrices lobortis turpis, sit amet eleifend sem molestie sit amet. Duis quis erat nibh. Nunc quam velit, placerat eget volutpat in, vehicula non massa. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla laoreet at sapien eu viverra. Sed pharetra ultricies est. Nunc tempor fringilla augue nec dictum. Ut id congue enim.</p>
+    <p>Curabitur elementum sem ut libero imperdiet, vitae ullamcorper nisi auctor. Donec quis neque id arcu finibus interdum. In hac habitasse platea dictumst. Integer id commodo leo. Nullam elementum, purus at pulvinar fringilla, libero metus scelerisque dolor, mollis dapibus urna mauris ut magna. Vestibulum vitae tortor a felis tincidunt mattis. Aliquam et porttitor erat, a pulvinar ante. Integer convallis neque at eros hendrerit blandit.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consequat felis a tempor fermentum. Integer gravida consectetur suscipit. Nullam ultrices in mi et sagittis. In condimentum erat nec nibh hendrerit, id elementum velit egestas. Nam eget dui efficitur, porttitor dui vitae, molestie nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Aliquam dictum odio nec finibus tempor. Nullam aliquam elit turpis, eu volutpat tortor bibendum quis.</p>
+    <p>Suspendisse hendrerit sagittis massa. Vestibulum sit amet placerat purus, id pharetra orci. Vivamus massa quam, fermentum et mi sed, interdum auctor enim. Sed eget magna orci. Quisque justo felis, hendrerit nec elit dictum, laoreet tristique purus. Mauris blandit velit ut orci placerat molestie. Mauris velit mauris, gravida quis arcu pharetra, faucibus hendrerit nunc. Vivamus ultrices lobortis turpis, sit amet eleifend sem molestie sit amet. Duis quis erat nibh. Nunc quam velit, placerat eget volutpat in, vehicula non massa. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla laoreet at sapien eu viverra. Sed pharetra ultricies est. Nunc tempor fringilla augue nec dictum. Ut id congue enim.</p>
+    <p>Curabitur elementum sem ut libero imperdiet, vitae ullamcorper nisi auctor. Donec quis neque id arcu finibus interdum. In hac habitasse platea dictumst. Integer id commodo leo. Nullam elementum, purus at pulvinar fringilla, libero metus scelerisque dolor, mollis dapibus urna mauris ut magna. Vestibulum vitae tortor a felis tincidunt mattis. Aliquam et porttitor erat, a pulvinar ante. Integer convallis neque at eros hendrerit blandit.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque consequat felis a tempor fermentum. Integer gravida consectetur suscipit. Nullam ultrices in mi et sagittis. In condimentum erat nec nibh hendrerit, id elementum velit egestas. Nam eget dui efficitur, porttitor dui vitae, molestie nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Aliquam dictum odio nec finibus tempor. Nullam aliquam elit turpis, eu volutpat tortor bibendum quis.</p>
+    <p>Suspendisse hendrerit sagittis massa. Vestibulum sit amet placerat purus, id pharetra orci. Vivamus massa quam, fermentum et mi sed, interdum auctor enim. Sed eget magna orci. Quisque justo felis, hendrerit nec elit dictum, laoreet tristique purus. Mauris blandit velit ut orci placerat molestie. Mauris velit mauris, gravida quis arcu pharetra, faucibus hendrerit nunc. Vivamus ultrices lobortis turpis, sit amet eleifend sem molestie sit amet. Duis quis erat nibh. Nunc quam velit, placerat eget volutpat in, vehicula non massa. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla laoreet at sapien eu viverra. Sed pharetra ultricies est. Nunc tempor fringilla augue nec dictum. Ut id congue enim.</p>
+    <p>Curabitur elementum sem ut libero imperdiet, vitae ullamcorper nisi auctor. Donec quis neque id arcu finibus interdum. In hac habitasse platea dictumst. Integer id commodo leo. Nullam elementum, purus at pulvinar fringilla, libero metus scelerisque dolor, mollis dapibus urna mauris ut magna. Vestibulum vitae tortor a felis tincidunt mattis. Aliquam et porttitor erat, a pulvinar ante. Integer convallis neque at eros hendrerit blandit.</p>
+  </body>
+</html>
