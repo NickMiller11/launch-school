@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Liquid Photo Gallery</title>
+    <meta charset="utf-8" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: black;
+        font: normal 24px Helvetica, Arial, sans-serif;
+        color: white;
+      }
+
+      main {
+        background: #333333;
+        min-width: 500px;
+        max-width: 1000px;
+        margin: auto;
+        display: grid;
+        grid-columns: 1fr;
+        grid-rows: 1fr 7fr 2fr;
+        grid-template-areas:
+         "header"
+         "image"
+         "thumbnails"
+      }
+
+      header {
+        grid-area: header;
+        margin: 46px auto 22px auto;
+        font-size: 1rem;
+      }
+
+      figure {
+        grid-area: image;
+        display: flex;
+        flex-direction: column;
+      }
+
+      figure img {
+        width: 93%;
+        height: auto;
+        max-width: 100%;
+        height: auto;
+        align-self: center;
+        border: 15px solid white;
+        display: block;
+      }
+
+      figcaption {
+        font-size: 1rem;
+        display: block;
+        margin: 10px 0 10px 20px;
+      }
+
+      footer {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        grid-area: thumbnails;
+      }
+
+      footer img {
+        width: 22%;
+        height: auto;
+        max-width: 100%;
+        max-height: 160px;
+        border: 3px solid white;
+        margin-bottom: 30px;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>My Photo Gallery</h1>
+      </header>
+      <figure>
+        <img src="http://placehold.it/1200x900" alt="Placeholder Image">
+        <figcaption>Example photo</figcaption>
+      </figure>
+      <footer>
+        <img src="http://placehold.it/1200x900" alt="Photo 1">
+        <img src="http://placehold.it/1200x900" alt="Photo 2">
+        <img src="http://placehold.it/1200x900" alt="Photo 3">
+        <img src="http://placehold.it/1200x900" alt="Photo 4">
+      </footer>
+    </main>
+
+  </body>
+</html>
