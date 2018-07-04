@@ -3,6 +3,7 @@
   <head>
     <title>Liquid Photo Gallery</title>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
       * {
         padding: 0;
@@ -14,23 +15,17 @@
         background: black;
         color: white;
         font: normal 24px Helvetica, Arial, sans-serif;
-
-      }
-
-      main, figure img, li {
-        box-sizing: border-box;
       }
 
       main {
         background: #333333;
-        min-width: 500px;
         max-width: 1000px;
         margin: 0 auto;
         padding: 46px 0px;
       }
 
-      header {
-        font-size: 1rem;
+      h1 {
+        font-size: 1.5em;
         text-align: center;
         margin-bottom: 20px;
       }
@@ -55,22 +50,56 @@
 
       ul {
         list-style-type: none;
-        width: 100%;
         font-size: 0;
-
       }
 
       li {
         display: inline-block;
         text-align: center;
         width: 25%;
-        padding: 0 15px;
-
+        padding: 0 20px;
+        margin-bottom: 15px;
       }
 
-      footer img {
+      li img {
         width: 100%;
         border: 3px solid white;
+      }
+
+      @media screen and (max-width: 899px) {
+        li {
+          width: 33.3333%;
+        }
+      }
+
+      @media screen and (max-width: 599px) {
+        li {
+          width: 50%;
+        }
+      }
+
+      @media screen and (min-width: 1280px) {
+        main {
+          max-width: 100%;
+        }
+
+        figure {
+          display: inline-block;
+          width: 950px;
+          float: left;
+          margin-right: 50px;
+          vertical-align: top;
+        }
+
+        ul {
+          overflow: hidden;
+        }
+
+        li {
+          width: 100%;
+        }
+
+
       }
 
 
@@ -79,23 +108,25 @@
 
   <body>
     <main>
-      <header>
-        <h1>My Photo Gallery</h1>
-      </header>
+
+      <h1>My Photo Gallery</h1>
+
 
       <figure>
         <img src="http://placehold.it/1200x900">
         <figcaption>Example photo</figcaption>
       </figure>
 
-      <footer>
-        <ul>
-          <li><img src="http://placehold.it/1200x900"></li>
-          <li><img src="http://placehold.it/1200x900"></li>
-          <li><img src="http://placehold.it/1200x900"></li>
-          <li><img src="http://placehold.it/1200x900"></li>
-        </ul>
-      </footer>
+      <ul>
+        <li><img src="http://placehold.it/1200x900"></li>
+        <li><img src="http://placehold.it/1200x900"></li>
+        <li><img src="http://placehold.it/1200x900"></li>
+        <li><img src="http://placehold.it/1200x900"></li>
+        <li><img src="http://placehold.it/1200x900"></li>
+        <li><img src="http://placehold.it/1200x900"></li>
+        <li><img src="http://placehold.it/1200x900"></li>
+        <li><img src="http://placehold.it/1200x900"></li>
+      </ul>
 
     </main>
 
