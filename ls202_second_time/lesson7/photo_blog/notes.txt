@@ -1,0 +1,25 @@
+Questions (watch video again afterwards)
+
+- How do you measure the px value of text?  Do you measure uppercase? lowercase?
+- Is there good rules of thumb for aligning things using padding/margins?
+
+
+Things I noticed while redoing the instructur-led version:
+
+- The camera logo is set as the background image of the header rather than
+  added to the HTML document.
+
+- Setting the a element to block means that the whole element will be clickable
+
+- Used the header to represent the width of the page, not the body
+
+- Uses padding to align items with respect to each other, not margins.  The only
+  margins used were with respect to an image, using a bottom margin to separate it
+  from the heading text.
+
+- sets the width for header, footer and main separately to same width, then
+  centered it all using margin: 0 auto;
+
+- seems like the best way to measure the text size is to measure from the bottom
+  of a character that hangs down (y or g) to the top of an uppercase character as
+  font-size represents the whole spectrum
