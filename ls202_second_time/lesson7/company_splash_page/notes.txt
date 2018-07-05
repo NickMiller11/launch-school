@@ -1,0 +1,30 @@
+Questions from doing the exercise:
+- what is the best way to handle the dots to each side of the headings?
+- what is the best way to align the social media icons in the footer (without flex)?
+
+
+Watching through solution video:
+
+- they put the header logo in a <h1> tag (just for semantic purposes?)
+  - if you do this, you can using something like text-align: center on the logo
+
+- they are talking about styling things away from the next top element, this could
+  be an interesting way of thinking about HTML and CSS.  For example, move the
+  top logo away from the top of the page.  Move the main body away from the top logo, etc.
+
+- if using a background image, also set a background color in case the image doesn't
+  load if you wouldn't be able to view part of the page without the background image
+  For example: body {
+                background: #2f2840 url("bg_body.gif");
+               }
+
+- In order to arrange the social media icons in the footer, they used an inline display
+  for the li elements and text-align: center in the ul.
+  For example: ul {
+                 margin: 0;
+                 text-align: center;
+               }
+               li {
+                 display: inline;
+                 padding: 0 62px;
+               }

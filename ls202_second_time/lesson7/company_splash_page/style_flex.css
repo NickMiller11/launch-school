@@ -1,0 +1,73 @@
+@import url("whitespace-reset.css");
+
+body {
+  background: #2F2840 url("bg_body.gif");
+  padding: 0 100px;
+
+  color: #45494D;
+  font: normal 20px "Nunito", sans-serif;
+}
+
+header, main, footer {
+  width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+  padding: 159px 0 0 2px;
+}
+
+main {
+  background: #fff;
+  margin-top: 90px;
+  padding: 100px 90px 0 90px;
+  text-align: center;
+}
+
+article:first-of-type {
+  padding: 0 0 152px 0;
+}
+
+article:last-of-type {
+  padding: 0 0 70px 0;
+}
+
+h2 {
+  font-size: 36px;
+  padding: 0 0 20px 0;
+}
+
+h2::before {
+  content: "\2022 ";
+  font-size: 30px;
+  padding-right: 30px;
+}
+
+h2::after {
+  content: "\2022 ";
+  font-size: 30px;
+  padding-left: 30px;
+}
+
+h3 {
+  font-size: 24px;
+  color: #3E98B2;
+  padding: 0 0 25px 0;
+}
+
+p {
+  line-height: 1.5em;
+}
+
+footer {
+  background: #E7E7E7;
+  margin-bottom: 150px;
+}
+
+ul {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 30px 182px;
+}
