@@ -1,0 +1,120 @@
+@import url("whitespace-reset.css");
+
+body {
+  background: #2F2840 url("images/bg_body.gif") 50% 0 repeat;
+  font: normal 20px 'Nunito Sans', sans-serif;
+  text-align: center;
+}
+
+h1 {
+  padding: 75px 15px 0 0;
+}
+
+nav ul {
+  padding: 95px 0 45px 0;
+}
+
+nav li {
+  display: inline-block;
+  padding: 0 42px;
+}
+
+a {
+  text-decoration: none;
+  color: #CACACA;
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+a.active {
+  font-weight: bold;
+  color: #6DB9FF;
+}
+
+main {
+  background: #FFF;
+  color: #45494D;
+  padding: 120px 0 0 0;
+}
+
+.column {
+  width: 800px;
+  margin: 0 auto;
+}
+
+h2 {
+  font-size: 34px;
+  padding: 0 0 40px 0;
+}
+
+h3 {
+  font-size: 24px;
+  color: #3E59B2;
+  padding: 0 0 15px 0;
+}
+
+article p {
+  line-height: 150%;
+}
+
+article:first-of-type {
+  padding: 0 0 150px 0;
+}
+
+article:last-of-type {
+  padding: 0 0 130px 0;
+}
+
+footer {
+  background: #E7E7E7;
+  color: #B6B6B6;
+  padding: 80px 0;
+  font-size: 20px;
+}
+
+footer p {
+  line-height: 150%;
+}
+
+footer ul {
+  margin: 0;
+  padding: 40px 0 0 0;
+}
+
+footer li {
+  display: inline-block;
+  padding: 0 60px;
+}
+
+footer li a {
+  background: transparent url("images/icons_social-media.png") 0 0 no-repeat;
+  display: block;
+  height: 46px;
+  overflow: hidden;
+  text-indent: -8685px;
+  width: 46px;
+  line-height: 46px;
+
+}
+
+footer li a.twitter {
+  background-position: 0 0;
+}
+
+footer li a.facebook {
+  background-position: 0 -46px;
+}
+
+footer li a.email {
+  background-position: 0 -92px;
+}
+
+footer li a.instagram {
+  background-position: 0 -138px;
+}
+
+
+
+
+
+
