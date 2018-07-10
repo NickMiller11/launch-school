@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Webstore</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="whitespace-reset.css">
+    <style>
+      body {
+        font: normal 18px Helvetica, Arial, sans-serif;
+        background: #FFD505;
+      }
+
+      header, main {
+        margin: 0 auto;
+      }
+
+      header {
+        width: 900px;
+        height: 104px;
+        background: #047EC1;
+        padding: 31px 0 0 25px;
+        border-bottom-right-radius: 15px;
+        border-bottom-left-radius: 15px;
+        margin-bottom: 30px;
+      }
+
+      header, h2, figure {
+        box-sizing: border-box;
+      }
+
+      h1, h2, figcaption dt {
+        font-weight: bold;
+      }
+
+      h1 {
+        color: #FEFFFA;
+        font-size: 38px;
+        letter-spacing: .2px;
+      }
+
+      main {
+        width: 900px;
+        height: 620px;
+        background: #ECECEC;
+      }
+
+      h2 {
+        font-size: 32px;
+        color: #282222;
+        padding: 25px;
+      }
+
+      .first-row, .second-row {
+        width: 100%;
+        padding: 0 25px;
+      }
+
+      .first-row {
+        margin-bottom: 16px;
+      }
+
+      figure {
+        display: inline-block;
+        background: #fff;
+        width: 199.5px;
+        padding: 15px;
+        margin-right: 12px;
+      }
+
+
+
+      img {
+        display: block;
+        margin: 0 auto;
+        height: 140px;
+      }
+
+      figcaption {
+        background: #FFF;
+        display: inline-block;
+        margin-top: -1px;
+
+      }
+
+      figcaption dt {
+        font-size: 19px;
+        color: #222222;
+        padding-bottom: 5px;
+        letter-spacing: .1px
+      }
+
+      figcaption dd {
+        font-size: 16px;
+      }
+
+      input[type="checkbox"] {
+        display: none;
+      }
+
+      input:checked + figure img {
+        position: absolute;
+        top: 100px;
+        left: 50%;
+        width: 400px;
+        height: auto;
+        margin: 0 0 0 -200px;
+        z-index: 2;
+      }
+
+      input:checked + figure:before {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+        content: "";
+        background: rgba(0, 0, 0, .4);
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Paramiicio</h1>
+    </header>
+    <main>
+      <h2>All Products</h2>
+      <div class="first-row">
+
+        <label>
+          <input type="checkbox">
+          <figure>
+            <img src="images/aurelia.jpg"><br>
+            <figcaption>
+              <dl>
+                <dt>Aurelia</dt>
+                <dd>$12.99</dd>
+              </dl>
+            </figcaption>
+          </figure>
+        </label>
+
+        <label>
+          <input type="checkbox">
+          <figure>
+            <img src="images/polycaryum.jpg"><br>
+            <figcaption>
+              <dl>
+                <dt>Polycaryum</dt>
+                <dd>$12.99</dd>
+              </dl>
+            </figcaption>
+          </figure>
+        </label>
+
+        <label>
+          <input type="checkbox">
+          <figure>
+            <img src="images/chlorelligerum.jpg"><br>
+            <figcaption>
+              <dl>
+                <dt>Chlorelligerum</dt>
+                <dd>$12.99</dd>
+              </dl>
+            </figcaption>
+          </figure>
+        </label>
+
+        <label>
+          <input type="checkbox">
+          <figure>
+            <img src="images/sonneborni.jpg"><br>
+            <figcaption>
+              <dl>
+                <dt>Sonneborni</dt>
+                <dd>$12.99</dd>
+              </dl>
+            </figcaption>
+          </figure>
+        </label>
+
+      </div>
+      <div class="second-row">
+        <label>
+          <input type="checkbox">
+          <figure>
+            <img src="images/ugandae.jpg"><br>
+            <figcaption>
+              <dl>
+                <dt>Ugandae</dt>
+                <dd>$12.99</dd>
+              </dl>
+            </figcaption>
+          </figure>
+        </label>
+
+        <label>
+          <input type="checkbox">
+          <figure>
+            <img src="images/woodruffi.jpg"><br>
+            <figcaption>
+              <dl>
+                <dt>Woodruffi</dt>
+                <dd>$12.99</dd>
+              </dl>
+            </figcaption>
+          </figure>
+        </label>
+
+      </div>
+    </main>
+  </body>
+</html>
+
+<!--
+Create the yellow background
+Create the blue top banner
+Create the grey background for main
+Layout each item in a figure and links
+
+- check out :active for click functionality on pictures
+-->
