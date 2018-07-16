@@ -1,0 +1,173 @@
+@import url("whitespace-reset.css");
+
+body {
+  background: #FFF;
+  font: normal 13px "Open Sans", Arial, sans-serif;
+  color: #444;
+  text-align: center;
+  padding: 0 30px;
+}
+
+nav {
+  position: fixed;
+  width: 900px;
+  display: block;
+  background: #FFF;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 5;
+}
+
+nav a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: inherit;
+  float: left;
+  display: inline-block;
+  margin: 0 25px;
+  padding: 15px 0;
+}
+
+header img:first-of-type {
+  display: block;
+  height: 425px;
+  position: relative;
+  margin: 45px auto 75px auto;
+  z-index: 1;
+}
+
+header img:nth-of-type(2),
+header h1,
+header h2 {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+header h1,
+header h2,
+header a {
+  color: #FFF;
+}
+
+header img:nth-of-type(2) {
+  top: 230px;
+}
+
+header h1 {
+  top: 320px;
+  font-size: 72px;
+  font-weight: 400;
+}
+
+header h2 {
+  top: 420px;
+  font-size: 31px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+h3,
+header p {
+  font-weight: 100;
+}
+
+
+h3 {
+  font-size: 48px;
+  margin-bottom: 45px;
+}
+
+p {
+  font-size: 16px;
+  margin-bottom: 30px;
+  font-weight: 100;
+}
+
+header a {
+  background: #008800;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 12px 30px;
+}
+
+hr {
+  margin-bottom: 70px;
+  color: #EFEFEF;
+  border-style: dotted;
+}
+
+main article:first-of-type {
+  width: 950px;
+  padding: 0 35px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+figure {
+  width: 282px;
+  height: 380px;
+  float: left;
+  display: inline-block;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  border: 1px solid lightgrey;
+  box-sizing: border-box;
+}
+
+main img {
+  margin-bottom: 40px;
+}
+
+main h4 {
+  font-size: 24px;
+  color: #008000;
+  margin-bottom: 5px;
+}
+
+main p {
+  padding: 0 10px;
+}
+
+table {
+  width: 940px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  border-top: 1px dotted black;
+}
+
+tr {
+  border-top: 1px dotted black; /*#EFEFEF*/
+}
+
+th, td {
+  padding: 10px 0;
+}
+
+th, td,
+table h5 {
+  font-size: 24px;
+  text-align: left;
+  font-weight: 100;
+}
+
+table h5 {
+  padding-bottom: 10px;
+}
+
+td:first-of-type {
+  padding-left: 20px;
+}
+
+table img {
+  width: 130px;
+  height: auto;
+  float: right;
+  margin-top: 10px;
+}
+
