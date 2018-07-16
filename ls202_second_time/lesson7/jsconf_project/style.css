@@ -10,31 +10,32 @@ body {
 
 nav {
   position: fixed;
-  width: 900px;
   display: block;
   background: #FFF;
   top: 0;
   left: 0;
-  right: 0;
+  width: 100%;
   margin: 0 auto;
   z-index: 5;
+  border-bottom: 1px solid #EFEFEF;
 }
 
 nav a {
   text-decoration: none;
   text-transform: uppercase;
   color: inherit;
-  float: left;
   display: inline-block;
   margin: 0 25px;
-  padding: 15px 0;
+  padding: 23px 0 13px 0;
 }
 
 header img:first-of-type {
   display: block;
-  height: 425px;
+  max-width: 1570px;
+  height: 428px;
+  width: 100%;
   position: relative;
-  margin: 45px auto 75px auto;
+  margin: 55px auto 0 auto;
   z-index: 1;
 }
 
@@ -51,22 +52,33 @@ header h2 {
 
 header h1,
 header h2,
-header a {
+header a,
+main a {
   color: #FFF;
 }
 
 header img:nth-of-type(2) {
-  top: 230px;
+  top: 205px;
+  width: 80px;
+  height: 80px;
+}
+
+header section:first-of-type {
+  border-bottom: 1px solid #EFEFEF;
+}
+
+header section:nth-of-type(2) {
+  margin: 59px 0 75px 0;
 }
 
 header h1 {
-  top: 320px;
+  top: 290px;
   font-size: 72px;
   font-weight: 400;
 }
 
 header h2 {
-  top: 420px;
+  top: 390px;
   font-size: 31px;
   text-transform: uppercase;
   font-weight: 400;
@@ -80,20 +92,31 @@ header p {
 
 h3 {
   font-size: 48px;
-  margin-bottom: 45px;
+  margin-bottom: 32px;
 }
 
 p {
   font-size: 16px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   font-weight: 100;
 }
 
-header a {
-  background: #008800;
+header a,
+.schedule a {
+  background: #008000;
   text-decoration: none;
   font-weight: bold;
-  padding: 12px 30px;
+  padding: 12px 25px 14px 25px;
+  font-size: 16px;
+  width: 231px;
+  height: 42px;
+  display: block;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+header a:hover {
+  background: #006000;
 }
 
 hr {
@@ -102,10 +125,13 @@ hr {
   border-style: dotted;
 }
 
-main article:first-of-type {
+article {
   width: 950px;
-  padding: 0 35px;
   margin: 0 auto;
+}
+
+main article:first-of-type {
+  padding: 0 35px;
   overflow: hidden;
 }
 
@@ -171,3 +197,17 @@ table img {
   margin-top: 10px;
 }
 
+.location p,
+.papers p,
+.papers a {
+  text-align: left;
+}
+
+.sponsors img {
+  width: 300px;
+  height: 247px;
+}
+
+.sponsors h5 {
+  text-align: left;
+}
