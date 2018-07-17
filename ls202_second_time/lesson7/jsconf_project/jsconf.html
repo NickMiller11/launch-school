@@ -7,15 +7,17 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+
     <nav>
       <a href="#">Tickets</a>
       <a href="#">Speakers</a>
       <a href="#">Schedule</a>
       <a href="#">Location</a>
       <a href="#">Call for Papers</a>
-      <a href="#">Sponsers</a>
+      <a href="#">Sponsors</a>
       <a href="#">Code of Conduct</a>
     </nav>
+
     <header>
       <section>
         <img src="images/front.jpg" alt="Conference Attendees">
@@ -29,9 +31,9 @@
         <a href="#">Buy JSConf BR Tickets</a>
       </section>
     </header>
-    <hr>
+
     <main>
-      <article>
+      <section class="speakers">
         <h3>Speakers</h3>
         <figure>
           <img src="images/speakers/gregor_martynus.jpg">
@@ -105,190 +107,241 @@
           <p>Monkeys in the Machine</p>
         </figure>
 
-      </article>
-      <hr>
-      <article>
-        <h3>Schedule</h3>
+      </section>
+
+      <section class="schedule">
+
         <table>
-          <tr>
-            <th>8:00</th>
-            <td>Registration</td>
-          </tr>
+          <thead>
+            <tr>
+              <th colspan="3">
+                <h3>Schedule</h3>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>
+                <h4>8:00</h4>
+              <td>
+                <h4>Registration</h4>
+              </td>
+            </tr>
 
-          <tr>
-            <th>8:50</th>
-            <td>Welcome</td>
-            <td></td>
-          </tr>
+            <tr>
+              <th>
+                <h4>8:50</h4>
+              </th>
+              <td colspan="2">
+                <h4>Welcome</h4>
+              </td>
+            </tr>
 
-          <tr>
-            <th>9:00</th>
-            <td>
-              <h5>Developers as Intentional Designers</h5>
-              <h4>Lynn Fisher</h4>
-            </td>
-            <td>
-              <img src="images/speakers/lynn_fisher.jpg">
-            </td>
-          </tr>
+            <tr>
+              <th>
+                <h4>9:00</h4>
+              </th>
+              <td>
+                <h4>Developers as Intentional Designers</h4>
+                <a href="#"><h5>Lynn Fisher</h5></a>
+              </td>
+              <td>
+                <img src="images/speakers/lynn_fisher.jpg">
+              </td>
+            </tr>
 
-          <tr>
-            <th>9:30</th>
-            <td>
-              <h5>Close Enough: Using JavaScript to Emulate the Abstract Expressionist Masterworks of Chuck Close</h5>
-              <h4>Dave Furfero</h4>
-            </td>
-            <td>
-              <img src="images/speakers/dave_furfero.jpg">
-            </td>
-          </tr>
+            <tr>
+              <th>
+                <h4>9:30</h4>
+              </th>
+              <td>
+                <h4>Close Enough: Using JavaScript to Emulate the Abstract Expressionist Masterworks of Chuck Close</h4>
+                <a href="#"><h5>Dave Furfero</h5>
+              </td>
+              <td>
+                <img src="images/speakers/dave_furfero.jpg">
+              </td>
+            </tr>
 
-          <tr>
-            <th>10:00</th>
-            <td>
-              <h5>The JS-Git Journey</h5>
-              <h4>Tim Caswell</h4>
-            </td>
-            <td>
-              <img src="images/speakers/tim_caswell.jpg">
-            </td>
-          </tr>
+            <tr>
+              <th>
+                <h4>10:00</h4>
+              </th>
+              <td>
+                <h4>The JS-Git Journey</h4>
+                <a href="#"><h5>Tim Caswell</h5>
+              </td>
+              <td>
+                <img src="images/speakers/tim_caswell.jpg">
+              </td>
+            </tr>
 
-          <tr>
-            <th>10:30</th>
-            <td>Coffee-Break</td>
-            <td></td>
-          </tr>
+            <tr>
+              <th>
+                <h4>10:30</h4>
+              </th>
+              <td colspan="2">
+                <h4>Coffee-Break</h4>
+              </td>
+            </tr>
 
-          <tr>
-            <th>11:00</th>
-            <td>
-              <h5>Offline First, Made Easy</h5>
-              <h4>Gregor Martynus</h4>
-            </td>
-            <td>
-              <img src="images/speakers/gregor_martynus.jpg">
-            </td>
-          </tr>
+            <tr>
+              <th>
+                <h4>11:00</h4>
+              </th>
+              <td>
+                <h4>Offline First, Made Easy</h4>
+                <a href="#"><h5>Gregor Martynus</h5>
+              </td>
+              <td>
+                <img src="images/speakers/gregor_martynus.jpg">
+              </td>
+            </tr>
 
-          <tr>
-            <th>11:30</th>
-            <td>
-              <h5>Appium</h5>
-              <h4>Bernard Kobos</h4>
-            </td>
-            <td>
-              <img src="images/speakers/bernard_kobos.jpg">
-            </td>
-          </tr>
+            <tr>
+              <th>
+                <h4>11:30</h4>
+              </th>
+              <td>
+                <h4>Appium</h4>
+                <a href="#"><h5>Bernard Kobos</h5>
+              </td>
+              <td>
+                <img src="images/speakers/bernard_kobos.jpg">
+              </td>
+            </tr>
 
-          <tr>
-            <th>12:00</th>
-            <td>
-              <h5>Monkeys in the Machine</h5>
-              <h4>Eric Mann</h4>
-            </td>
-            <td>
-              <img src="images/speakers/eric_mann.jpg">
-            </td>
-          </tr>
+            <tr>
+              <th>
+                <h4>12:00</h4>
+              </th>
+              <td>
+                <h4>Monkeys in the Machine</h4>
+                <h5>Eric Mann</h5>
+              </td>
+              <td>
+                <img src="images/speakers/eric_mann.jpg">
+              </td>
+            </tr>
 
-          <tr>
-            <th>12:30</th>
-            <td>Lunch</td>
-            <td></td>
-          </tr>
+            <tr>
+              <th>
+                <h4>12:30</h4>
+              </th>
+              <td colspan="2">
+                <h4>Lunch</h4>
+              </td>
+            </tr>
 
-          <tr>
-            <th>14:30</th>
-            <td>
-              <h5>JavaScript for all the things!</h5>
-              <h4>Tim Park</h4>
-            </td>
-            <td>
-              <img src="images/speakers/tim_park.jpg">
-            </td>
-          </tr>
+            <tr>
+              <th>
+                <h4>14:30</h4>
+              </th>
+              <td>
+                <h4>JavaScript for all the things!</h4>
+                <h5>Tim Park</h5>
+              </td>
+              <td>
+                <img src="images/speakers/tim_park.jpg">
+              </td>
+            </tr>
 
-          <tr>
-            <th>15:00</th>
-            <td>
-              <h5>You, programming languages and the browser</h5>
-              <h4>Jú Gonçalves</h4>
-            </td>
-            <td>
-              <img src="images/speakers/ju_goncalves.jpg">
-            </td>
-          </tr>
+            <tr>
+              <th>
+                <h4>15:00</h4>
+              </th>
+              <td>
+                <h4>You, programming languages and the browser</h4>
+                <h5>Jú Gonçalves</h5>
+              </td>
+              <td>
+                <img src="images/speakers/ju_goncalves.jpg">
+              </td>
+            </tr>
 
-          <tr>
-            <th>15:30</th>
-            <td>
-              <h5>Securing Node apps, by the community and for the community</h5>
-              <h4>David Dias</h4>
-            </td>
-            <td>
-              <img src="images/speakers/david_dias.jpg">
-            </td>
-          </tr>
+            <tr>
+              <th>
+                <h4>15:30</h4>
+              </th>
+              <td>
+                <h4>Securing Node apps, by the community and for the community</h4>
+                <h5>David Dias</h5>
+              </td>
+              <td>
+                <img src="images/speakers/david_dias.jpg">
+              </td>
+            </tr>
 
-          <tr>
-            <th>16:00</th>
-            <td>Coffee-Break</td>
-            <td></td>
-          </tr>
+            <tr>
+              <th>
+                <h4>16:00</h4>
+              </th>
+              <td colspan="2">
+                <h4>Coffee-Break</h4>
+              </td>
+            </tr>
 
-          <tr>
-            <th>16:30</th>
-            <td>
-              <h5>Full Stack Firmata</h5>
-              <h4>Francis Gulotta</h4>
-            </td>
-            <td>
-              <img src="images/speakers/francis_gulotta.jpg">
-            </td>
-          </tr>
+            <tr>
+              <th>
+                <h4>16:30</h4>
+              </th>
+              <td>
+                <h4>Full Stack Firmata</h4>
+                <h5>Francis Gulotta</h5>
+              </td>
+              <td>
+                <img src="images/speakers/francis_gulotta.jpg">
+              </td>
+            </tr>
 
-          <tr>
-            <th>17:00</th>
-            <td>
-              <h5>ES6 on the frontend, in the real world</h5>
-              <h4>John Paul</h4>
-            </td>
-            <td>
-              <img src="images/speakers/john_paul.jpg">
-            </td>
-          </tr>
+            <tr>
+              <th>
+                <h4>17:00</h4>
+              </th>
+              <td>
+                <h4>ES6 on the frontend, in the real world</h4>
+                <h5>John Paul</h5>
+              </td>
+              <td>
+                <img src="images/speakers/john_paul.jpg">
+              </td>
+            </tr>
 
-          <tr>
-            <th>17:30</th>
-            <td>
-              <h5>Rock the browser like it's 1983</h5>
-              <h4>Eduardo Shiota</h4>
-            </td>
-            <td>
-              <img src="images/speakers/eduardo_shiota.jpg">
-            </td>
-          </tr>
+            <tr>
+              <th>
+                <h4>17:30</h4>
+              </th>
+              <td>
+                <h4>Rock the browser like it's 1983</h4>
+                <h5>Eduardo Shiota</h5>
+              </td>
+              <td>
+                <img src="images/speakers/eduardo_shiota.jpg">
+              </td>
+            </tr>
 
-          <tr>
-            <th>18:00</th>
-            <td>Family Photo</td>
-            <td></td>
-          </tr>
+            <tr>
+              <th>
+                <h4>18:00</h4>
+              </th>
+              <td colspan="2">
+                <h4>Family Photo</h4>
+              </td>
+            </tr>
+          </tbody>
         </table>
-      </article>
+      </section>
       <hr>
-      <article class="location">
+      <section class="location">
         <h3>Location</h3>
         <p><b>Hotel Vila Galé Fortaleza</b></p>
         <p>Av. Dioguinho, 4189 - Praia do Futuro. Fortaleza/CE - Brazil</p>
         <img src="images/google_map.png">
         <p>The Vila Galé Fortaleza Hotel is located on the beach only 10 minutes away from the renowned Avenida Beira-Mar, in Fortaleza.</p>
         <P>This hotel in Fortaleza features a Beach Tent as well where you can enjoy the lovely weather of North-eastern Brazil, being entitled to a bar service and all the facilities that’ll make it a great afternoon and a perfect holiday in Brazil.</P>
-      </article>
+      </section>
       <hr>
-      <article class="papers">
+      <section class="papers">
         <h3>Call for Papers</h3>
         <p>We are inviting the JavaScript community to submit talks for the upcoming JSConf BR. If you know someone who may deliver an interesting talk, please let us know and we'll contact them.</p>
         <p>Our talk selection process favors content (blind selection process); We want our community to be inclusive!</p>
@@ -299,8 +352,8 @@
         <p>Let us know if you need help with anything that is not listed here, we'll be more than happy to help.</p>
         <p>We value having a safe, family-friendly, harassment-free environment, check our <a href="#">code of conduct.</a></p>
         <p>PS: crazy topics get extra points ;)</p>
-      </article>
-      <article class="sponsors">
+      </section>
+      <section class="sponsors">
         <h3>Sponsors</h3>
         <h5>Platinum</h5>
         <a href="#"><img src="images/sponsors/microsoft.png"></a>
@@ -323,7 +376,7 @@
         <a href="#"><img src="images/sponsors/casadocodigo.png"></a>
         <a href="#"><img src="images/sponsors/penton.png"></a>
         <a href="#"><img src="images/sponsors/10up.png"></a>
-      </article>
+      </section>
     </main>
   </body>
 </html>

@@ -29,6 +29,10 @@ nav a {
   padding: 23px 0 13px 0;
 }
 
+header {
+  border-bottom: 1px solid #EFEFEF;
+}
+
 header img:first-of-type {
   display: block;
   max-width: 1570px;
@@ -68,17 +72,17 @@ header section:first-of-type {
 }
 
 header section:nth-of-type(2) {
-  margin: 59px 0 75px 0;
+  margin: 59px 0 69px 0;
 }
 
 header h1 {
-  top: 290px;
+  top: 289px;
   font-size: 72px;
   font-weight: 400;
 }
 
 header h2 {
-  top: 390px;
+  top: 387px;
   font-size: 31px;
   text-transform: uppercase;
   font-weight: 400;
@@ -92,7 +96,10 @@ header p {
 
 h3 {
   font-size: 48px;
-  margin-bottom: 32px;
+}
+
+header h3 {
+  margin-bottom: 31px;
 }
 
 p {
@@ -101,18 +108,20 @@ p {
   font-weight: 100;
 }
 
-header a,
-.schedule a {
+header a {
   background: #008000;
+  margin: 0 auto;
+}
+
+header a {
   text-decoration: none;
   font-weight: bold;
-  padding: 12px 25px 14px 25px;
+  padding: 10px 25px 0px 25px;
   font-size: 16px;
   width: 231px;
   height: 42px;
   display: block;
   box-sizing: border-box;
-  margin: 0 auto;
 }
 
 header a:hover {
@@ -121,70 +130,99 @@ header a:hover {
 
 hr {
   margin-bottom: 70px;
-  color: #EFEFEF;
-  border-style: dotted;
+  border: 1px solid #EFEFEF;
 }
 
-article {
+main section {
   width: 950px;
   margin: 0 auto;
+  box-sizing: border-box;
+
 }
 
-main article:first-of-type {
-  padding: 0 35px;
+.speakers {
+  padding: 0 25px 55px 25px;
+  margin: 59px auto 0 auto;
   overflow: hidden;
+  border-bottom: 1px solid #EFEFEF;
 }
 
-figure {
+.speakers figure {
   width: 282px;
   height: 380px;
   float: left;
   display: inline-block;
-  margin-left: 15px;
+  margin-left: 14px;
   margin-bottom: 10px;
-  border: 1px solid lightgrey;
+  border: 1px solid #e8e8e8;
   box-sizing: border-box;
 }
 
-main img {
-  margin-bottom: 40px;
+.speakers img {
+  margin-bottom: 30px;
 }
 
-main h4 {
+.speakers h3 {
+  margin-bottom: 35px;
+}
+
+.speakers p {
+  line-height: 1.5;
+}
+
+.schedule {
+  padding: 58px 0 0 0;
+}
+
+table {
+  width: 940px;
+  height: auto;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+thead h3 {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+tbody th h4 {
+  padding: 10px 0 10px 1px;
+}
+
+tbody td h4 {
+  padding: 0 0 0 1px;
+}
+
+tbody h4 {
   font-size: 24px;
+  font-weight: normal;
+  color: #444;
+}
+
+tbody h4,
+tbody h5 {
+  text-align: left;
+}
+
+tbody h5 {
+  font-size: 18px;
   color: #008000;
-  margin-bottom: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  font-weight: bold;
+  padding-top: 8px;
+  padding-left: 1px;
 }
 
 main p {
   padding: 0 10px;
 }
 
-table {
-  width: 940px;
-  margin: 0 auto;
-  border-collapse: collapse;
-  border-top: 1px dotted black;
+tbody tr {
+  border-top: 1px solid #EFEFEF;
 }
 
-tr {
-  border-top: 1px dotted black; /*#EFEFEF*/
-}
-
-th, td {
-  padding: 10px 0;
-}
-
-th, td,
-table h5 {
-  font-size: 24px;
-  text-align: left;
-  font-weight: 100;
-}
-
-table h5 {
-  padding-bottom: 10px;
-}
 
 td:first-of-type {
   padding-left: 20px;
@@ -194,7 +232,7 @@ table img {
   width: 130px;
   height: auto;
   float: right;
-  margin-top: 10px;
+  margin: 10px 0 14px 20px;
 }
 
 .location p,
