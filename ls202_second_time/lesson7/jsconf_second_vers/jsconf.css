@@ -5,6 +5,15 @@ body {
   color: #444;
   background: #FFF;
   box-sizing: border-box;
+  text-align: center;
+}
+
+.tickets h1,
+.speakers h1 {
+  font-size: 48px;
+  color: inherit;
+  font-weight: 100;
+  padding-bottom: 45px;
 }
 
 /*navbar*/
@@ -52,6 +61,7 @@ nav a:hover {
 }
 
 /*header*/
+
 header {
   background-image: url("images/front.jpg");
   background-repeat: no-repeat;
@@ -87,24 +97,86 @@ header h2 {
   padding-top: 75px;
 }
 
-.tickets h1 {
-  font-size: 48px;
-  color: inherit;
-  font-weight: 100;
-  padding-bottom: 45px;
-}
-
 .tickets p {
   font-weight: 100;
+  padding-bottom: 10px;
 }
 
 .green_box {
+  display: inline-block;
+  padding: 10px 26px;
+  color: #FFF;
+  font-weight: bold;
+  font-size: 16px;
+  text-decoration: none;
+  background: #008800;
+  margin-bottom: 70px;
+}
 
+.green_box:hover {
+  background: #006600;
 }
 
 /*speakers*/
 
+.speakers {
+  border-top: 1px solid #EFEFEF;
+  padding-top: 70px;
+  padding-bottom: 65px;
+}
+
+.speakers-grid {
+  display: grid;
+  grid-template-columns: 282px 282px 282px;
+  grid-template-rows: 380px 380px 380px 380px;
+  gap: 12px 15px;
+  max-width: 875px;
+  margin: 0 auto;
+}
+
+.speakers-grid figure {
+  width: 282px;
+  height: 379px;
+  border: 1px solid #EFEFEF;
+  box-sizing: border-box;
+}
+
+.speakers-grid h2 {
+  font-size: 24px;
+  color: #008800;
+  font-weight: bold;
+  padding-top: 30px;
+  padding-bottom: 10px;
+}
+
+.speakers-grid p {
+  font-weight: 100;
+  font-size: 16px;
+}
+
+@media all and (max-width: 942px) {
+  .speakers-grid {
+    grid-template-columns: 282px 282px;
+    grid-template-rows: 380px 380px 380px 380px 380px 380px;
+    margin: 0 auto;
+    max-width: 583px;
+  }
+}
+
+@media all and (max-width: 586px) {
+  .speakers-grid {
+    grid-template-columns:282px;
+    grid-template-rows: 380px 380px 380px 380px 380px 380px 380px 380px 380px 380px 380px 380px;
+    margin: 0 auto;
+    max-width: 285px;
+  }
+}
+
 /*schedule*/
+
+.schedule {
+  border-top: 1px solid #EFEFEF;
+}
 
 /*location*/
 
