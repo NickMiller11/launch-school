@@ -9,7 +9,8 @@ body {
 }
 
 .tickets h1,
-.speakers h1 {
+.speakers h1,
+.schedule h1 {
   font-size: 48px;
   color: inherit;
   font-weight: 100;
@@ -176,6 +177,31 @@ header h2 {
 
 .schedule {
   border-top: 1px solid #EFEFEF;
+  padding-top: 70px;
+}
+
+.schedule table {
+  max-width: 960px;
+  text-align: left;
+  margin: 0 auto;
+}
+
+.schedule time,
+.schedule h2 {
+  font-size: 26px;
+  color: inherit;
+  font-weight: inherit;
+}
+
+.schedule h3 {
+  font-size: 20px;
+  color: #008800;
+  font-weight: bold;
+}
+
+.schedule img {
+  width: 130px;
+  height: 106px;
 }
 
 /*location*/
