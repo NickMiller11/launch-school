@@ -10,7 +10,8 @@ body {
 
 .tickets h1,
 .speakers h1,
-.schedule h1 {
+.schedule h1,
+.location h1 {
   font-size: 48px;
   color: inherit;
   font-weight: 100;
@@ -18,7 +19,7 @@ body {
 }
 
 /*navbar*/
-/*need to add a background: #F5F5F5; for top bar*/
+
 
 nav:before {
   content: "";
@@ -26,6 +27,7 @@ nav:before {
   height: 10px;
   width: 100%;
   display: block;
+  position: fixed;
 }
 
 nav ul {
@@ -33,9 +35,11 @@ nav ul {
   font-size: 0;
   width: 100%;
   text-align: center;
-  margin: 14px 0;
+  padding: 12px 0;
   background: #FFF;
-  /*position: fixed;*/
+  position: fixed;
+  top: 10px;
+  border-bottom: 1px solid #EFEFEF;
 }
 
 nav li {
@@ -178,35 +182,102 @@ header h2 {
 .schedule {
   border-top: 1px solid #EFEFEF;
   padding-top: 70px;
+  padding-bottom: 65px;
 }
 
 .schedule table {
   max-width: 960px;
   text-align: left;
   margin: 0 auto;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.schedule td:first-child {
+  width: 80px;
+}
+
+.schedule td:last-child {
+  width: 150px;
+}
+
+.schedule tr {
+  border: solid;
+  border-width: 1px 0;
+  border-color: #EFEFEF;
+}
+
+.schedule time {
+  display: block;
+  padding: 10px 0;
+}
+
+.schedule h2 {
+  padding-bottom: 10px;
 }
 
 .schedule time,
 .schedule h2 {
-  font-size: 26px;
+  font-size: 24px;
   color: inherit;
   font-weight: inherit;
 }
 
-.schedule h3 {
+.schedule a {
   font-size: 20px;
   color: #008800;
   font-weight: bold;
+  text-decoration: none;
+}
+
+.schedule a:hover {
+  text-decoration: underline;
 }
 
 .schedule img {
   width: 130px;
   height: 106px;
+  padding: 5px 10px 10px 10px;
 }
 
 /*location*/
 
+.location {
+  border-top: 1px solid #EFEFEF;
+  padding-top: 70px;
+  padding-bottom: 55px;
+}
+
+.location iframe {
+  width: 100%;
+  height: 500px;
+  margin: 10px 0 35px 0;
+  border: none;
+}
+
+.location h2 {
+  padding-bottom: 10px;
+}
+
+.location p {
+  font-weight: 100;
+  font-size: 16px;
+  padding-bottom: 25px
+}
+
+.paragraphs {
+  width: 960px;
+  margin: 0 auto;
+  text-align: left;
+}
+
 /*papers*/
+
+.papers {
+  border-top: 1px solid #EFEFEF;
+  padding-top: 70px;
+  padding-bottom: 65px;
+}
 
 /*sponsors*/
 
