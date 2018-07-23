@@ -1,7 +1,7 @@
 @import url("whitespace-reset.css");
 
 body {
-  font: normal 18px "Open Sans", Arial, sans-serif;
+  font: normal 16px "Open Sans", Arial, sans-serif;
   color: #444;
   background: #FFF;
   box-sizing: border-box;
@@ -11,11 +11,42 @@ body {
 .tickets h1,
 .speakers h1,
 .schedule h1,
-.location h1 {
+.location h1,
+.papers h1,
+.sponsors h1 {
   font-size: 48px;
   color: inherit;
   font-weight: 100;
-  padding-bottom: 45px;
+}
+
+.green_box {
+  display: inline-block;
+  padding: 10px 30px;
+  color: #FFF;
+  font-weight: bold;
+  font-size: 16px;
+  text-decoration: none;
+  background: #008000;
+  margin-bottom: 69px;
+}
+
+.green_box:hover {
+  background: #006600;
+}
+
+.green_text {
+  font-size: 20px;
+  color: #008000;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.green_text:hover {
+  text-decoration: underline;
+}
+
+main section {
+  margin: 0 30px;
 }
 
 /*navbar*/
@@ -28,24 +59,35 @@ nav:before {
   width: 100%;
   display: block;
   position: fixed;
+  top: 0;
+}
+
+nav {
+  width: 100%;
+  position: fixed;
+  top: 10px;
+  border-bottom: 1px solid #EFEFEF;
+  background: #FFF;
+
 }
 
 nav ul {
   list-style-type: none;
   font-size: 0;
-  width: 100%;
+  width: 960px;
   text-align: center;
-  padding: 12px 0;
-  background: #FFF;
-  position: fixed;
-  top: 10px;
-  border-bottom: 1px solid #EFEFEF;
+  /*display: block;*/
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  padding: 13px 0;
 }
 
 nav li {
   display: inline-block;
   text-align: center;
-  margin: 0 27px
+  /*margin: 0 27px*/
 }
 
 nav a {
@@ -67,74 +109,80 @@ nav a:hover {
 
 /*header*/
 
-header {
+.banner {
   background-image: url("images/front.jpg");
   background-repeat: no-repeat;
-  background-size: center;
+  background-size: cover;
   padding-top: 150px;
   padding-bottom: 50px;
   text-align: center;
   color: #FFF;
+  max-width: 1570px;
+  height: 428px;
+  margin: 55px auto 0 auto;
+  box-sizing: border-box;
 }
 
-header img {
+.banner img {
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 4px auto;
   width: 80px;
 
 }
 
-header h1 {
+.banner h1 {
   font-size: 72px;
   font-weight: 400;
 }
 
-header h2 {
-  font-size: 32px;
+.banner h2 {
+  font-size: 31px;
   text-transform: uppercase;
   font-weight: 400;
+}
+
+@media all and (max-width: 655px) {
+  .banner {
+    margin-top: 0;
+  }
 }
 
 /*tickets*/
 
 .tickets {
   text-align: center;
-  padding-top: 75px;
+  padding-top: 59px;
+  border-top: 1px solid #EFEFEF;
+}
+
+.tickets h1 {
+  padding-bottom: 31px;
 }
 
 .tickets p {
   font-weight: 100;
+  font-size: 16px;
   padding-bottom: 10px;
 }
 
-.green_box {
-  display: inline-block;
-  padding: 10px 26px;
-  color: #FFF;
-  font-weight: bold;
-  font-size: 16px;
-  text-decoration: none;
-  background: #008800;
-  margin-bottom: 70px;
-}
-
-.green_box:hover {
-  background: #006600;
-}
 
 /*speakers*/
 
 .speakers {
   border-top: 1px solid #EFEFEF;
-  padding-top: 70px;
+  padding-top: 59px;
   padding-bottom: 65px;
+}
+
+.speakers h1 {
+  padding-bottom: 35px;
 }
 
 .speakers-grid {
   display: grid;
   grid-template-columns: 282px 282px 282px;
   grid-template-rows: 380px 380px 380px 380px;
-  gap: 12px 15px;
+  grid-gap: 10px 14px;
   max-width: 875px;
   margin: 0 auto;
 }
@@ -146,15 +194,24 @@ header h2 {
   box-sizing: border-box;
 }
 
+.speakers-grid img {
+  width: 280px;
+}
+
+.speakers figcaption {
+  padding: 0 6px;
+}
+
 .speakers-grid h2 {
   font-size: 24px;
   color: #008800;
   font-weight: bold;
-  padding-top: 30px;
-  padding-bottom: 10px;
+  padding-top: 29px;
+  padding-bottom: 2px;
 }
 
 .speakers-grid p {
+  padding-top: 3px;
   font-weight: 100;
   font-size: 16px;
 }
@@ -248,7 +305,7 @@ header h2 {
   padding-bottom: 55px;
 }
 
-.location iframe {
+iframe {
   width: 100%;
   height: 500px;
   margin: 10px 0 35px 0;
@@ -279,6 +336,80 @@ header h2 {
   padding-bottom: 65px;
 }
 
+.papers p {
+  font-weight: 100;
+  padding-bottom: 25px;
+}
+
 /*sponsors*/
 
+.sponsors {
+  border-top: 1px solid #EFEFEF;
+  padding-top: 70px;
+  padding-bottom: 65px;
+}
+
+.platinum,
+.gold {
+  width: 300px;
+  height: 247px;
+}
+
+.gold,
+.silver,
+.support {
+  margin-right: 42px;
+}
+
+.silver {
+  width: 240px;
+  height: 197px;
+}
+
+.support {
+  width: 180px;
+  height: 148px;
+}
+
 /*footer*/
+
+footer {
+  background-image: url("images/people.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 23%;
+  height: 340px;
+  text-align: center;
+  padding-top: 42px;
+  color: #FFF;
+}
+
+footer h1 {
+  font-size: 52px;
+  font-weight: 100;
+}
+
+footer section {
+  background-color: rgba(0, 0, 0, .7);
+}
+
+#team_info {
+  max-width: 960px;
+  text-align: left;
+  margin: 0 auto;
+  padding: 18px 0;
+}
+
+footer h2 {
+  text-transform: uppercase;
+  font-size: 32px;
+  font-weight: 300;
+}
+
+footer p:first-of-type {
+  padding-bottom: 25px;
+}
+
+footer p:last-of-type {
+  padding-bottom: 10px;
+}

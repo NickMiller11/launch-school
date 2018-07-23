@@ -7,22 +7,25 @@
     <link rel="stylesheet" href="jsconf.css">
   </head>
   <body>
-    <nav>
-      <ul>
-        <li><a href="#">Tickets</a></li>
-        <li><a href="#">Speakers</a></li>
-        <li><a href="#">Schedule</a></li>
-        <li><a href="#">Location</a></li>
-        <li><a href="#">Call for Papers</a></li>
-        <li><a href="#">Sponsors</a></li>
-        <li><a href="#">Code of Conduct</a></li>
-      </ul>
-    </nav>
     <header>
+      <nav>
+        <ul>
+          <li><a href="#">Tickets</a></li>
+          <li><a href="#">Speakers</a></li>
+          <li><a href="#">Schedule</a></li>
+          <li><a href="#">Location</a></li>
+          <li><a href="#">Call for Papers</a></li>
+          <li><a href="#">Sponsors</a></li>
+          <li><a href="#">Code of Conduct</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+    <section class="banner">
       <img src="images/jsconfbr.png" alt="jsconf logo">
       <h1>JSConf BR 2014</h1>
       <h2>April 26 &#47; Fortaleza, Brazil</h2>
-    </header>
+    </section>
     <section class="tickets">
       <h1>Tickets</h1>
       <p>Super Early Bird is opened!</p>
@@ -33,18 +36,24 @@
       <section class="speakers-grid">
         <figure>
           <img src="images/speakers/gregor_martynus.jpg" alt="Gregor Martynus">
+        <figcaption>
           <h2>Gregor Martynus</h2>
           <p>Offline First, Made Easy</p>
+        </figcaption>
         </figure>
         <figure>
           <img src="images/speakers/lynn_fisher.jpg" alt="Lynn Fisher">
-          <h2>Lynn Fisher</h2>
-          <p>Developers as Intentional Designers</p>
+          <figcaption>
+            <h2>Lynn Fisher</h2>
+            <p>Developers as Intentional Designers</p>
+          </figcaption>
         </figure>
         <figure>
           <img src="images/speakers/eduardo_shiota.jpg" alt="Eduardo Shiota">
-          <h2>Eduardo Shiota</h2>
-          <p>Rock the browser like it's 1983</p>
+          <figcaption>
+            <h2>Eduardo Shiota</h2>
+            <p>Rock the browser like it's 1983</p>
+          </figcaption>
         </figure>
 
         <figure>
@@ -60,13 +69,17 @@
         <figure>
           <img src="images/speakers/dave_furfero.jpg" alt="Dave Furfero">
           <h2>Dave Furfero</h2>
-          <p>Close Enough: Using JavaScript to Emulate the Abstract Expressionist Masterworks of Chuck Close</p>
+          <p>Close Enough: Using JavaScript to</p>
+          <p>Emulate the Abstract Expressionist</p>
+          <p>Masterworks of Chuck Close</p>
         </figure>
 
         <figure>
           <img src="images/speakers/ju_goncalves.jpg" alt="Ju Goncalves">
-          <h2>J&uacute; Gon&ccedil;aves</h2>
-          <p>You, programming languages and the browser</p>
+          <figcaption>
+            <h2>J&uacute; Gon&ccedil;alves</h2>
+            <p>You, programming languages and the browser</p>
+          </figcaption>
         </figure>
         <figure>
           <img src="images/speakers/tim_park.jpg" alt="Tim Park">
@@ -86,8 +99,10 @@
         </figure>
         <figure>
           <img src="images/speakers/john_paul.jpg" alt="John Paul">
-          <h2>John Paul</h2>
-          <p>ES6 on the frontend, in the real world</p>
+          <figcaption>
+            <h2>John Paul</h2>
+            <p>ES6 on the frontend, in the real world</p>
+          </figcaption>
         </figure>
         <figure>
           <img src="images/speakers/eric_mann.jpg" alt="Eric Mann">
@@ -122,7 +137,7 @@
             </td>
             <td>
               <h2>Developers as Intentional Designers</h2>
-              <a href="#">Lynn Fisher</a>
+              <a class="green_text" href="#">Lynn Fisher</a>
             </td>
             <td>
               <img src="images/speakers/lynn_fisher.jpg" alt="Lynn Fisher">
@@ -134,7 +149,7 @@
             </td>
             <td>
               <h2>Close Enough: Using JavaScript to Emulate the Abstract Expressionist Masterworks of Chuck Close</h2>
-              <a href="#">Dave Furfero</a>
+              <a class="green_text" href="#">Dave Furfero</a>
             </td>
             <td>
               <img src="images/speakers/dave_furfero.jpg" alt="Dave Furfero">
@@ -146,7 +161,7 @@
             </td>
             <td>
               <h2>The JS-Git Journey</h2>
-              <a href="#">Tim Caswell</a>
+              <a class="green_text" href="#">Tim Caswell</a>
             </td>
             <td>
               <img src="images/speakers/tim_caswell.jpg" alt="Tim Caswell">
@@ -165,7 +180,7 @@
             </td>
             <td>
               <h2>Offline First, Made Easy</h2>
-              <a href="#">Gregor Martynus</a>
+              <a class="green_text" href="#">Gregor Martynus</a>
             </td>
             <td>
               <img src="images/speakers/gregor_martynus.jpg" alt="Gregor Martynus">
@@ -177,7 +192,7 @@
             </td>
             <td>
               <h2>Appium</h2>
-              <a href="#">Bernard Kobos</a>
+              <a class="green_text" href="#">Bernard Kobos</a>
             </td>
             <td>
               <img src="images/speakers/bernard_kobos.jpg" alt="Bernard Kobos">
@@ -189,7 +204,7 @@
             </td>
             <td>
               <h2>Monkeys in the Machine</h2>
-              <a href="#">Eric Mann</a>
+              <a class="green_text" href="#">Eric Mann</a>
             </td>
             <td>
               <img src="images/speakers/eric_mann.jpg" alt="Eric Mann">
@@ -209,7 +224,7 @@
             </td>
             <td>
               <h2>JavaScript for all the things!</h2>
-              <a href="#">Tim Park</a>
+              <a class="green_text" href="#">Tim Park</a>
             </td>
             <td>
               <img src="images/speakers/tim_park.jpg" alt="Tim Park">
@@ -221,7 +236,7 @@
             </td>
             <td>
               <h2>You, programming languages and the browser</h2>
-              <a href="#">J&uacute; Gon&ccedil;aves</a>
+              <a class="green_text" href="#">J&uacute; Gon&ccedil;aves</a>
             </td>
             <td>
               <img src="images/speakers/ju_goncalves.jpg" alt="Ju Goncalves">
@@ -233,7 +248,7 @@
             </td>
             <td>
               <h2>Securing Node apps, by the community and for the community</h2>
-              <a href="#">David Dias</a>
+              <a class="green_text" href="#">David Dias</a>
             </td>
             <td>
               <img src="images/speakers/david_dias.jpg" alt="David Dias">
@@ -253,7 +268,7 @@
             </td>
             <td>
               <h2>Full Stack Firmata</h2>
-              <a href="#">Francis Gulotta</a>
+              <a class="green_text" href="#">Francis Gulotta</a>
             </td>
             <td>
               <img src="images/speakers/francis_gulotta.jpg" alt="Francis Gulotta">
@@ -265,7 +280,7 @@
             </td>
             <td>
               <h2>ES6 on the frontend, in the real world</h2>
-              <a href="#">John Paul</a>
+              <a class="green_text" href="#">John Paul</a>
             </td>
             <td>
               <img src="images/speakers/john_paul.jpg" alt="John Paul">
@@ -277,7 +292,7 @@
             </td>
             <td>
               <h2>Rock the browser like its 1983</h2>
-              <a href="#">Eduardo Shiota</a>
+              <a class="green_text" href="#">Eduardo Shiota</a>
             </td>
             <td>
               <img src="images/speakers/eduardo_shiota.jpg" alt="Eduardo Shiota">
@@ -296,33 +311,77 @@
     </section>
     <section class="location">
       <h1>Location</h1>
-      <section class="paragraphs">
+      <div class="paragraphs">
         <h2>Hotel Vila Galé Fortaleza</h2>
         <p>Av. Dioguinho, 4189 - Praia do Futuro. Fortaleza/CE - Brazil</p>
-      </section>
-      <iframe class="googlemap"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.275471086021!2d-38.44859383072491!3d-3.750075085088247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c7465ea030f337%3A0x2a45861642f065ba!2sHotel+Vila+Gal%C3%A9+Fortaleza!5e0!3m2!1sen!2sus!4v1527705750390" allowfullscreen>
-      </iframe>
-      <section class="paragraphs">
+      </div>
+    </section>
+    <iframe class="googlemap"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.275471086021!2d-38.44859383072491!3d-3.750075085088247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c7465ea030f337%3A0x2a45861642f065ba!2sHotel+Vila+Gal%C3%A9+Fortaleza!5e0!3m2!1sen!2sus!4v1527705750390" allowfullscreen>
+    </iframe>
+    <section class="location">
+      <div class="paragraphs">
         <p>The Vila Galé Fortaleza Hotel is located on the beach only 10 minutes away from the renowned Avenida Beira-Mar, in Fortaleza.</p>
         <p>This hotel in Fortaleza features a Beach Tent as well where you can enjoy the lovely weather of North-eastern Brazil, being entitled to a bar service and all the facilities that’ll make it a great afternoon and a perfect holiday in Brazil.</p>
-      </section>
+      </div>
     </section>
     <section class="papers">
       <h1>Call for Papers</h1>
-      <section class="paragraphs">
+      <div class="paragraphs">
         <p>We are inviting the JavaScript community to submit talks for the upcoming JSConf BR. If you know someone who may deliver an interesting talk, please let us know and we'll contact them.</p>
         <p>Our talk selection process favors content (blind selection process); We want our community to be inclusive!</p>
         <p>If you get selected as a speaker, here's what you get:</p>
         <p>We cover the flights and your stay at a nice Fortaleza hotel for the days of the conference. If your employer can cover your travel and hotel, we are more than happy to list them as sponsors! The money we save will be used to make the conference even better.</p>
         <p>30 minutes to present in front of the greatest audience ever: the JSConf family!</p>
-      </section>
+        <a class="green_box" href="#">Call for Papers Ended :(</a>
+        <p>Let us know if you need help with anything that is not listed here, we'll be more than happy to help.</p>
+        <p>We value having a safe, family-friendly, harassment-free environment, check our <a class="green_text" href="#">code of conduct</a>.</p>
+        <p>PS: crazy topics get extra points ;)</p>
+      </div>
     </section>
     <section class="sponsors">
-
+      <h1>Sponsors</h1>
+      <section class="paragraphs">
+        <h2>Platinum</h2>
+        <a href="#"><img class="platinum" src="images/sponsors/microsoft.png" alt="Microsoft"></a>
+        <a href="#"><img class="platinum" src="images/sponsors/booking.com.png" alt="Booking.com"></a>
+        <a href="#"><img class="platinum" src="images/sponsors/casamagalhaes.png" alt="Grupo Casa Magalhaes"></a>
+        <h2>Gold</h2>
+        <a href="#"><img class="gold" src="images/sponsors/globo.png" alt="Globo"></a>
+        <a href="#"><img class="gold" src="images/sponsors/mozilla.png" alt="Mozilla"></a>
+        <a href="#"><img class="gold" src="images/sponsors/caelum.png" alt="Caelum"></a>
+        <a href="#"><img class="gold" src="images/sponsors/unigex.png" alt="Unigex"></a>
+        <a href="#"><img class="gold" src="images/sponsors/saucelabs.png" alt="Sauce Labs"></a>
+        <a href="#"><img class="gold" src="images/sponsors/andyet.png" alt="And Yet"></a>
+        <a href="#"><img class="gold" src="images/sponsors/digitalocean.png" alt="Digital Ocean"></a>
+        <h2>Silver</h2>
+        <a href="#"><img class="silver" src="images/sponsors/sagarana.png" alt="Sagarana"></a>
+        <a href="#"><img class="silver" src="images/sponsors/unum.png" alt="Unum"></a>
+        <a href="#"><img class="silver" src="images/sponsors/grupo_fortes.png" alt="Grupo Fortes"></a>
+        <h2>Support</h2>
+        <a href="#"><img class="support" src="images/sponsors/alura.png" alt="Alura"></a>
+        <a href="#"><img class="support" src="images/sponsors/casadocodigo.png" alt="Casa Docodigo"></a>
+        <a href="#"><img class="support" src="images/sponsors/penton.png" alt="Penton"></a>
+        <a href="#"><img class="support" src="images/sponsors/10up.png" alt="10 Up"></a>
+      </section>
     </section>
+    </main>
     <footer>
-
+      <h1>Presented by:</h1>
+      <section>
+        <div id="team_info">
+          <h2>Jsconf br team</h2>
+          <p>We are the team working hard to make this conference epic.</p>
+          <p>
+            Meet the team:
+            <a class="green_text" href="#">Douglas Campos</a>,
+            <a class="green_text" href="#">Calebe Campos</a>,
+            <a class="green_text" href="#">Christiano Milfont</a> and
+            <a class="green_text" href="#">Henrique Gogó</a>.
+          </p>
+          <a class="green_box" href="#">@jsconfbr</a>
+        </div>
+      </section>
     </footer>
   </body>
 </html>
