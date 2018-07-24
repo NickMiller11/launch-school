@@ -238,8 +238,12 @@ nav a:hover {
 
 .schedule {
   border-top: 1px solid #EFEFEF;
-  padding-top: 70px;
-  padding-bottom: 65px;
+  padding-top: 59px;
+  padding-bottom: 59px;
+}
+
+.schedule h1 {
+  padding-bottom: 32px;
 }
 
 .schedule table {
@@ -248,6 +252,11 @@ nav a:hover {
   margin: 0 auto;
   border-collapse: collapse;
   table-layout: fixed;
+}
+
+.schedule td {
+  vertical-align: middle;
+  height: 53px;
 }
 
 .schedule td:first-child {
@@ -266,11 +275,15 @@ nav a:hover {
 
 .schedule time {
   display: block;
-  padding: 10px 0;
+  padding-left: 11px;
+  margin-top: -1px;
 }
 
 .schedule h2 {
-  padding-bottom: 10px;
+  margin: 0 0 0 13px;
+  display: inline-block;
+  margin-top: -1px;
+  padding-right: 9px;
 }
 
 .schedule time,
@@ -280,30 +293,55 @@ nav a:hover {
   font-weight: inherit;
 }
 
-.schedule a {
-  font-size: 20px;
+.schedule .green_text {
+  font-size: 18px;
   color: #008800;
   font-weight: bold;
   text-decoration: none;
+  margin-left: 13px;
+  margin-top: 8px;
+  display: block;
 }
 
-.schedule a:hover {
+.schedule .green_text:hover {
   text-decoration: underline;
+}
+
+.schedule a:only-child {
+  margin-left: 9px;
 }
 
 .schedule img {
   width: 130px;
   height: 106px;
-  padding: 5px 10px 10px 10px;
+  margin: 10px 0 10px 0;
+}
+
+.grey_box {
+  display: inline-block;
+  font-size: 7px;
+  border: 1px solid #AAA;
+  background: #EEE;
+  padding: 1px 4px;
+  vertical-align: middle;
+  margin-bottom: 8px;
 }
 
 /*location*/
 
 .location {
   border-top: 1px solid #EFEFEF;
-  padding-top: 70px;
+}
+
+.location:first-of-type {
+  padding-top: 59px;
+
+}
+
+.location:last-of-type {
   padding-bottom: 55px;
 }
+
 
 iframe {
   width: 100%;
@@ -312,8 +350,12 @@ iframe {
   border: none;
 }
 
+.location h1 {
+  padding-bottom: 31px;
+}
+
 .location h2 {
-  padding-bottom: 10px;
+  padding-bottom: 3px;
 }
 
 .location p {
