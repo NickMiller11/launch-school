@@ -5,27 +5,65 @@ body {
   color: #45494D;
   background-color: #FFF;
   text-align: center;
+  box-sizing: border-box;
 }
+
+article {
+  max-width: 830px;
+  margin: 0 auto;
+}
+
+ul {
+  display: flex;
+  justify-content: center;
+}
+
+h2::before {
+  content: "\2022";
+  font-size: 28px;
+  padding-right: 26px;
+  vertical-align: 15%;
+}
+
+h2::after {
+  content: "\2022";
+  font-size: 28px;
+  padding-left: 24px;
+  vertical-align: 15%;
+}
+
+h2 {
+  font-size: 36px;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #3E59B2;
+  padding-bottom: 12px;
+}
+
+p {
+  font-weight: 600;
+  line-height: 1.4;
+  font-size: 20px;
+}
+
+
+/*HEADER*/
 
 header {
   background-image: url("images/bg_body.gif");
   height: 569px;
   box-sizing: border-box;
-  padding-top: 132px;
+  padding-top: 133px;
 }
-
 
 header img {
-  margin-bottom: 120px;
-}
-
-header ul {
-  display: flex;
-  justify-content: center;
+  margin-bottom: 115px;
 }
 
 header li {
-  display: inline-block;
   padding: 0 35px;
 }
 
@@ -33,64 +71,103 @@ header a {
   text-transform: uppercase;
   text-decoration: none;
   color: white;
-  font-size: 26px;
+  font-size: 27px;
+  font-weight: 400;
   color: #CACACA;
 }
 
-.selected {
-  font-weight: bold;
+#selected {
+  font-weight: 800;
   color: #6DB9FF;
 }
 
-h2::before {
-  content: "\2022";
-  font-size: 24px;
-  padding-right: 25px;
-  vertical-align: 20%;
-}
-
-h2::after {
-  content: "\2022";
-  font-size: 24px;
-  padding-left: 25px;
-  vertical-align: 20%;
-}
+/*MAIN*/
 
 .about_us h2,
 .our_founder h2 {
-  font-size: 36px;
-  padding-bottom: 40px;
-}
-
-.about_us h3 {
-  font-size: 24px;
-  font-weight: bold;
-  color: #3E59B2;
-  padding-bottom: 15px;
-}
-
-.about_us p,
-.our_founder p {
-  font-weight: 600;
-  line-height: 1.5;
-  font-size: 20px;
-}
-
-.about_us {
-  padding-top: 120px;
+  padding-bottom: 26px;
 }
 
 .about_us,
-.our_founder {
-  max-width: 830px;
-  margin: 0 auto;
-  padding-bottom: 70px;
+.projects {
+  padding-top: 115px;
 }
+
+.about_us {
+  padding-bottom: 65px;
+}
+
+.our_founder {
+  padding-bottom: 80px;
+}
+
+/*PROJECTS*/
+
+.projects h2 {
+  padding-bottom: 32px;
+}
+
+.projects img {
+  margin-left: -85px;
+}
+
+.projects img:first-of-type {
+  margin-bottom: 36px;
+}
+
+.projects img:nth-of-type(2),
+.projects img:last-of-type {
+  margin-bottom: 50px;
+}
+
+.projects p:first-of-type {
+  padding-bottom: 29px;
+}
+
+.projects p:nth-of-type(2) {
+  padding-bottom: 33px;
+}
+
+.projects p:last-of-type {
+  padding-bottom: 44px;
+}
+
+/*TEAM*/
+
+.team {
+  margin-top: 115px;
+}
+
+.team ul {
+  margin-bottom: 211px;
+}
+
+.team h2 {
+  padding-bottom: 35px;
+}
+
+.team li {
+  margin: 0 30px;
+}
+
+.team img {
+  margin-top: 120px;
+  margin-bottom: 20px;
+}
+
+.team figcaption {
+  color: #3E59B2;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+
+/*FOOTER*/
 
 footer {
   height: 304px;
   box-sizing: border-box;
-  padding: 80px 0;
+  padding: 85px 0;
   font-size: 20px;
   font-weight: 600;
   background: #E7E7E7;
@@ -99,12 +176,7 @@ footer {
 
 footer div {
   width: 500px;
-  margin: 0 auto 50px auto;
-}
-
-footer ul {
-  display: flex;
-  justify-content: center;
+  margin: 0 auto 37px auto;
 }
 
 .social_media {
@@ -112,9 +184,8 @@ footer ul {
   background-repeat: no-repeat;
   width: 46px;
 	height: 46px;
-	margin: 0 60px;
+	margin: 0 62px;
 }
-
 
 #twitter {
   background-position: 0 0;
