@@ -76,7 +76,7 @@ header a {
   color: #CACACA;
 }
 
-#selected {
+.selected {
   font-weight: 800;
   color: #6DB9FF;
 }
@@ -146,20 +146,23 @@ header a {
   padding-bottom: 35px;
 }
 
+.team p {
+  padding-bottom: 120px;
+}
+
 .team li {
   margin: 0 30px;
 }
 
-.team img {
-  margin-top: 120px;
-  margin-bottom: 20px;
-}
-
-.team figcaption {
+.team figcaption a {
+  display: inline-block;
+  margin-top: 20px;
   color: #3E59B2;
   font-size: 24px;
   font-weight: 600;
+  text-decoration: none;
 }
+
 
 
 /*FOOTER*/
