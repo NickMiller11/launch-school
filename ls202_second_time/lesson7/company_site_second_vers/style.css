@@ -183,11 +183,16 @@ footer div {
 }
 
 .social_media {
+	margin: 0 62px;
+}
+
+.social_media a {
   background-image: url("images/icons_social-media.png");
   background-repeat: no-repeat;
+  display: block;
   width: 46px;
 	height: 46px;
-	margin: 0 62px;
+  text-indent: -8685px;
 }
 
 #twitter {
