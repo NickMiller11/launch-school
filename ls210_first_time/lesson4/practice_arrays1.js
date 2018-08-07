@@ -49,6 +49,13 @@ function concatString(arr) {
   var finalStr = '';
   var i
 
-  for
+  for (i = 0; i < arr.length; i++) {
+    finalStr += arr[i].toString();
+  }
 
+  return finalStr;
 }
+
+var arr = [1, 'a', 4];
+
+console.log(concatString(arr));
