@@ -28,22 +28,37 @@
 //     - concat char to new string
 // - return new string
 
+function addToAscii(asciiNumeric) {
+  return asciiNumeric += 13;
+}
+
+function subtractFromAscii(asciiNumeric) {
+  return asciiNumeric -= 13;
+}
+
 function rot13(string) {
   var i;
   var newString = '';
+  var LOWER_A = 'a'.charCodeAt();
+  var LOWER_M = 'm'.charCodeAt();
+  var LOWER_N = 'n'.charCodeAt();
+  var LOWER_Z = 'z'.charCodeAt();
+  var UPPER_A = 'A'.charCodeAt();
+  var UPPER_M = 'M'.charCodeAt();
+  var UPPER_N = 'N'.charCodeAt();
+  var UPPER_Z = 'Z'.charCodeAt();
+
 
   for (i = 0; i < string.length; i += 1) {
     asciiNumeric = string.charCodeAt(i);
     currentChar = string[i];
 
-    if (asciiNumeric >= 65 && asciiNumeric <= 77) {
-      asciiNumeric += 13;
-    } else if (asciiNumeric >= 78 && asciiNumeric <= 90) {
-      asciiNumeric -= 13;
-    } else if (asciiNumeric >= 97 && asciiNumeric <= 109) {
-      asciiNumeric += 13;
-    } else if (asciiNumeric >= 110 && asciiNumeric <= 122) {
-      asciiNumeric -= 13;
+    if ((asciiNumeric >= LOWER_A && asciiNumeric <= LOWER_M) ||
+      (asciiNumeric >= UPPER_A && asciiNumeric <= UPPER_M)) {
+      asciiNumeric = addToAscii(asciiNumeric);
+    } else if ((asciiNumeric >= LOWER_N && asciiNumeric <= LOWER_Z) ||
+      (asciiNumeric >= UPPER_N && asciiNumeric <= UPPER_Z)) {
+      asciiNumeric = subtractFromAscii(asciiNumeric);
     }
 
     currentChar = String.fromCharCode(asciiNumeric);
