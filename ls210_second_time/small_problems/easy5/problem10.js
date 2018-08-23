@@ -44,3 +44,4 @@ console.log(reverseWords('Launch School'));            // "hcnuaL loohcS"
 // the program exits the for loop, function will return the value returned by calling
 // the join method on the `strArray` and passing in a whitespace character as an
 // argument.  The `reverseWords` function is logged in the console on lines 27-29.
+
