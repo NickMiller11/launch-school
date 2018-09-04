@@ -49,7 +49,7 @@ var longText = 'Four score and seven years ago our fathers brought forth' +
 // - sentences end in either periods, exclamation points, or question marks.
 //
 // algorithm:
-// - split the text into an array by sentence-ending characters
+// - match using regex to create an array of sentences
 // - sort the array by length of string
 // - pull the string using regex by the string from the array (doesn't have sentence-
 //   ending char)
