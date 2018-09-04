@@ -46,24 +46,55 @@ function mailCount(emailData) {
   var emailCount;
   var emailDataArray;
   var dateArray;
+  var firstDate;
+  var lastDate;
 
   emailDataArray = emailData.split('##||##');
 
   emailCount = emailDataArray.length;
   dateArray = extractDateObjects(emailData);
 
+  firstDate = formatDate(dateArray[0]);
+  lastDate = formatDate(dateArray[dateArray.length - 1]);
 
   console.log('Count of Email: ' + String(emailCount));
-  // console.log('Date Range ' + dateArray[0] + ' - ' + dateArray[dateArray.length - 1]);
+  console.log('Date Range: ' + firstDate + ' - ' + lastDate);
 }
 
 function extractDateObjects(emailData) {
   var dateRegex = /\d{2}-\d{2}-\d{4}/g;
-  var dateStringArray = emailArray.filter(function (email) {
-    return email.match(dateRegex);
+  var dateStringArray = emailData.match(dateRegex);
+  var dateObjectArray;
+  var day;
+  var month;
+  var year;
+
+  dateObjectArray = dateStringArray.map(function (date) {
+    day = parseInt(date.substr(3, 2), 10);
+    month = parseInt(date.substr(0, 2), 10);
+    year = parseInt(date.substr(-4, 4), 10);
+
+    return new Date(year, month - 1, day);
+  }).sort(function (a, b) {
+    return a - b;
   });
 
-  console.log(dateStringArray);
+  return dateObjectArray;
+}
+
+function formatDate(date) {
+  var daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var monthsOfYear = [
+                      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+                     ]
+
+  var weekday = daysOfWeek[date.getDay()];
+  var day = date.getDate();
+  var month = monthsOfYear[date.getMonth()];
+  var year = date.getFullYear();
+
+  return weekday + ' ' + month + ' ' + day + ' ' + year;
 }
 
 
