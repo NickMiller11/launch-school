@@ -56,18 +56,18 @@ var longText = 'Four score and seven years ago our fathers brought forth' +
 // - log the number of words and sentence itself
 
 function longestSentence(text) {
+  var textArray;
   var sortedTextArray;
   var sentenceArray;
   var sentence;
 
-  sortedTextArray = longText.match(/([a-z][^\.?!]+\s)+([a-z]+[\.!?])/gi).sort(function (a, b) {
-    return b.length - a.length;
+  textArray = longText.match(/([a-z][^\.?!]+\s)+([a-z]+[\.!?])/gi)
+
+  sortedTextArray = textArray.sort(function (a, b) {
+    return b.split(' ').length - a.split(' ').length;
   });
 
-  sentenceArray = sortedTextArray[0].split(' ').filter(function (word) {
-    return word.length > 0;
-  });
-
+  sentenceArray = sortedTextArray[0].split(' ');
   sentence = sentenceArray.join(' ');
 
   console.log(sentence);
