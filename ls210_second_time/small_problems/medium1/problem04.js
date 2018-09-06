@@ -23,19 +23,18 @@ Algorithm:
 - create functions for each command that mutate the stack and register
 */
 
-var stack;
-var register;
 
-function pop(stack, register) {
-  var poppedVal = stack.pop();
-  register = poppedVal;
-  return poppedVal;
-}
 
 function minilang(commandString) {
+  function pop() {
+    var poppedVal = stack.pop();
+    register = poppedVal;
+    return poppedVal;
+  }
+
   var commandArray = commandString.split(' ');
-  stack = [];
-  register = 0;
+  var stack = [];
+  var register = 0;
 
   commandArray.forEach(function (command) {
     if (command.match(/\d/) !== null) {
@@ -47,7 +46,7 @@ function minilang(commandString) {
     } else if (command === 'SUB') {
       register -= pop();
     } else if (command === 'MULT') {
-      register *= pop(stack, register);
+      register *= pop();
     } else if (command === 'DIV') {
       register = Math.trunc(register / pop());
     } else if (command === 'MOD') {
@@ -72,23 +71,23 @@ minilang('5 PRINT PUSH 3 PRINT ADD PRINT');
 // 3
 // 8
 
-// minilang('5 PUSH POP PRINT');
+minilang('5 PUSH POP PRINT');
 // 5
 
-// minilang('3 PUSH 4 PUSH 5 PUSH PRINT ADD PRINT POP PRINT ADD PRINT');
+minilang('3 PUSH 4 PUSH 5 PUSH PRINT ADD PRINT POP PRINT ADD PRINT');
 // 5
 // 10
 // 4
 // 7
 
-// minilang('3 PUSH PUSH 7 DIV MULT PRINT');
+minilang('3 PUSH PUSH 7 DIV MULT PRINT');
 // 6
 
-// minilang('4 PUSH PUSH 7 MOD MULT PRINT');
+minilang('4 PUSH PUSH 7 MOD MULT PRINT');
 // 12
 
-// minilang('-3 PUSH 5 SUB PRINT');
+minilang('-3 PUSH 5 SUB PRINT');
 // 8
 
-// minilang('6 PUSH');
+minilang('6 PUSH');
 // (nothing is printed because the `program` argument has no `PRINT` commands)
