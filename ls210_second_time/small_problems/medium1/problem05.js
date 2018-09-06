@@ -23,10 +23,17 @@ var numbers = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'e
 
 function wordToDigit(inputString) {
   var inputArray = inputString.split(' ');
+  var cleanWord;
 
-  inputArray.map(function (word) {
-    if ()
-  } )
+  return inputArray.map(function (word) {
+    cleanWord = word.replace(/[^a-z]/gi, '').toLowerCase();
+
+    if (numbers.includes(cleanWord)) {
+      return word.replace(cleanWord, String(numbers.indexOf(cleanWord)));
+    } else {
+      return word;
+    }
+  }).join(' ');
 }
 
 console.log(wordToDigit('Please call me at five five five one two three four. Thanks.'));
