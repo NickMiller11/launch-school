@@ -32,29 +32,83 @@ cases:
 
 algorithm:
 - split the input string into an array of characters
-- map over the array of characters
+- map over the array of characters (helper function to process)
   - if the char matches a lower case character (regex)
     - get char code of character
     - if n + char code is greater than the max char code of lowercase characters
       - create a loop to keep subtracting 26 until it is valid (helper function)
   - else if the char matches a upper case char
+    - get char code of character
+    - if n + char code is greater than the max char code of uppercase characters
+      - create a loop to keep subtracting 26 until it is valid (helper function)
+  - else
+    - return the character as is
+- join the array and return it
+
+charCodeAt - returns an integer between 0 and 65535 representing the UTF-16 code
+             unit at the given index
+
+fromCharCode - The static String.fromCharCode() method returns a string
+              created from the specified sequence of UTF-16 code units.
 
 */
 
+function caesarEncrypt(message, positions) {
+  if (typeof message !== 'string') {
+    return "Error: Not a valid string";
+  }
+
+  var messageArray = message.split('');
+  var currentChar;
+  
+  messageArray = messageArray.map(function (char, i) {
+    if (char.match(/[a-z]/i)) {
+      return translateChar(char, positions);
+    } else {
+      return char;
+    }
+  });
+
+  return messageArray.join('');
+}
+
+function translateChar(char, positions) {
+  var newCharCode = char.charCodeAt(0) + positions;
+  var lowercaseEnd = 'z'
+  var uppercaseEnd = 'Z'
+
+  if (char.match(/[a-z]/)) {
+    return processTranslation(newCharCode, lowercaseEnd);
+  } else {
+    return processTranslation(newCharCode, uppercaseEnd);
+  }
+}
+
+function processTranslation(charCode, endChar) {
+  while (charCode > endChar.charCodeAt(0)) {
+    charCode -= 26;
+  }
+
+  return String.fromCharCode(charCode);
+}
+
 // simple shift
-caesarEncrypt('A', 0);       // "A"
-caesarEncrypt('A', 3);       // "D"
+console.log(caesarEncrypt('A', 0));       // "A"
+console.log(caesarEncrypt('A', 3));       // "D"
 
 // wrap around
-caesarEncrypt('y', 5);       // "d"
-caesarEncrypt('a', 47);      // "v"
+console.log(caesarEncrypt('y', 5));       // "d"
+console.log(caesarEncrypt('a', 47));      // "v"
 
 // all letters
-caesarEncrypt('ABCDEFGHIJKLMNOPQRSTUVWXYZ', 25);
+console.log(caesarEncrypt('ABCDEFGHIJKLMNOPQRSTUVWXYZ', 25));
 // "ZABCDEFGHIJKLMNOPQRSTUVWXY"
-caesarEncrypt('The quick brown fox jumps over the lazy dog!', 5);
+console.log(caesarEncrypt('The quick brown fox jumps over the lazy dog!', 5));
 // "Ymj vznhp gwtbs ktc ozrux tajw ymj qfed itl!"
 
 // many non-letters
-caesarEncrypt('There are, as you can see, many punctuations. Right?; Wrong?', 2);
+console.log(caesarEncrypt('There are, as you can see, many punctuations. Right?; Wrong?', 2));
 // "Vjgtg ctg, cu aqw ecp ugg, ocpa rwpevwcvkqpu. Tkijv?; Ytqpi?"
+
+console.log(caesarEncrypt('', 5));     // ''
+console.log(caesarEncrypt(43, 2));     // 'Error: Not a valid string'
