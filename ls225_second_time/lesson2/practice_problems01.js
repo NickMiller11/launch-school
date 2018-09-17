@@ -81,8 +81,7 @@ var people = {
   getIndex: function(person) {
     var index = -1;
     this.collection.forEach(function(comparator, i) {
-      if (comparator.firstName === person.firstName &&
-          comparator.lastName === person.lastName) {
+      if (comparator.id === person.id) {
             index = i;
       }
     });
@@ -136,4 +135,6 @@ people.add({ firstName: 'Judy', lastName: 'Miller' });
 people.add({ firstName: 'Tim', lastName: 'Miller' });
 
 people.rollCall();
+console.log(people.collection);
+people.update( { firstName: 'Nock', lastName: 'Mueller', id: 0 });
 console.log(people.collection);
