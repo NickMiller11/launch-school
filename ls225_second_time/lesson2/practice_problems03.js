@@ -45,13 +45,41 @@
 // I forgot that variables that aren't passed into a function can be reassigned
 // (unlike Ruby)
 
-var a = 10;
-var obj = {
-  a: a,
-}
+// var a = 10;
+// var obj = {
+//   a: a,
+// }
 
-var newObj = obj;
-newObj.a += 10;
+// var newObj = obj;
+// newObj.a += 10;
 
-console.log(obj.a === a);
-console.log(newObj === obj);
+// console.log(obj.a === a);
+// console.log(newObj === obj);
+
+// The first statement will log false because the a inside the object will be 20 and the a in the global scope
+// will be 10
+
+// The second statement will log true because both pointers are referencing the same object.
+
+var animal = {
+  name: 'Pumbaa',
+  species: 'Phacochoerus africanus',
+};
+
+var menagerie = {
+  warthog: animal,
+};
+
+animal = {
+  name: 'Timom',
+  species: 'Suricata suricatta',
+};
+
+menagerie.meerkat = animal;
+
+menagerie.warthog === animal; // false
+menagerie.meerkat === animal; // true
+
+// I believe the reason when the second to last line returns false is that when animal is reassigned to a
+// new object, it doesn't change the animal object that the warthog property was assigned to.
+// I was correct, animal is reassigned to a new object, not mutated.

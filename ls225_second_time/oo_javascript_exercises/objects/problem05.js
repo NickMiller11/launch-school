@@ -103,6 +103,9 @@ var school = {
     }
   },
 
+  // so the LS solution passes in a student object and course name/code while I
+  // pass in a student name, and pass in the course object.
+
   enrollStudent: function(name, course) {
     var currentStudent = this.studentBody.filter(function (student) {
       return student.name === name;
@@ -110,6 +113,10 @@ var school = {
 
     currentStudent.addCourse(course);
   },
+
+  // same as the enrollStudent method, the LS solution is passing in the student object as
+  // a parameter.  I mean, it's pretty much doing the same as I am, except I'm including extra
+  // logic to filter the studentBody array down to the specific student I need based on the name.
 
   addGrade: function(name, code, grade) {
     var currentStudent = this.studentBody.filter(function (student) {
@@ -123,6 +130,10 @@ var school = {
     currentCourse.grade = grade;
   },
 
+  // forgot to log the grade as a string.  The LS solution uses an if/else conditional so that
+  // if there is no grade, it's displayed as "In Progress" instead of actually adding that string
+  // into the course object directly (the LS solution makes more sense)
+
   getReportCard: function(name) {
     var currentStudent = this.studentBody.filter(function (student) {
       return student.name === name;
@@ -132,6 +143,10 @@ var school = {
       console.log(course.name + ': ' + course.grade);
     });
   },
+
+  // I pushed the grades into an array rather than using map to change the studentBody array so that it
+  // consists of the name and grade.  My answer gets to the same solution, but it's a little more clumbsy
+  // than the LS solution.
 
   courseReport: function(name) {
     var grades = [];
@@ -151,12 +166,6 @@ var school = {
         enrolledStudents.push(student);
       }
     });
-
-    // var enrolledStudents = this.studentBody.filter(function (student) {
-    //   return student.courses.indexOf{
-    //     return course === name;
-    //   });
-    // });
 
     enrolledStudents.forEach(function (student) {
       grade = student.courses.filter(function (course) {
@@ -201,7 +210,7 @@ school.addGrade('qux', 102, 90);
 school.getReportCard('foo');
 school.courseReport('Math');
 school.courseReport('Advanced Math');
-school.courseReport('Physics');
+
 
 // bar;
 // {
