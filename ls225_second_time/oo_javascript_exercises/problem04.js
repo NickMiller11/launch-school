@@ -40,20 +40,72 @@ viewNotes: Logs the notes for all the courses. Courses without notes are not dis
 */
 
 function createStudent(name, year) {
-  name: name,
-  year: year,
-  courses: [],
+  return {
+    name: name,
+    year: year,
+    courses: [],
 
-  info: function() {
-    console.log(name + ' is a ' + year + ' student');
-  },
+    info: function() {
+      console.log(this.name + ' is a ' + this.year + ' year student');
+    },
 
-  addCourse: function(name, code) {
-    var course = {
-      name: name,
-      code: code,
-    };
+    addCourse: function(course) {
+      this.courses.push(course);
+    },
 
-    courses.push(course);
-  },
+    listCourses: function() {
+      return this.courses;
+    },
+
+    addNote: function(code, note) {
+      var i;
+      var currentCourse;
+
+      for (i = 0; i < this.courses.length; i += 1) {
+        currentCourse = this.courses[i];
+        if (currentCourse.code === code) {
+          if (currentCourse.note === undefined) {
+            currentCourse.note = note;
+          } else {
+            currentCourse.note += ('; ' + note);
+          }
+        }
+      }
+    },
+
+    updateNote: function(code, note) {
+      var courseToUpdate = this.courses.filter(function (course) {
+        return course.code === code;
+      });
+
+      courseToUpdate[0].note = note;
+    },
+
+    viewNotes: function() {
+      this.courses.forEach(function (course) {
+        if (course.note !== undefined) {
+          console.log(course.name + ': ' + course.note);
+        }
+      });
+    },
+  };
 }
+
+foo = createStudent('Foo', '1st');
+foo.info(); // 'Foo is a 1st year student'
+console.log(foo.listCourses()); // [];
+foo.addCourse({ name: 'Math', code: 101 });
+foo.addCourse({ name: 'Advanced Math', code: 102 });
+console.log(foo.listCourses());
+// [{ name: 'Math', code: 101 }, { name: 'Advanced Math', code: 102 }]
+foo.addNote(101, 'Fun course');
+foo.addNote(101, 'Remember to study for algebra');
+foo.viewNotes(); // "Math: Fun Course; Remember to study for algebra"
+foo.addNote(102, 'Difficult subject');
+foo.viewNotes();
+// // "Math: Fun Course; Remember to study for algebra"
+// // "Advance Math: Difficult Subject"
+foo.updateNote(101, 'Fun course');
+foo.viewNotes();
+// "Math: Fun Course"
+// "Advance Math: Difficult Subject"
