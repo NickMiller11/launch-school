@@ -86,8 +86,8 @@ function rollCall(subject, students) {
 }
 
 function makeMathRollCall() {
-  return function(subjects) {
-    return function(subjects)
+  return function(students) {
+    return rollCall('Math', students)
   }
 }
 
