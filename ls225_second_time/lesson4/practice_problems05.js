@@ -314,9 +314,9 @@ properties.
 > account.transactions();
 > [Object]
 
-*/
 function makeBank() {
   var id = 100
+
   return {
     accounts: [],
 
@@ -338,25 +338,36 @@ function makeBank() {
 }
 
 function makeAccount(id) {
+  var balance = 0;
+  var number = id;
+  var transactions = [];
 
   return {
-    balance: 0,
-    transactions: [],
-    number: id,
+    transactions: function() {
+      return transactions;
+    },
+
+    number: function() {
+      return number;
+    },
+
+    balance: function() {
+      return balance;
+    },
 
     deposit: function(amount) {
-      this.balance += amount;
-      this.transactions.push({type: "deposit", amount: amount});
+      balance += amount;
+      transactions.push({type: "deposit", amount: amount});
       return amount;
     },
 
     withdraw: function(amount) {
-      if (amount > this.balance) {
-        amount = this.balance;
+      if (amount > balance) {
+        amount = balance;
       }
 
-      this.balance -= amount;
-      this.transactions.push({type: "withdraw", amount: amount});
+      balance -= amount;
+      transactions.push({type: "withdraw", amount: amount});
       return amount;
     },
   };
@@ -364,9 +375,80 @@ function makeAccount(id) {
 
 
 var bank = makeBank();
-var source = bank.openAccount();
-console.log(source.deposit(10)); // 10
-var destination = bank.openAccount();
-console.log(bank.transfer(source, destination, 7)); // 7
-console.log(source.balance); // 3
-console.log(destination.balance); // 7
+var account = bank.openAccount();
+console.log(account.balance()); // = 0
+console.log(account.deposit(17)); // 17
+var secondAccount = bank.openAccount();
+console.log(secondAccount.number()); // 102
+console.log(account.transactions()); // [Object]
+
+
+10
+Change the code so that users can no longer access the list of accounts.
+
+> var bank = makeBank();
+> bank.accounts;
+= undefined
+
+*/
+function makeBank() {
+  var id = 100
+  var accounts = [];
+
+  return {
+    openAccount: function() {
+      var account;
+      id += 1;
+      account = makeAccount(id)
+
+      accounts.push(account);
+      return account;
+    },
+
+    transfer: function(source, destination, amount) {
+      source.withdraw(amount);
+      destination.deposit(amount);
+      return amount;
+    }
+  };
+}
+
+function makeAccount(id) {
+  var balance = 0;
+  var number = id;
+  var transactions = [];
+
+  return {
+    transactions: function() {
+      return transactions;
+    },
+
+    number: function() {
+      return number;
+    },
+
+    balance: function() {
+      return balance;
+    },
+
+    deposit: function(amount) {
+      balance += amount;
+      transactions.push({type: "deposit", amount: amount});
+      return amount;
+    },
+
+    withdraw: function(amount) {
+      if (amount > balance) {
+        amount = balance;
+      }
+
+      balance -= amount;
+      transactions.push({type: "withdraw", amount: amount});
+      return amount;
+    },
+  };
+}
+
+
+var bank = makeBank();
+console.log(bank.accounts); // undefined
