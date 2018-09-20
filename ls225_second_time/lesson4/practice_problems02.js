@@ -66,9 +66,11 @@ make breakfast removed!
 read book
 
 */
+
 function makeList() {
+  var list = [];
   return function(arg) {
-    var list = [];
+
     var i = list.indexOf(arg);
 
     if (arg === undefined) {
@@ -79,6 +81,7 @@ function makeList() {
       if (list.length === 0) {
         console.log('The list is empty.');
       }
+
     } else if (i === -1) {
       list.push(arg);
       console.log(arg + ' added!');
@@ -91,4 +94,8 @@ function makeList() {
 
 var list = makeList();
 list();
-
+list('make breakfast');
+list('read book');
+list();
+list('make breakfast');
+list();
