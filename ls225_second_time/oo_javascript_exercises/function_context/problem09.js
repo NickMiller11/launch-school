@@ -1,9 +1,13 @@
 // Consider the following code:
 
 var greeter = {
-  name: 'Naveed',
-  greeting: 'Hello',
-  message: this.greeting + ' ' + this.name + '!',
+  message: (function() {
+    var name = 'Naveed';
+    var greeting = 'Hello';
+
+    return greeting + ' ' + name + '!';
+  })(),
+
   sayGreetings: function() {
     console.log(this.message);
   }
