@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <style type="text/css">
+      .x {
+        position: absolute;
+        transform: rotate(45deg);
+        top: 20px;
+        left: 20px;
+      }
+
+      .x .horizontal {
+        width: 45px;
+        height: 5px;
+        position: absolute;
+        left: -20px;
+        background: red;
+      }
+
+      .x .vertical {
+        height: 45px;
+        width: 5px;
+        background: red;
+        position: absolute;
+        left: 0px;
+        top: -20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="x">
+      <div class="horizontal"></div>
+      <div class="vertical"></div>
+    </div>
+    <script>
+      // document.addEventListener('DOMContentLoaded', function() {
+      //   document.addEventListener('click', function(e) {
+      //     var redX = document.querySelector('.x');
+      //     redX.style.left = String(e.clientX) + 'px';
+      //     redX.style.top = String(e.clientY) + 'px';
+      //   });
+      // });
+
+      document.addEventListener('DOMContentLoaded', function() {
+
+        document.addEventListener('mousemove', function(e) {
+          var redX = document.querySelector('.x');
+          redX.style.left = String(e.clientX) + 'px';
+          redX.style.top = String(e.clientY) + 'px';
+        });
+
+        document.addEventListener('keypress', function(e) {
+          var horizontal = document.querySelector('.horizontal');
+          var vertical = document.querySelector('.vertical');
+
+          if (e.key === 'b') {
+            horizontal.style.background = 'blue';
+            vertical.style.background = 'blue';
+          } else if (e.key === 'g') {
+            horizontal.style.background = 'green';
+            vertical.style.background = 'green';
+          } else if (e.key === 'r') {
+            horizontal.style.background = 'red';
+            vertical.style.background = 'red';
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Node Swap</title>
+  </head>
+  <body>
+    <div id="1">
+      <div id="4"></div>
+      <div id="5">
+        <div id="6"></div>
+      </div>
+    </div>
+    <div id="2"></div>
+    <div id="3">
+      <div id="7"></div>
+      <div id="8"></div>
+      <div id="9"></div>
+    </div>
+    <script>
+      function nodeSwap(node1id, node2id) {
+        var node1 = document.getElementById(node1id);
+        var node2 = document.getElementById(node2id);
+        var node1Clone;
+        var node2Clone;
+        var node1Parent;
+        var node2Parent;
+
+        if (!node1 || !node2 || checkIfChild(node1, node2)) {
+          return undefined;
+        }
+
+        node1Parent = node1.parentNode;
+        node2Parent = node2.parentNode;
+        node1Clone = node1.cloneNode(true);
+        node2Clone = node2.cloneNode(true);
+
+        node1.insertAdjacentElement('beforebegin', node1Clone);
+        node2.insertAdjacentElement('beforebegin', node2Clone);
+
+        node1Parent.replaceChild(node2, node1Clone);
+        node2Parent.replaceChild(node1, node2Clone);
+      }
+
+      function checkIfChild(node1, node2) {
+        return (node1.contains(node2) || node2.contains(node1));
+      }
+
+      // at least one of the id attributes doesn't exist
+      console.log(nodeSwap(1, 20));
+
+      // at least one of the nodes is a "child" of the other
+      console.log(nodeSwap(1, 4));
+
+      console.log(nodeSwap(9, 3));
+      // nodeSwap(1, 2);
+      nodeSwap(3, 1);
+      nodeSwap(7, 9);
+    </script>
+  </body>
+</html>
