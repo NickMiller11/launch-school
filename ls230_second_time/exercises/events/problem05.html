@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      main, #sub {
+        padding: 15px;
+      }
+      main {
+        width: 100%;
+        height: 200px;
+        background: blue;
+        color: white;
+      }
+
+      #sub {
+        position: relative;
+        top: 100px;
+        left: 15px;
+        background: red;
+        height: 50px;
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+
+    <main>
+      Main Area
+      <section id="sub">
+        Sub Area
+      </section>
+    </main>
+    <script>
+
+      function alertClick(event) {
+        event.stopPropagation();
+        event.preventDefault();
+        alert(event.target.tagName + ' clicked!')
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var main = document.querySelector('main');
+        var sub = document.querySelector('#sub');
+
+        main.addEventListener('contextmenu', alertClick);
+
+        sub.addEventListener('contextmenu', alertClick);
+      });
+    </script>
+  </body>
+</html>
