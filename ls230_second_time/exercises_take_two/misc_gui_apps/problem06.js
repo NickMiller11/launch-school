@@ -37,6 +37,49 @@ var App = {
     });
 
     this.currentList = filteredCarList;
+
+    if (selectCategory === 'make') {
+      this.renderUpdatedSelections(selection);
+    }
+  },
+
+  filterUnique: function(arr) {
+    return arr.filter(function(item, idx) {
+      return arr.indexOf(item) === idx;
+    });
+  },
+
+  createModelList: function(selection) {
+    var arr = [];
+
+    this.currentList.forEach(function(car) {
+      if (car.make === selection) {
+        arr.push(car.model);
+      }
+    });
+
+    return arr;
+  },
+
+  renderUpdatedSelections: function(selection) {
+    var modelList = this.createModelList(selection);
+    var uniqueModelList = this.filterUnique(modelList);
+
+    $('#model option').each(function() {
+      $(this).show();
+    });
+
+    if (!uniqueModelList) {
+      return;
+    }
+
+    $('#model option').each(function() {
+      if (!uniqueModelList.includes($(this).attr('value'))) {
+        $(this).hide();
+      }
+    });
+
+    $('#model option:first').show();
   },
 
   resetOptions: function() {
