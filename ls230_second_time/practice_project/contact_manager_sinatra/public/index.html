@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="stylesheets/whitespace-reset.css" />
+  <link rel="stylesheet" href="stylesheets/contacts.css" />
+  <title>Contacts Manager</title>
+  <script type="text/javascript" src="/javascripts/jquery.js"></script>
+  <script type="text/javascript" src="/javascripts/handlebars.js"></script>
+  <script src="/javascripts/contacts.js"></script>
+</head>
+<body>
+  <header>
+    <a href="/">
+      <h1>Contact Manager</h1>
+    </a>
+    <h2>Using jQuery and Handlebars</h2>
+  </header>
+
+  <main>
+  </main>
+
+  <script id="mainpageHandlebar" type="text/x-handlebars">
+    <div id="mainpage">
+      <section id="addAndSearch">
+        <button type="button" class="addContact">Add Contact</button>
+        <input type="text" id="searchbar" placeholder="Search" />
+      </section>
+
+      <section id="contactList">
+        {{#if contacts}}
+          {{#each contacts}}
+            {{> singleContactHandlebar}}
+          {{/each}}
+      </section>
+        {{else}}
+          <section id="noContacts">
+            <h3>There are no contacts.</h3>
+            <button type="button" class="addContact">Add Contact</button>
+          </section>
+        {{/if}}
+    </script>
+  </div>
+
+  <script id="tagListHandlebar" type="text/x-handlebars">
+    <section id="tagList">
+      <h3>Tag List:</h3>
+      <ul>
+        {{#each uniqueTags}}
+          <div>
+            <input type="checkbox" id="{{this}}" value={{this}} />
+            <label for={{this}}>{{this}}</label>
+          </div>
+        {{/each}}
+      </ul>
+    </section>
+  </script>
+
+  <script id="singleContactHandlebar" type="text/x-handlebars">
+    <div class="contactInfo" data-id={{id}}>
+      <h4 class="heading">{{full_name}}</h4>
+      <p class="heading">Phone Number:</p>
+      <p>{{phone_number}}</p>
+      <p class="heading">Email:</p>
+      <p>{{email}}</p>
+      <p class="heading">Tags:</p>
+      <p>{{tags}}</p>
+      <button data-id={{id}} class="editButton">Edit</button>
+      <button type="button" data-id={{id}} class="deleteButton">Delete</button>
+    </div>
+  </script>
+
+  <script id="createContactHandlebar" type="text/x-handlebars">
+    <section id="createContact">
+      <h3>Create Contact</h3>
+      <form id="createContactForm">
+          <div>
+            <label for="fullName">Full name:</label>
+            <input type="text" id="fullName" name="fullName" required />
+          </div>
+          <div>
+            <label for="email">Email address:</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div>
+            <label for="phone">Telephone number:</label>
+            <input type="tel" id="phone" name="phone" required />
+          </div>
+          <div>
+            <label for="tags">Tags:</label>
+            <input type="text" id="tags" name="tags" />
+            <p>Please separate tags with commas</p>
+          </div>
+          <div>
+            <button id="submitNewContact" type="button">Submit</button>
+            <button class="cancelContact" type="button">Cancel</button>
+          </div>
+      </form>
+    </section>
+  </script>
+
+  <script id="editContactHandlebar" type="text/x-handlebars">
+    <section id="editContact">
+      <h3>Edit Contact</h3>
+      <form id="editContactForm" data-id={{id}}>
+          <div>
+            <label for="fullName">Full name:</label>
+            <input type="text" id="fullName" name="fullName"
+             value={{full_name}} />
+          </div>
+          <div>
+            <label for="email">Email address:</label>
+            <input type="email" id="email" name="email"
+             value={{email}} />
+          </div>
+          <div>
+            <label for="phone">Telephone number:</label>
+            <input type="tel" id="phone" name="phone"
+             value={{phone_number}} />
+          </div>
+          <div>
+            <label for="tags">Tags:</label>
+            <input type="text" id="tags" name="tags" value={{tags}} />
+            <p>Please separate tags with commas</p>
+          </div>
+          <div>
+            <button id="submitEditContact" data-id={{id}} type="button">Submit</button>
+            <button class="cancelContact" type="button">Cancel</button>
+          </div>
+      </form>
+    </section>
+  </script>
+</body>
+</html>
