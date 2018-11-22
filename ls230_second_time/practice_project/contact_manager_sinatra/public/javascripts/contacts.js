@@ -65,7 +65,10 @@ $(function() {
         'tags': $('#tags').val(),
       };
 
+
       json = JSON.stringify(data);
+
+
       request.send(json);
 
       $(request).on('load', function() {
